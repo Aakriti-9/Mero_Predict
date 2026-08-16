@@ -1,0 +1,687 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<section class="hero-section">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="row align-items-center g-5">
+
+
+            <!-- ================= LEFT SIDE ================= -->
+
+            <div class="col-lg-6">
+
+                <!-- Heading -->
+
+                <h1 class="hero-title">
+
+                    Mero-Predict
+
+                    <br>
+
+                    <span>NEPSE</span> Analysis
+
+                    <br>
+
+                    &amp; Prediction
+
+                </h1>
+
+
+                <!-- Description -->
+
+                <p class="hero-description">
+
+                    Historical market data, AI-driven price predictions,
+                    and in-depth company analysis for Nepal Stock Exchange
+                    investors.
+
+                </p>
+
+
+                <!-- Search -->
+
+                <a href="{{ url_for('login') }}" class="company-search">
+                    <i class="bi bi-search"></i>
+                    <span>Search company or symbol</span>
+                </a>
+
+
+                <!-- Buttons -->
+
+                <div class="hero-buttons">
+
+                    <a href="{{ url_for('login') }}" class="primary-btn">
+
+                        Start Analysis
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </a>
+
+
+                    <a href="{{ url_for('login') }}" class="secondary-btn">
+
+                        View Predictions
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <div class="col-lg-6">
+
+                <div class="market-preview">
+
+                    <!-- Card Header -->
+
+                    <div class="market-header">
+
+                        <!-- LEFT: NEPSE VALUE -->
+                        <div>
+                            <p class="small-label">
+                                NEPSE INDEX
+                            </p>
+
+                            <h2>
+                                2,347.85
+                            </h2>
+
+                            <p class="positive-change">
+                                ▲ +27.42&nbsp; (+1.18%)
+                            </p>
+
+                        </div>
+
+
+                        <!-- RIGHT: MARKET STATUS -->
+                        <div class="market-status">
+                            <span class="status-dot"></span>
+                                Market Open
+                        </div>
+
+                    </div>
+
+
+                    
+                     <!-- Professional Interactive Graph -->
+
+                        <div class="market-chart">
+                        <canvas id="nepseChart"></canvas>
+                    </div>
+
+                    
+                    <!-- Mini Stocks -->
+
+                    <div class="mini-stocks">
+
+
+                        <div class="mini-stock">
+
+                            <span class="stock-symbol">
+                                GBIME
+                            </span>
+
+                            <strong>
+                                210
+                            </strong>
+
+                            <span class="stock-positive">
+                                +4.20%
+                            </span>
+
+                        </div>
+
+
+                        <div class="mini-stock">
+
+                            <span class="stock-symbol">
+                                UPPER
+                            </span>
+
+                            <strong>
+                                305
+                            </strong>
+
+                            <span class="stock-positive">
+                                +3.10%
+                            </span>
+
+                        </div>
+
+
+                        <div class="mini-stock">
+
+                            <span class="stock-symbol">
+                                HIDCL
+                            </span>
+
+                            <strong>
+                                230
+                            </strong>
+
+                            <span class="stock-positive">
+                                +2.70%
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MARKET SUMMARY
+========================================================= -->
+
+<section class="market-summary">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <h2 class="section-title">
+            Today's Market Summary
+        </h2>
+
+
+        <!-- Summary Cards -->
+
+        <div class="row g-3">
+
+
+            <!-- NEPSE -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="summary-card">
+
+                    <div class="card-top">
+
+                        <span>
+                            NEPSE Index
+                        </span>
+
+                        <i class="bi bi-activity icon-teal"></i>
+
+                    </div>
+
+                    <h3>
+                        2,347.85
+                    </h3>
+
+                    <p class="positive-change">
+                        +27.42&nbsp; (1.18%)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Companies -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="summary-card summary-purple">
+
+                    <div class="card-top">
+
+                        <span>
+                            Total Listed Companies
+                        </span>
+
+                        <i class="bi bi-globe icon-purple"></i>
+
+                    </div>
+
+                    <h3>
+                        505
+                    </h3>
+
+                    <p>
+                        All NEPSE Sectors
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Gainers -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="summary-card summary-green">
+
+                    <div class="card-top">
+
+                        <span>
+                            Top Gainers
+                        </span>
+
+                        <i class="bi bi-graph-up-arrow icon-green"></i>
+
+                    </div>
+
+                    <h3>
+                        142
+                    </h3>
+
+                    <p class="positive-change">
+                        +4.20% best
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Losers -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="summary-card summary-red">
+
+                    <div class="card-top">
+
+                        <span>
+                            Top Losers
+                        </span>
+
+                        <i class="bi bi-graph-down-arrow icon-red"></i>
+
+                    </div>
+
+                    <h3>
+                        73
+                    </h3>
+
+                    <p class="negative-change">
+                        -3.20% worst
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Gainers / Losers -->
+
+        <div class="row g-4 mt-3">
+
+
+            <!-- TOP GAINERS -->
+
+            <div class="col-lg-6">
+
+                <div class="stock-table-card">
+
+                    <div class="table-heading gain-heading">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                        Top Gainers
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="table stock-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>COMPANY</th>
+
+                                    <th>LTP</th>
+
+                                    <th>CHANGE %</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>GBIME</strong>
+
+                                        <small>Banking</small>
+
+                                    </td>
+
+                                    <td>210</td>
+
+                                    <td class="positive-change">
+                                        +4.20%
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>UPPER</strong>
+
+                                        <small>Hydropower</small>
+
+                                    </td>
+
+                                    <td>305</td>
+
+                                    <td class="positive-change">
+                                        +3.10%
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>HIDCL</strong>
+
+                                        <small>Hydropower</small>
+
+                                    </td>
+
+                                    <td>230</td>
+
+                                    <td class="positive-change">
+                                        +2.70%
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOP LOSERS -->
+
+            <div class="col-lg-6">
+
+                <div class="stock-table-card">
+
+                    <div class="table-heading loss-heading">
+
+                        <i class="bi bi-graph-down-arrow"></i>
+
+                        Top Losers
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="table stock-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>COMPANY</th>
+
+                                    <th>LTP</th>
+
+                                    <th>CHANGE %</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>SHIVM</strong>
+
+                                        <small>Manufacturing</small>
+
+                                    </td>
+
+                                    <td>145</td>
+
+                                    <td class="negative-change">
+                                        -3.20%
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>SRBL</strong>
+
+                                        <small>Banking</small>
+
+                                    </td>
+
+                                    <td>170</td>
+
+                                    <td class="negative-change">
+                                        -2.80%
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>ADBL</strong>
+
+                                        <small>Development Bank</small>
+
+                                    </td>
+
+                                    <td>280</td>
+
+                                    <td class="negative-change">
+                                        -2.10%
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURES
+========================================================= -->
+
+<section class="features-section">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="features-heading">
+
+            <h2>
+                Everything you need to invest smarter
+            </h2>
+
+            <p>
+                Built for NEPSE investors who want data-driven decisions
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Feature 1 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card feature-blue">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-bar-chart-line"></i>
+
+                    </div>
+
+                    <h3>
+                        Historical Market Data
+                    </h3>
+
+                    <p>
+                        Explore historical prices, volume, and market
+                        trends across NEPSE-listed companies.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 2 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card feature-purple">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-lightning-charge"></i>
+
+                    </div>
+
+                    <h3>
+                        AI Price Predictions
+                    </h3>
+
+                    <p>
+                        Machine learning models analyze historical
+                        market patterns to predict next-day direction.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 3 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card feature-green">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <h3>
+                        Company & Sector Analysis
+                    </h3>
+
+                    <p>
+                        Analyze individual companies and compare
+                        performance across different NEPSE sectors.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CTA -->
+
+        <div class="cta-card">
+
+            <div>
+
+                <h2>
+                    Ready to predict the market?
+                </h2>
+
+                <p>
+                    Explore NEPSE historical data and make smarter,
+                    data-driven decisions with Mero-Predict.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for('login') }}" class="primary-btn">
+
+                Start Analysis
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
