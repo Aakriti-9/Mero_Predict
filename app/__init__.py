@@ -15,4 +15,8 @@ def create_app():
     def register():
         return render_template("register.html")
 
+    @app.route("/dashboard")
+    def dashboard():
+        return render_template("dashboard.html")
+
     return app
