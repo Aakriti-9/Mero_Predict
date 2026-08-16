@@ -1,0 +1,1017 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #07112d;
+    color: #e7ecff;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Arial, sans-serif;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.main-navbar {
+    min-height: 80px;
+    background: #070e25;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.logo-box {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #06c8b7,
+        #0877d9
+    );
+
+    color: white;
+
+    font-size: 25px;
+
+    margin-right: 14px;
+}
+
+.logo-text {
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.logo-white {
+    color: #f1f4ff;
+}
+
+.logo-teal {
+    color: #00d0bd;
+}
+
+.dashboard-link {
+    color: #aab9e2 !important;
+    font-size: 17px;
+}
+
+.dashboard-link:hover {
+    color: white !important;
+}
+
+.get-started-btn {
+    text-decoration: none;
+
+    background: linear-gradient(
+        90deg,
+        #00c7b7,
+        #008ad7
+    );
+
+    color: #ffffff;
+
+    padding: 12px 23px;
+
+    border-radius: 13px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+.get-started-btn:hover {
+    transform: translateY(-2px);
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(0, 200, 190, 0.2);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-section {
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 55px 0;
+
+    background:
+        radial-gradient(
+            circle at 55% 45%,
+            rgba(0, 170, 190, 0.10),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #070e25 0%,
+            #081536 100%
+        );
+}
+
+/* Keep both hero columns vertically aligned */
+.hero-section .row {
+    width: 100%;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: clamp(50px, 5vw, 70px);
+
+    line-height: 1.03;
+
+    font-weight: 750;
+
+    letter-spacing: -2.5px;
+
+    color: #e8edff;
+
+    margin-bottom: 30px;
+}
+
+.hero-title span {
+    color: #00cbbd;
+}
+
+.hero-description {
+    max-width: 610px;
+
+    color: #7891c6;
+
+    font-size: 20px;
+
+    line-height: 1.8;
+
+    margin-bottom: 36px;
+}
+
+/* =========================================================
+   COMPANY SEARCH / LOGIN ACCESS
+========================================================= */
+
+.company-search {
+    width: min(100%, 660px);
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 0 22px;
+
+    border-radius: 17px;
+
+    background: rgba(21, 31, 62, 0.95);
+
+    border: 1px solid rgba(170, 190, 240, 0.15);
+
+    color: #8294c1;
+
+    font-size: 17px;
+    font-weight: 400;
+
+    /* Important because it is an <a> */
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+
+    margin-bottom: 40px;
+}
+
+
+/* Search Icon */
+
+.company-search i {
+    color: #7795cf;
+
+    font-size: 22px;
+
+    flex-shrink: 0;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Text */
+
+.company-search span {
+    color: #8294c1;
+
+    transition: color 0.25s ease;
+}
+
+
+/* Hover */
+
+.company-search:hover {
+    color: #aebde2;
+
+    text-decoration: none;
+
+    background: #182544;
+
+    border-color: rgba(0, 205, 195, 0.35);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.18),
+        0 0 0 3px rgba(0, 200, 190, 0.04);
+
+    transform: translateY(-2px);
+}
+
+
+.company-search:hover i {
+    color: #00cbbd;
+
+    transform: scale(1.08);
+}
+
+
+.company-search:hover span {
+    color: #b9c8e8;
+}
+
+
+/* Click */
+
+.company-search:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Keyboard accessibility */
+
+.company-search:focus-visible {
+    outline: none;
+
+    border-color: #00cbbd;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 203, 189, 0.15);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    min-width: 230px;
+
+    padding: 17px 28px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        100deg,
+        #00c7b7,
+        #087fd8
+    );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+.primary-btn:hover {
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 35px rgba(0, 170, 210, 0.25);
+}
+
+.primary-btn i {
+    font-size: 21px;
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 17px 29px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(145, 165, 215, 0.25);
+
+    color: #b8c8ed;
+
+    text-decoration: none;
+
+    font-size: 17px;
+
+    transition: 0.25s;
+}
+
+.secondary-btn:hover {
+    color: white;
+
+    border-color: #00bdb3;
+
+    background: rgba(0, 190, 180, 0.06);
+}
+
+
+/* =========================================================
+   MARKET PREVIEW
+========================================================= */
+.market-chart {
+    height: 245px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.market-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+.market-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.market-status {
+    margin-top: 30px;
+
+    padding: 9px 17px;
+
+    border-radius: 30px;
+
+    background: rgba(0, 190, 100, 0.11);
+
+    color: #00d870;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    background: #00d870;
+
+    border-radius: 50%;
+
+    margin-right: 7px;
+}
+
+.positive-change {
+    color: #00d879 !important;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    background: #00d870;
+
+    border-radius: 50%;
+
+    margin-right: 7px;
+}
+
+
+/* =========================================================
+   GRAPH
+========================================================= */
+
+.market-chart {
+    height: 245px;
+
+    margin-top: 30px;
+}
+
+.chart-svg {
+    width: 100%;
+
+    height: 100%;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   MINI STOCKS
+========================================================= */
+
+.mini-stocks {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 10px;
+}
+
+.mini-stock {
+    min-height: 95px;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    background: rgba(12, 39, 58, 0.85);
+
+    border: 1px solid rgba(0, 205, 190, 0.16);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.stock-symbol {
+    color: #7188b5;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.mini-stock strong {
+    font-size: 19px;
+
+    color: #e6ecff;
+}
+
+.stock-positive {
+    color: #00dd75;
+
+    font-size: 14px;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   MARKET SUMMARY
+========================================================= */
+
+.market-summary {
+    padding: 70px 0 80px;
+
+    background: #081532;
+}
+
+.section-title {
+    font-size: 29px;
+
+    font-weight: 700;
+
+    margin-bottom: 35px;
+
+    color: #edf1ff;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.summary-card {
+    min-height: 168px;
+
+    padding: 28px 26px;
+
+    border-radius: 20px;
+
+    background: #0a2740;
+
+    border: 1px solid rgba(0, 190, 190, 0.12);
+
+    transition: 0.25s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(0, 210, 200, 0.28);
+}
+
+.summary-purple {
+    background: #111d46;
+
+    border-color:
+        rgba(130, 130, 255, 0.15);
+}
+
+.summary-green {
+    background: #0b2937;
+}
+
+.summary-red {
+    background: #201a39;
+
+    border-color:
+        rgba(255, 80, 120, 0.13);
+}
+
+.card-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #7190c5;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+}
+
+.card-top i {
+    font-size: 24px;
+}
+
+.icon-teal {
+    color: #00d6c4;
+}
+
+.icon-purple {
+    color: #8a8fff;
+}
+
+.icon-green {
+    color: #00d675;
+}
+
+.icon-red {
+    color: #ff5261;
+}
+
+.summary-card h3 {
+    font-size: 34px;
+
+    font-weight: 500;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.summary-card p {
+    color: #7189bd;
+
+    margin: 0;
+
+    font-size: 15px;
+}
+
+.negative-change {
+    color: #ff4050 !important;
+}
+
+
+/* =========================================================
+   TABLE CARDS
+========================================================= */
+
+.stock-table-card {
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(145, 165, 220, 0.13);
+
+    background: rgba(8, 18, 44, 0.72);
+}
+
+.table-heading {
+    padding: 23px 27px;
+
+    border-bottom:
+        1px solid rgba(145, 165, 220, 0.13);
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+.gain-heading {
+    color: #ecf2ff;
+}
+
+.gain-heading i {
+    color: #00d675;
+}
+
+.loss-heading {
+    color: #ecf2ff;
+}
+
+.loss-heading i {
+    color: #ff4050;
+}
+
+.stock-table {
+    --bs-table-bg: transparent;
+
+    --bs-table-color: #dfe6ff;
+
+    margin: 0;
+}
+
+.stock-table thead {
+    border-bottom:
+        1px solid rgba(145, 165, 220, 0.13);
+}
+
+.stock-table th {
+    padding: 18px 26px;
+
+    color: #708bc0;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.7px;
+}
+
+.stock-table td {
+    padding: 18px 26px;
+
+    vertical-align: middle;
+
+    border-bottom: 0;
+
+    font-size: 16px;
+}
+
+.stock-table td strong {
+    display: block;
+
+    color: #e9efff;
+}
+
+.stock-table td small {
+    display: block;
+
+    color: #6782bb;
+
+    margin-top: 3px;
+}
+
+.stock-table tbody tr {
+    transition: 0.2s;
+}
+
+.stock-table tbody tr:hover {
+    background:
+        rgba(100, 130, 190, 0.07);
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features-section {
+    padding: 80px 0 90px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #081532,
+            #07132e
+        );
+}
+
+.features-heading {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+.features-heading h2 {
+    font-size: 38px;
+
+    font-weight: 750;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 13px;
+}
+
+.features-heading p {
+    color: #718bc0;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.feature-card {
+    min-height: 250px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(145, 165, 220, 0.12);
+
+    transition: 0.25s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(0, 200, 190, 0.22);
+}
+
+.feature-blue {
+    background: #09243d;
+}
+
+.feature-purple {
+    background: #111b3d;
+}
+
+.feature-green {
+    background: #09282f;
+}
+
+.feature-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: rgba(80, 110, 190, 0.13);
+
+    color: #00d4c2;
+
+    font-size: 24px;
+
+    margin-bottom: 24px;
+}
+
+.feature-purple .feature-icon {
+    color: #8b8cff;
+}
+
+.feature-green .feature-icon {
+    color: #00d879;
+}
+
+.feature-card h3 {
+    font-size: 21px;
+
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #7590c3;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta-card {
+    margin-top: 70px;
+
+    padding: 45px 50px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #0a3044,
+            #082d45
+        );
+
+    border: 1px solid rgba(0, 205, 195, 0.25);
+}
+
+.cta-card h2 {
+    font-size: 31px;
+
+    margin-bottom: 12px;
+}
+
+.cta-card p {
+    color: #7191c4;
+
+    font-size: 17px;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    padding: 28px 0;
+
+    background: #071027;
+
+    border-top:
+        1px solid rgba(145, 165, 220, 0.09);
+}
+
+.footer p {
+    color: #607baa;
+
+    margin: 0;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .hero-section {
+        min-height: auto;
+
+        padding: 70px 0;
+    }
+
+    .hero-title {
+        font-size: 52px;
+    }
+
+    .market-preview {
+        margin-top: 20px;
+    }
+
+    .navbar-nav {
+        padding: 20px 0;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .hero-title {
+        font-size: 43px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .hero-description {
+        font-size: 17px;
+    }
+
+    .company-search {
+        font-size: 14px;
+    }
+
+    .market-preview {
+        padding: 20px;
+    }
+
+    .market-header h2 {
+        font-size: 29px;
+    }
+
+    .market-status {
+        font-size: 11px;
+
+        padding: 7px 10px;
+    }
+
+    .mini-stocks {
+        grid-template-columns: 1fr;
+    }
+
+    .features-heading h2 {
+        font-size: 30px;
+    }
+
+    .cta-card {
+        padding: 30px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .cta-card .primary-btn {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .hero-title {
+        font-size: 37px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+
+}

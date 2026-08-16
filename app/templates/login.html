@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Mero-Predict</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Login CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-wrapper">
+
+            <!-- ================= LOGO ================= -->
+
+            <a href="{{ url_for('home') }}" class="brand">
+
+                <div class="brand-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+
+                <div class="brand-name">
+                    <span>Mero</span><strong>Predict</strong>
+                </div>
+
+            </a>
+
+
+            <!-- ================= LOGIN CARD ================= -->
+
+            <div class="login-card">
+
+                <div class="login-header">
+
+                    <div class="welcome-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                    <h1>Welcome Back</h1>
+
+                    <p>
+                        Sign in to continue to your Mero-Predict dashboard.
+                    </p>
+
+                </div>
+
+
+                <!-- ================= LOGIN FORM ================= -->
+
+                <form method="POST" action="/login" id="loginForm">
+
+                    <!-- Email -->
+
+                    <div class="form-field">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="bi bi-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-field">
+
+                        <div class="password-header">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <a href="#">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+                        <div class="input-box">
+
+                            <i class="bi bi-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                minlength="6"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                onclick="togglePassword()"
+                                aria-label="Show password"
+                            >
+                                <i
+                                    class="bi bi-eye"
+                                    id="passwordIcon"
+                                ></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Remember -->
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            <span>Remember me</span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Login -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+
+                        <span>Login to Dashboard</span>
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- ================= REGISTER ================= -->
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="register-section">
+
+                    <p>
+                        Don't have an account?
+                        <a href="{{ url_for('register') }}">
+                            Create an account
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BACK ================= -->
+
+            <a
+                href="{{ url_for('home') }}"
+                class="back-home"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                Back to Mero-Predict
+
+            </a>
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <p class="login-footer">
+                © 2026 Mero-Predict. All rights reserved.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- Password visibility -->
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const icon =
+                document.getElementById("passwordIcon");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                icon.classList.remove("bi-eye");
+
+                icon.classList.add("bi-eye-slash");
+
+            } else {
+
+                password.type = "password";
+
+                icon.classList.remove("bi-eye-slash");
+
+                icon.classList.add("bi-eye");
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
