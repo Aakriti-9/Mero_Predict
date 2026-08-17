@@ -1,0 +1,1023 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Dashboard | MeroPredict
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
+    {% include 'sidebar.html' %}
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
+
+    <main class="dashboard-main">
+
+
+        <!-- =====================================================
+             TOPBAR
+        ===================================================== -->
+
+        <header class="dashboard-topbar">
+
+
+            <!-- SEARCH -->
+
+            <div class="dashboard-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="companySearch"
+                    placeholder="Search company or symbol..."
+                >
+
+            </div>
+
+
+
+            <!-- TOPBAR RIGHT -->
+
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+
+                <!-- USER -->
+
+                <div class="user-profile">
+
+
+                    <div class="user-avatar">
+                        AP
+                    </div>
+
+
+                    <div class="user-info">
+
+                        <strong>
+                            Asmi Pandey
+                        </strong>
+
+                        <small>
+                            Investor
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             DASHBOARD CONTENT
+        ===================================================== -->
+
+        <div class="dashboard-content">
+
+
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================= -->
+
+            <div class="dashboard-page-header">
+
+
+                <div>
+
+                    <h1>
+                        Market Dashboard
+                    </h1>
+
+
+                    <p>
+                        Sunday, 14 June 2026
+                        · NEPSE Trading Hours: 11:00–15:00 NST
+                    </p>
+
+                </div>
+
+
+
+                <!-- MARKET STATUS -->
+
+                <div class="market-open">
+
+                    <span class="market-dot"></span>
+
+                    Market Open
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================= -->
+
+            <div class="dashboard-cards">
+
+
+                <!-- NEPSE INDEX -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            NEPSE INDEX
+                        </span>
+
+                        <i class="bi bi-activity card-icon-teal"></i>
+
+                    </div>
+
+
+                    <h2>
+                        2,347.85
+                    </h2>
+
+
+                    <p class="card-positive">
+
+                        <i class="bi bi-arrow-up"></i>
+
+                        +27.42
+                        <span>
+                            (1.18%)
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- MARKET SENTIMENT -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            MARKET SENTIMENT
+                        </span>
+
+                        <i class="bi bi-graph-up-arrow card-icon-green"></i>
+
+                    </div>
+
+
+                    <h2 class="sentiment-value">
+                        BULLISH
+                    </h2>
+
+
+                    <p>
+                        142 gainers vs 73 losers
+                    </p>
+
+                </div>
+
+
+
+                <!-- TOTAL GAINERS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            TOTAL GAINERS
+                        </span>
+
+                        <i class="bi bi-graph-up-arrow card-icon-green"></i>
+
+                    </div>
+
+
+                    <h2>
+                        142
+                    </h2>
+
+
+                    <p>
+                        15 unchanged
+                    </p>
+
+                </div>
+
+
+
+                <!-- TOTAL LOSERS -->
+
+                <div class="dashboard-card loser-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            TOTAL LOSERS
+                        </span>
+
+                        <i class="bi bi-graph-down-arrow card-icon-red"></i>
+
+                    </div>
+
+
+                    <h2>
+                        73
+                    </h2>
+
+
+                    <p>
+                        of 230 listed
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NEPSE CHART
+            ================================================= -->
+
+            <section class="chart-card">
+
+
+                <div class="chart-header">
+
+
+                    <div>
+
+                        <h3>
+                            NEPSE Index Trend
+                        </h3>
+
+                        <p>
+                            Last 60 trading days
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="chart-legend">
+
+                        <span></span>
+
+                        NEPSE
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="chart-container">
+
+                    <canvas id="nepseChart"></canvas>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MARKET TABLES
+            ================================================= -->
+
+            <div class="market-tables">
+
+
+                <!-- =================================================
+                     TOP GAINERS
+                ================================================= -->
+
+                <section class="market-table-card">
+
+
+                    <div class="table-card-header">
+
+
+                        <div>
+
+                            <span class="table-eyebrow">
+                                MARKET MOVERS
+                            </span>
+
+                            <h3>
+
+                                <i class="bi bi-graph-up-arrow"></i>
+
+                                Top Gainers
+
+                            </h3>
+
+                        </div>
+
+
+                        <a href="#">
+                            View all →
+                        </a>
+
+
+                    </div>
+
+
+
+                    <div class="table-responsive">
+
+
+                        <table>
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        COMPANY
+                                    </th>
+
+                                    <th>
+                                        LTP
+                                    </th>
+
+                                    <th>
+                                        CHANGE %
+                                    </th>
+
+                                    <th>
+                                        VOLUME
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            GBIME
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        210
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 4.20%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        652,138
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            UPPER
+                                        </strong>
+
+                                        <small>
+                                            Hydropower
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        305
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 3.10%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        267,954
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            HIDCL
+                                        </strong>
+
+                                        <small>
+                                            Hydropower
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        230
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 2.70%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        556,652
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            PCBL
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        165
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 2.40%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        751,725
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            NABIL
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        1,285
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 2.30%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        106,609
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            BOKL
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        215
+                                    </td>
+
+                                    <td>
+
+                                        <span class="gain-badge">
+                                            ▲ 1.80%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        522,793
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                     TOP LOSERS
+                ================================================= -->
+
+                <section class="market-table-card">
+
+
+                    <div class="table-card-header">
+
+
+                        <div>
+
+                            <span class="table-eyebrow">
+                                MARKET MOVERS
+                            </span>
+
+                            <h3 class="loss-title">
+
+                                <i class="bi bi-graph-down-arrow"></i>
+
+                                Top Losers
+
+                            </h3>
+
+                        </div>
+
+
+                        <a href="#">
+                            View all →
+                        </a>
+
+
+                    </div>
+
+
+
+                    <div class="table-responsive">
+
+
+                        <table>
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        COMPANY
+                                    </th>
+
+                                    <th>
+                                        LTP
+                                    </th>
+
+                                    <th>
+                                        CHANGE %
+                                    </th>
+
+                                    <th>
+                                        VOLUME
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            SHIVM
+                                        </strong>
+
+                                        <small>
+                                            Manufacturing
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        145
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 3.20%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        370,835
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            SRBL
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        170
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 2.80%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        657,957
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            ADBL
+                                        </strong>
+
+                                        <small>
+                                            Dev. Bank
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        280
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 2.10%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        446,097
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            NICA
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        380
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 1.80%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        190,979
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            NIB
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        405
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 1.20%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        455,489
+                                    </td>
+
+                                </tr>
+
+
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            SANIMA
+                                        </strong>
+
+                                        <small>
+                                            Banking
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+                                        195
+                                    </td>
+
+                                    <td>
+
+                                        <span class="loss-badge">
+                                            ▼ 0.90%
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        57,933
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MARKET STATISTICS
+            ================================================= -->
+
+            <div class="market-statistics">
+
+
+                <!-- TURNOVER -->
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </span>
+
+
+                    <div>
+
+                        <small>
+                            Total Turnover
+                        </small>
+
+                        <strong>
+                            NPR 4.82B
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MARKET CAP -->
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        <i class="bi bi-bank"></i>
+                    </span>
+
+
+                    <div>
+
+                        <small>
+                            Market Capitalization
+                        </small>
+
+                        <strong>
+                            NPR 3456.79B
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- VOLUME -->
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </span>
+
+
+                    <div>
+
+                        <small>
+                            Total Volume
+                        </small>
+
+                        <strong>
+                            12,453,678
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Dashboard JavaScript -->
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}
+

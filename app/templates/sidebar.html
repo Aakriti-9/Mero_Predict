@@ -1,0 +1,126 @@
+<aside class="dashboard-sidebar">
+
+    <!-- LOGO -->
+    <div class="dashboard-logo">
+
+        <div class="dashboard-logo-icon">
+            <i class="bi bi-activity"></i>
+        </div>
+
+        <span>
+            <strong>Mero</strong><b>Predict</b>
+        </span>
+
+    </div>
+
+
+    <!-- MAIN NAVIGATION -->
+    <div class="sidebar-section">
+
+        <span class="sidebar-label">MAIN</span>
+
+
+        <!-- DASHBOARD -->
+        <a href="{{ url_for('dashboard') }}"
+           class="sidebar-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
+
+            <i class="bi bi-house"></i>
+
+            <span>Dashboard</span>
+
+            {% if request.endpoint == 'dashboard' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
+        </a>
+
+
+        <!-- MARKET OVERVIEW -->
+        <a href="{{ url_for('market_overview') }}"
+           class="sidebar-link {% if request.endpoint == 'market_overview' %}active{% endif %}">
+
+            <i class="bi bi-bar-chart"></i>
+
+            <span>Market Overview</span>
+
+            {% if request.endpoint == 'market_overview' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
+        </a>
+
+
+        <!-- COMING SOON LINKS -->
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-building"></i>
+            <span>Companies</span>
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-bezier2"></i>
+            <span>Compare Stocks</span>
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-lightning-charge"></i>
+            <span>Predictions</span>
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-star"></i>
+            <span>Watchlist</span>
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
+        </a>
+
+    </div>
+
+        <!-- ADMIN -->
+
+    <div class="sidebar-section admin-section">
+
+        <span class="sidebar-label">ADMIN</span>
+
+        <a href="#" class="sidebar-link">
+
+            <i class="bi bi-shield"></i>
+
+            <span>Admin Panel</span>
+
+        </a>
+
+    </div>
+
+
+    <!-- BOTTOM -->
+    <div class="sidebar-bottom">
+
+        <button class="sidebar-bottom-link" id="themeToggle">
+
+            <i class="bi bi-sun"></i>
+
+            <span>Light Mode</span>
+
+        </button>
+
+
+        <a href="{{ url_for('home') }}"
+           class="sidebar-bottom-link">
+
+            <i class="bi bi-box-arrow-left"></i>
+
+            <span>Back to Home</span>
+
+        </a>
+
+    </div>
+
+</aside>
