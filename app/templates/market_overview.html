@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+
+{% block title %}
+Market Overview | MeroPredict
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/market_overview.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    {% include 'sidebar.html' %}
+
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-main">
+
+        <!-- TOPBAR -->
+        <header class="dashboard-topbar">
+
+            <div class="dashboard-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="companySearch"
+                    placeholder="Search company or symbol..."
+                >
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button class="notification-btn">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        AP
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>Asmi Pandey</strong>
+
+                        <small>Investor</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- MARKET OVERVIEW CONTENT -->
+        <div class="dashboard-content">
+
+            <div class="overview-page-header">
+
+                <div>
+                    <h1>Market Overview</h1>
+
+                    <p>
+                        Sector performance and market breadth — 14 June 2026
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY CARDS -->
+            <div class="overview-cards">
+
+                <div class="overview-card">
+
+                    <span class="overview-card-label">
+                        NEPSE INDEX
+                    </span>
+
+                    <h2>2,347.85</h2>
+
+                    <p class="positive">
+                        +27.42 (1.18%)
+                    </p>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <span class="overview-card-label">
+                        TOTAL TURNOVER
+                    </span>
+
+                    <h2>NPR 4.82B</h2>
+
+                    <p>Today</p>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <span class="overview-card-label">
+                        GAINERS / LOSERS
+                    </span>
+
+                    <h2>142 / 73</h2>
+
+                    <p>Advance / Decline</p>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <span class="overview-card-label">
+                        MARKET CAP
+                    </span>
+
+                    <h2>NPR 3456.79B</h2>
+
+                    <p>Total</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHARTS -->
+            <div class="overview-chart-grid">
+
+                <!-- SECTOR PERFORMANCE -->
+                <section class="overview-panel">
+
+                    <div class="overview-panel-header">
+
+                        <div>
+
+                            <h3>Sector Performance</h3>
+
+                            <p>
+                                Today's performance by sector
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="sector-chart-wrapper">
+
+                        <canvas id="sectorPerformanceChart"></canvas>
+
+                    </div>
+
+                </section>
+
+
+                <!-- MARKET BREADTH -->
+                <section class="overview-panel">
+
+                    <div class="overview-panel-header">
+
+                        <div>
+
+                            <h3>Market Breadth</h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="breadth-chart-wrapper">
+
+                        <canvas id="marketBreadthChart"></canvas>
+
+                    </div>
+
+                    <div class="breadth-main-number">
+
+                        <strong>142</strong>
+
+                        <span>
+                            stocks advancing
+                        </span>
+
+                    </div>
+
+
+                    <div class="breadth-list">
+
+                        <div class="breadth-item">
+
+                            <div>
+                                <span class="breadth-dot gain-dot"></span>
+                                Gainers
+                            </div>
+
+                            <strong class="gain-text">
+                                142
+                            </strong>
+
+                        </div>
+
+
+                        <div class="breadth-item">
+
+                            <div>
+                                <span class="breadth-dot loss-dot"></span>
+                                Losers
+                            </div>
+
+                            <strong class="loss-text">
+                                73
+                            </strong>
+
+                        </div>
+
+
+                        <div class="breadth-item">
+
+                            <div>
+                                <span class="breadth-dot unchanged-dot"></span>
+                                Unchanged
+                            </div>
+
+                            <strong class="unchanged-text">
+                                15
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- SECTOR SUMMARY -->
+            <section class="sector-summary-section">
+
+                <div class="section-title">
+
+                    <h2>Sector Summary</h2>
+
+                    <p>
+                        Performance across major NEPSE sectors
+                    </p>
+
+                </div>
+
+
+                <div class="sector-summary-grid">
+
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Banking</strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>+1.80%</h3>
+
+                        <p>27 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Insurance</strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>+0.50%</h3>
+
+                        <p>20 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Hydropower</strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>+2.40%</h3>
+
+                        <p>62 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card negative-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Dev. Bank</strong>
+
+                            <i class="bi bi-graph-down-arrow"></i>
+
+                        </div>
+
+                        <h3>-0.90%</h3>
+
+                        <p>18 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card negative-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Finance</strong>
+
+                            <i class="bi bi-graph-down-arrow"></i>
+
+                        </div>
+
+                        <h3>-1.20%</h3>
+
+                        <p>21 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card negative-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Manufacturing</strong>
+
+                            <i class="bi bi-graph-down-arrow"></i>
+
+                        </div>
+
+                        <h3>-0.40%</h3>
+
+                        <p>22 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Hotels</strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>+1.10%</h3>
+
+                        <p>5 companies</p>
+
+                    </div>
+
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>Trading</strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>+0.70%</h3>
+
+                        <p>11 companies</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- TURNOVER -->
+            <section class="overview-panel turnover-panel">
+
+                <div class="overview-panel-header">
+
+                    <div>
+
+                        <h3>
+                            Daily Turnover — Last 20 Trading Days
+                        </h3>
+
+                        <p>
+                            Historical market turnover
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="turnover-chart-wrapper">
+
+                    <canvas id="turnoverChart"></canvas>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for('static', filename='js/market_overview.js') }}"></script>
+
+{% endblock %}
