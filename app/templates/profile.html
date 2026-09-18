@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Profile & Settings | MeroPredict
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/profile.css') }}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
+    {% include 'sidebar.html' %}
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
+
+    <main class="dashboard-main">
+
+
+        <!-- =====================================================
+             TOPBAR
+        ===================================================== -->
+
+        <header class="dashboard-topbar">
+
+
+            <!-- SEARCH -->
+
+            <div class="dashboard-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="companySearch"
+                    placeholder="Search company or symbol..."
+                >
+
+            </div>
+
+
+
+            <!-- TOPBAR RIGHT -->
+
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+
+                <!-- USER -->
+
+                <div class="user-profile">
+
+
+                    <div class="user-avatar">
+                        RS
+                    </div>
+
+
+                    <div class="user-info">
+
+                        <strong>
+                            Ram Sharma
+                        </strong>
+
+                        <small>
+                            Investor
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             PROFILE CONTENT
+        ===================================================== -->
+
+        <div class="profile-content">
+
+
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================= -->
+
+            <h1 class="profile-page-title">
+                Profile &amp; Settings
+            </h1>
+
+
+
+            <!-- =================================================
+                 IDENTITY CARD
+            ================================================= -->
+
+            <section class="profile-card profile-identity-card">
+
+                <div class="profile-identity">
+
+                    <div class="profile-avatar-lg">
+                        RS
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Ram Sharma
+                        </h2>
+
+                        <p>
+                            NEPSE Investor · Member since 2024
+                        </p>
+
+                        <span class="profile-badge">
+                            <i class="bi bi-patch-check-fill"></i>
+                            Verified Investor
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERSONAL INFORMATION FORM
+            ================================================= -->
+
+            <section class="profile-card">
+
+                <h3>
+                    Personal Information
+                </h3>
+
+                <form method="POST" action="#">
+
+
+                    <div class="profile-field">
+
+                        <label for="fullname">
+                            Full Name
+                        </label>
+
+                        <div class="profile-input">
+                            <i class="bi bi-person"></i>
+                            <input
+                                type="text"
+                                id="fullname"
+                                name="fullname"
+                                value="Ram Sharma"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <div class="profile-input">
+                            <i class="bi bi-envelope"></i>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="ram.sharma@example.com"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <label for="phone">
+                            Phone
+                        </label>
+
+                        <div class="profile-input">
+                            <i class="bi bi-telephone"></i>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value="+977-9841234567"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <button class="profile-btn" type="submit">
+                        <i class="bi bi-check-lg"></i>
+                        Save Changes
+                    </button>
+
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 NOTIFICATION PREFERENCES
+            ================================================= -->
+
+            <section class="profile-card">
+
+                <h3>
+                    Notification Preferences
+                </h3>
+
+
+                <div class="pref-row">
+
+                    <div class="pref-text">
+                        <strong>Prediction Updates</strong>
+                        <span>Notify when AI predictions are updated daily</span>
+                    </div>
+
+                    <button class="pref-toggle active" type="button" role="switch" aria-checked="true" aria-label="Prediction Updates"></button>
+
+                </div>
+
+
+                <div class="pref-row">
+
+                    <div class="pref-text">
+                        <strong>Top Movers Alert</strong>
+                        <span>Alert when watchlist stocks surge &gt;3%</span>
+                    </div>
+
+                    <button class="pref-toggle active" type="button" role="switch" aria-checked="true" aria-label="Top Movers Alert"></button>
+
+                </div>
+
+
+                <div class="pref-row">
+
+                    <div class="pref-text">
+                        <strong>Model Retrained</strong>
+                        <span>Notify when prediction model is retrained</span>
+                    </div>
+
+                    <button class="pref-toggle" type="button" role="switch" aria-checked="false" aria-label="Model Retrained"></button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ACCOUNT SUMMARY
+            ================================================= -->
+
+            <section class="profile-card">
+
+                <h3>
+                    Account Summary
+                </h3>
+
+                <div class="summary-grid">
+
+                    <div class="summary-box">
+                        <h2>5</h2>
+                        <p>Watchlist Stocks</p>
+                    </div>
+
+                    <div class="summary-box">
+                        <h2>142</h2>
+                        <p>Predictions Viewed</p>
+                    </div>
+
+                    <div class="summary-box">
+                        <h2>89</h2>
+                        <p>Days Active</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
+{% endblock %}
