@@ -1,51 +1,51 @@
-from flask import Flask, render_template
+
+from flask import Flask
+
+from config import Config
+from app.extensions import db, login_manager
+
 
 def create_app():
-    app = Flask(__name__)
 
-    @app.route("/")
-    def home():
-        return render_template("index.html")
+    app = Flask(
+    __name__,
+    template_folder="../templates",
+    static_folder="../static")
 
-    @app.route("/login")
-    def login():
-        return render_template("login.html")
+    app.config.from_object(Config)
 
-    @app.route("/register")
-    def register():
-        return render_template("register.html")
+    # Initialize extensions
+    db.init_app(app)
+    login_manager.init_app(app)
 
-    @app.route("/dashboard")
-    def dashboard():
-        return render_template("dashboard.html")
+    # Import models
+    from app.models.user import User
 
-    @app.route('/market-overview')
-    def market_overview():
-        return render_template("market_overview.html")
+    # User loader for Flask-Login
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.get(User, int(user_id))
 
+    # Register blueprints
+    from app.routes.main import main
+    from app.routes.auth import auth
+    from app.routes.market import market
 
-    # @app.route('/companies')
-    # def companies():
-    #  return render_template("companies.html")
+    
+    app.register_blueprint(main)
+    app.register_blueprint(auth)
+    app.register_blueprint(market)
+    
+    import os
 
-
-    # @app.route('/compare-stocks')
-    # def compare_stocks():
-    #     return render_template("compare_stocks.html")
-
-
-    # @app.route('/predictions')
-    # def predictions():
-    #     return render_template("predictions.html")
-
-
-    # @app.route('/watchlist')
-    # def watchlist():
-    #     return render_template("watchlist.html")
-
-
-    # @app.route('/profile')
-    # def profile():
-    #     return render_template("profile.html")
+    print("Flask root path:", app.root_path)
+    print("Template folder:", app.template_folder)
+    print(
+    "index.html exists:",
+    os.path.exists
+    (
+        os.path.join(app.root_path, app.template_folder, "index.html")
+    )
+    )
 
     return app
