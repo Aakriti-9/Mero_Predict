@@ -48,7 +48,7 @@
         <!-- ================= LOGO ================= -->
 
         <a
-            href="{{ url_for('home') }}"
+            href="{{ url_for('main.home') }}"
             class="brand"
         >
 
@@ -72,7 +72,21 @@
         <!-- ================= REGISTER CARD ================= -->
 
         <div class="register-card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
 
+                      {% for category, message in messages %}
+
+                        <div class="alert alert-{{ category }}" role="alert">
+                          {{ message }}
+                        </div>
+
+                      {% endfor %}
+
+                     </div>
+                     {% endif %}
+            {% endwith %}
 
             <div class="register-header">
 
@@ -99,7 +113,7 @@
 
             <form
                 method="POST"
-                action="/register"
+                action="{{ url_for('auth.register') }}"
                 id="registerForm"
             >
 
@@ -302,7 +316,7 @@
 
                     Already have an account?
 
-                    <a href="{{ url_for('login') }}">
+                    <a href="{{ url_for('auth.login') }}">
                         Login
                     </a>
 
@@ -318,7 +332,7 @@
         <!-- ================= BACK HOME ================= -->
 
         <a
-            href="{{ url_for('home') }}"
+            href="{{ url_for('main.home') }}"
             class="back-home"
         >
 

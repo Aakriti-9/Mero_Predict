@@ -34,7 +34,7 @@
 
             <!-- ================= LOGO ================= -->
 
-            <a href="{{ url_for('home') }}" class="brand">
+            <a href="{{ url_for('main.home') }}" class="brand">
 
                 <div class="brand-icon">
                     <i class="bi bi-graph-up-arrow"></i>
@@ -50,6 +50,21 @@
             <!-- ================= LOGIN CARD ================= -->
 
             <div class="login-card">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      <div class="flash-messages">
+
+                          {% for category, message in messages %}
+
+                            <div class="alert alert-{{ category }}" role="alert">
+                              {{ message }}
+                            </div>
+
+                          {% endfor %}
+
+                        </div>
+                    {% endif %}
+                {% endwith %}
 
                 <div class="login-header">
 
@@ -68,7 +83,7 @@
 
                 <!-- ================= LOGIN FORM ================= -->
 
-                <form method="POST" action="/login" id="loginForm">
+                <form method="POST" action="{{ url_for('auth.login') }}"  id="loginForm">
 
                     <!-- Email -->
 
@@ -187,7 +202,7 @@
 
                     <p>
                         Don't have an account?
-                        <a href="{{ url_for('register') }}">
+                        <a href="{{ url_for('auth.register') }}">
                             Create an account
                         </a>
                     </p>
@@ -200,7 +215,7 @@
             <!-- ================= BACK ================= -->
 
             <a
-                href="{{ url_for('home') }}"
+                href="{{ url_for('main.home') }}"
                 class="back-home"
             >
 
