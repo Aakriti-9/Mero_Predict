@@ -473,12 +473,9 @@
 
 
 .user-profile {
-
-    display: flex;
-    align-items: center;
-
-    gap: 11px;
-
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 

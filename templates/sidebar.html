@@ -36,14 +36,14 @@
 
 
         <!-- MARKET OVERVIEW -->
-        <a href="{{ url_for('main.market_overview') }}"
-           class="sidebar-link {% if request.endpoint == 'main.market_overview' %}active{% endif %}">
+        <a href="{{ url_for('market.market_overview') }}"
+           class="sidebar-link {% if request.endpoint == 'market.market_overview' %}active{% endif %}">
 
             <i class="bi bi-bar-chart"></i>
 
             <span>Market Overview</span>
 
-            {% if request.endpoint == 'main.market_overview' %}
+            {% if request.endpoint == 'market.market_overview' %}
                 <i class="bi bi-chevron-right sidebar-arrow"></i>
             {% endif %}
 
@@ -76,28 +76,48 @@
         </a>
 
 
-        <a href="#" class="sidebar-link">
+        <!-- PROFILE -->
+        <a href="{{ url_for('main.profile') }}"
+           class="sidebar-link {% if request.endpoint == 'main.profile' %}active{% endif %}">
+
             <i class="bi bi-person"></i>
+
             <span>Profile</span>
+
+            {% if request.endpoint == 'main.profile' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
         </a>
 
     </div>
 
-        <!-- ADMIN -->
+
+    <!-- ADMIN -->
+    {% if current_user.is_authenticated and current_user.role == 'admin' %}
 
     <div class="sidebar-section admin-section">
 
         <span class="sidebar-label">ADMIN</span>
 
-        <a href="#" class="sidebar-link">
 
-            <i class="bi bi-shield"></i>
+        <!-- ADMIN PANEL -->
+        <a href="{{ url_for('main.admin_panel') }}"
+           class="sidebar-link {% if request.endpoint == 'main.admin_panel' %}active{% endif %}">
+
+            <i class="bi bi-shield-lock"></i>
 
             <span>Admin Panel</span>
+
+            {% if request.endpoint == 'main.admin_panel' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
 
         </a>
 
     </div>
+
+    {% endif %}
 
 
     <!-- BOTTOM -->
@@ -112,6 +132,7 @@
         </button>
 
 
+        <!-- BACK TO HOME -->
         <a href="{{ url_for('main.home') }}"
            class="sidebar-bottom-link">
 
@@ -121,12 +142,15 @@
 
         </a>
 
-        <a href="{{ url_for('auth.logout') }}"
-            class="sidebar-bottom-link">
 
-             <i class="bi bi-box-arrow-right"></i>
+        <!-- LOGOUT -->
+        <a href="{{ url_for('auth.logout') }}"
+           class="sidebar-bottom-link">
+
+            <i class="bi bi-box-arrow-right"></i>
 
             <span>Logout</span>
+
         </a>
 
     </div>

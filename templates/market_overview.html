@@ -4,27 +4,45 @@
 Market Overview | MeroPredict
 {% endblock %}
 
+
 {% block extra_css %}
+
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/dashboard.css') }}">
 
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/market_overview.css') }}">
+
 {% endblock %}
+
 
 {% block content %}
 
 <div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
     {% include 'sidebar.html' %}
 
 
-    <!-- MAIN CONTENT -->
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
+
     <main class="dashboard-main">
 
-        <!-- TOPBAR -->
+
+        <!-- =====================================================
+             TOPBAR
+        ===================================================== -->
+
         <header class="dashboard-topbar">
+
+
+            <!-- SEARCH -->
 
             <div class="dashboard-search">
 
@@ -39,45 +57,80 @@ Market Overview | MeroPredict
             </div>
 
 
+            <!-- TOPBAR RIGHT -->
+
             <div class="topbar-right">
 
-                <button class="notification-btn">
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
                     <i class="bi bi-bell"></i>
+
                     <span class="notification-dot"></span>
+
                 </button>
 
 
-                <div class="user-profile">
+                <!-- USER PROFILE -->
+
+                <a href="{{ url_for('main.profile') }}"
+                   class="user-profile">
 
                     <div class="user-avatar">
-                        AP
+
+                        {{ current_user.name[0] | upper }}
+
                     </div>
+
 
                     <div class="user-info">
 
-                        <strong>Asmi Pandey</strong>
+                        <strong>
+                            {{ current_user.name }}
+                        </strong>
 
-                        <small>Investor</small>
+                        <small>
+                            {{ current_user.role | capitalize }}
+                        </small>
 
                     </div>
 
-                </div>
+                </a>
+
 
             </div>
 
         </header>
 
 
-        <!-- MARKET OVERVIEW CONTENT -->
+        <!-- =====================================================
+             MARKET OVERVIEW CONTENT
+        ===================================================== -->
+
         <div class="dashboard-content">
+
+
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================= -->
 
             <div class="overview-page-header">
 
                 <div>
-                    <h1>Market Overview</h1>
+
+                    <h1>
+                        Market Overview
+                    </h1>
 
                     <p>
-                        Sector performance and market breadth — 14 June 2026
+                        Sector performance and market breadth —
+                        14 June 2026
                     </p>
 
                 </div>
@@ -85,8 +138,14 @@ Market Overview | MeroPredict
             </div>
 
 
-            <!-- SUMMARY CARDS -->
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================= -->
+
             <div class="overview-cards">
+
+
+                <!-- NEPSE INDEX -->
 
                 <div class="overview-card">
 
@@ -94,7 +153,9 @@ Market Overview | MeroPredict
                         NEPSE INDEX
                     </span>
 
-                    <h2>2,347.85</h2>
+                    <h2>
+                        2,347.85
+                    </h2>
 
                     <p class="positive">
                         +27.42 (1.18%)
@@ -103,18 +164,26 @@ Market Overview | MeroPredict
                 </div>
 
 
+                <!-- TOTAL TURNOVER -->
+
                 <div class="overview-card">
 
                     <span class="overview-card-label">
                         TOTAL TURNOVER
                     </span>
 
-                    <h2>NPR 4.82B</h2>
+                    <h2>
+                        NPR 4.82B
+                    </h2>
 
-                    <p>Today</p>
+                    <p>
+                        Today
+                    </p>
 
                 </div>
 
+
+                <!-- GAINERS / LOSERS -->
 
                 <div class="overview-card">
 
@@ -122,12 +191,18 @@ Market Overview | MeroPredict
                         GAINERS / LOSERS
                     </span>
 
-                    <h2>142 / 73</h2>
+                    <h2>
+                        142 / 73
+                    </h2>
 
-                    <p>Advance / Decline</p>
+                    <p>
+                        Advance / Decline
+                    </p>
 
                 </div>
 
+
+                <!-- MARKET CAP -->
 
                 <div class="overview-card">
 
@@ -135,26 +210,39 @@ Market Overview | MeroPredict
                         MARKET CAP
                     </span>
 
-                    <h2>NPR 3456.79B</h2>
+                    <h2>
+                        NPR 3456.79B
+                    </h2>
 
-                    <p>Total</p>
+                    <p>
+                        Total
+                    </p>
 
                 </div>
 
             </div>
 
 
-            <!-- CHARTS -->
+            <!-- =================================================
+                 CHARTS
+            ================================================= -->
+
             <div class="overview-chart-grid">
 
-                <!-- SECTOR PERFORMANCE -->
+
+                <!-- =================================================
+                     SECTOR PERFORMANCE
+                ================================================= -->
+
                 <section class="overview-panel">
 
                     <div class="overview-panel-header">
 
                         <div>
 
-                            <h3>Sector Performance</h3>
+                            <h3>
+                                Sector Performance
+                            </h3>
 
                             <p>
                                 Today's performance by sector
@@ -163,6 +251,7 @@ Market Overview | MeroPredict
                         </div>
 
                     </div>
+
 
                     <div class="sector-chart-wrapper">
 
@@ -173,18 +262,24 @@ Market Overview | MeroPredict
                 </section>
 
 
-                <!-- MARKET BREADTH -->
+                <!-- =================================================
+                     MARKET BREADTH
+                ================================================= -->
+
                 <section class="overview-panel">
 
                     <div class="overview-panel-header">
 
                         <div>
 
-                            <h3>Market Breadth</h3>
+                            <h3>
+                                Market Breadth
+                            </h3>
 
                         </div>
 
                     </div>
+
 
                     <div class="breadth-chart-wrapper">
 
@@ -192,9 +287,12 @@ Market Overview | MeroPredict
 
                     </div>
 
+
                     <div class="breadth-main-number">
 
-                        <strong>142</strong>
+                        <strong>
+                            142
+                        </strong>
 
                         <span>
                             stocks advancing
@@ -205,11 +303,17 @@ Market Overview | MeroPredict
 
                     <div class="breadth-list">
 
+
+                        <!-- GAINERS -->
+
                         <div class="breadth-item">
 
                             <div>
+
                                 <span class="breadth-dot gain-dot"></span>
+
                                 Gainers
+
                             </div>
 
                             <strong class="gain-text">
@@ -219,11 +323,16 @@ Market Overview | MeroPredict
                         </div>
 
 
+                        <!-- LOSERS -->
+
                         <div class="breadth-item">
 
                             <div>
+
                                 <span class="breadth-dot loss-dot"></span>
+
                                 Losers
+
                             </div>
 
                             <strong class="loss-text">
@@ -233,11 +342,16 @@ Market Overview | MeroPredict
                         </div>
 
 
+                        <!-- UNCHANGED -->
+
                         <div class="breadth-item">
 
                             <div>
+
                                 <span class="breadth-dot unchanged-dot"></span>
+
                                 Unchanged
+
                             </div>
 
                             <strong class="unchanged-text">
@@ -246,6 +360,7 @@ Market Overview | MeroPredict
 
                         </div>
 
+
                     </div>
 
                 </section>
@@ -253,12 +368,18 @@ Market Overview | MeroPredict
             </div>
 
 
-            <!-- SECTOR SUMMARY -->
+            <!-- =================================================
+                 SECTOR SUMMARY
+            ================================================= -->
+
             <section class="sector-summary-section">
+
 
                 <div class="section-title">
 
-                    <h2>Sector Summary</h2>
+                    <h2>
+                        Sector Summary
+                    </h2>
 
                     <p>
                         Performance across major NEPSE sectors
@@ -270,148 +391,217 @@ Market Overview | MeroPredict
                 <div class="sector-summary-grid">
 
 
-                    <div class="sector-summary-card positive-card">
-
-                        <div class="sector-card-top">
-
-                            <strong>Banking</strong>
-
-                            <i class="bi bi-graph-up-arrow"></i>
-
-                        </div>
-
-                        <h3>+1.80%</h3>
-
-                        <p>27 companies</p>
-
-                    </div>
-
+                    <!-- BANKING -->
 
                     <div class="sector-summary-card positive-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Insurance</strong>
+                            <strong>
+                                Banking
+                            </strong>
 
                             <i class="bi bi-graph-up-arrow"></i>
 
                         </div>
 
-                        <h3>+0.50%</h3>
+                        <h3>
+                            +1.80%
+                        </h3>
 
-                        <p>20 companies</p>
+                        <p>
+                            27 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- INSURANCE -->
 
                     <div class="sector-summary-card positive-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Hydropower</strong>
+                            <strong>
+                                Insurance
+                            </strong>
 
                             <i class="bi bi-graph-up-arrow"></i>
 
                         </div>
 
-                        <h3>+2.40%</h3>
+                        <h3>
+                            +0.50%
+                        </h3>
 
-                        <p>62 companies</p>
+                        <p>
+                            20 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- HYDROPOWER -->
+
+                    <div class="sector-summary-card positive-card">
+
+                        <div class="sector-card-top">
+
+                            <strong>
+                                Hydropower
+                            </strong>
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                        </div>
+
+                        <h3>
+                            +2.40%
+                        </h3>
+
+                        <p>
+                            62 companies
+                        </p>
+
+                    </div>
+
+
+                    <!-- DEVELOPMENT BANK -->
 
                     <div class="sector-summary-card negative-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Dev. Bank</strong>
+                            <strong>
+                                Dev. Bank
+                            </strong>
 
                             <i class="bi bi-graph-down-arrow"></i>
 
                         </div>
 
-                        <h3>-0.90%</h3>
+                        <h3>
+                            -0.90%
+                        </h3>
 
-                        <p>18 companies</p>
+                        <p>
+                            18 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- FINANCE -->
 
                     <div class="sector-summary-card negative-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Finance</strong>
+                            <strong>
+                                Finance
+                            </strong>
 
                             <i class="bi bi-graph-down-arrow"></i>
 
                         </div>
 
-                        <h3>-1.20%</h3>
+                        <h3>
+                            -1.20%
+                        </h3>
 
-                        <p>21 companies</p>
+                        <p>
+                            21 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- MANUFACTURING -->
 
                     <div class="sector-summary-card negative-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Manufacturing</strong>
+                            <strong>
+                                Manufacturing
+                            </strong>
 
                             <i class="bi bi-graph-down-arrow"></i>
 
                         </div>
 
-                        <h3>-0.40%</h3>
+                        <h3>
+                            -0.40%
+                        </h3>
 
-                        <p>22 companies</p>
+                        <p>
+                            22 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- HOTELS -->
 
                     <div class="sector-summary-card positive-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Hotels</strong>
+                            <strong>
+                                Hotels
+                            </strong>
 
                             <i class="bi bi-graph-up-arrow"></i>
 
                         </div>
 
-                        <h3>+1.10%</h3>
+                        <h3>
+                            +1.10%
+                        </h3>
 
-                        <p>5 companies</p>
+                        <p>
+                            5 companies
+                        </p>
 
                     </div>
 
+
+                    <!-- TRADING -->
 
                     <div class="sector-summary-card positive-card">
 
                         <div class="sector-card-top">
 
-                            <strong>Trading</strong>
+                            <strong>
+                                Trading
+                            </strong>
 
                             <i class="bi bi-graph-up-arrow"></i>
 
                         </div>
 
-                        <h3>+0.70%</h3>
+                        <h3>
+                            +0.70%
+                        </h3>
 
-                        <p>11 companies</p>
+                        <p>
+                            11 companies
+                        </p>
 
                     </div>
+
 
                 </div>
 
             </section>
 
 
-            <!-- TURNOVER -->
+            <!-- =================================================
+                 TURNOVER
+            ================================================= -->
+
             <section class="overview-panel turnover-panel">
+
 
                 <div class="overview-panel-header">
 
@@ -429,13 +619,16 @@ Market Overview | MeroPredict
 
                 </div>
 
+
                 <div class="turnover-chart-wrapper">
 
                     <canvas id="turnoverChart"></canvas>
 
                 </div>
 
+
             </section>
+
 
         </div>
 

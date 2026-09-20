@@ -1,11 +1,4 @@
 
-    @app.route('/profile')
-    def profile():
-        return render_template("profile.html")
-
-    @app.route('/admin_panel')
-    def admin_panel():
-        return render_template("admin_panel.html")
 from flask import Flask
 
 from config import Config

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block title %}
 Dashboard | MeroPredict
 {% endblock %}
@@ -24,7 +23,6 @@ Dashboard | MeroPredict
     ========================================================= -->
 
     {% include 'sidebar.html' %}
-
 
 
     <!-- =========================================================
@@ -56,7 +54,6 @@ Dashboard | MeroPredict
             </div>
 
 
-
             <!-- TOPBAR RIGHT -->
 
             <div class="topbar-right">
@@ -77,36 +74,36 @@ Dashboard | MeroPredict
                 </button>
 
 
+                <!-- USER PROFILE -->
 
-                <!-- USER -->
-
-                <div class="user-profile">
-
+                <a href="{{ url_for('main.profile') }}"
+                   class="user-profile">
 
                     <div class="user-avatar">
-                        AP
+
+                        {{ current_user.name[0] | upper }}
+
                     </div>
 
 
                     <div class="user-info">
 
                         <strong>
-                            Asmi Pandey
+                            {{ current_user.name }}
                         </strong>
 
                         <small>
-                            Investor
+                            {{ current_user.role | capitalize }}
                         </small>
 
                     </div>
 
+                </a>
 
-                </div>
 
             </div>
 
         </header>
-
 
 
         <!-- =====================================================
@@ -122,13 +119,11 @@ Dashboard | MeroPredict
 
             <div class="dashboard-page-header">
 
-
                 <div>
 
                     <h1>
                         Market Dashboard
                     </h1>
-
 
                     <p>
                         Sunday, 14 June 2026
@@ -136,7 +131,6 @@ Dashboard | MeroPredict
                     </p>
 
                 </div>
-
 
 
                 <!-- MARKET STATUS -->
@@ -149,9 +143,7 @@ Dashboard | MeroPredict
 
                 </div>
 
-
             </div>
-
 
 
             <!-- =================================================
@@ -175,17 +167,16 @@ Dashboard | MeroPredict
 
                     </div>
 
-
                     <h2>
                         2,347.85
                     </h2>
-
 
                     <p class="card-positive">
 
                         <i class="bi bi-arrow-up"></i>
 
                         +27.42
+
                         <span>
                             (1.18%)
                         </span>
@@ -193,7 +184,6 @@ Dashboard | MeroPredict
                     </p>
 
                 </div>
-
 
 
                 <!-- MARKET SENTIMENT -->
@@ -210,18 +200,15 @@ Dashboard | MeroPredict
 
                     </div>
 
-
                     <h2 class="sentiment-value">
                         BULLISH
                     </h2>
-
 
                     <p>
                         142 gainers vs 73 losers
                     </p>
 
                 </div>
-
 
 
                 <!-- TOTAL GAINERS -->
@@ -238,18 +225,15 @@ Dashboard | MeroPredict
 
                     </div>
 
-
                     <h2>
                         142
                     </h2>
-
 
                     <p>
                         15 unchanged
                     </p>
 
                 </div>
-
 
 
                 <!-- TOTAL LOSERS -->
@@ -266,11 +250,9 @@ Dashboard | MeroPredict
 
                     </div>
 
-
                     <h2>
                         73
                     </h2>
-
 
                     <p>
                         of 230 listed
@@ -278,9 +260,7 @@ Dashboard | MeroPredict
 
                 </div>
 
-
             </div>
-
 
 
             <!-- =================================================
@@ -289,9 +269,7 @@ Dashboard | MeroPredict
 
             <section class="chart-card">
 
-
                 <div class="chart-header">
-
 
                     <div>
 
@@ -305,8 +283,6 @@ Dashboard | MeroPredict
 
                     </div>
 
-
-
                     <div class="chart-legend">
 
                         <span></span>
@@ -315,10 +291,7 @@ Dashboard | MeroPredict
 
                     </div>
 
-
                 </div>
-
-
 
                 <div class="chart-container">
 
@@ -326,9 +299,7 @@ Dashboard | MeroPredict
 
                 </div>
 
-
             </section>
-
 
 
             <!-- =================================================
@@ -344,9 +315,7 @@ Dashboard | MeroPredict
 
                 <section class="market-table-card">
 
-
                     <div class="table-card-header">
-
 
                         <div>
 
@@ -364,21 +333,16 @@ Dashboard | MeroPredict
 
                         </div>
 
-
                         <a href="#">
                             View all →
                         </a>
 
-
                     </div>
-
 
 
                     <div class="table-responsive">
 
-
                         <table>
-
 
                             <thead>
 
@@ -403,7 +367,6 @@ Dashboard | MeroPredict
                                 </tr>
 
                             </thead>
-
 
 
                             <tbody>
@@ -442,7 +405,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -474,7 +436,6 @@ Dashboard | MeroPredict
                                     </td>
 
                                 </tr>
-
 
 
                                 <tr>
@@ -510,7 +471,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -544,7 +504,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -576,7 +535,6 @@ Dashboard | MeroPredict
                                     </td>
 
                                 </tr>
-
 
 
                                 <tr>
@@ -614,15 +572,11 @@ Dashboard | MeroPredict
 
                             </tbody>
 
-
                         </table>
-
 
                     </div>
 
-
                 </section>
-
 
 
                 <!-- =================================================
@@ -631,9 +585,7 @@ Dashboard | MeroPredict
 
                 <section class="market-table-card">
 
-
                     <div class="table-card-header">
-
 
                         <div>
 
@@ -651,21 +603,16 @@ Dashboard | MeroPredict
 
                         </div>
 
-
                         <a href="#">
                             View all →
                         </a>
 
-
                     </div>
-
 
 
                     <div class="table-responsive">
 
-
                         <table>
-
 
                             <thead>
 
@@ -690,7 +637,6 @@ Dashboard | MeroPredict
                                 </tr>
 
                             </thead>
-
 
 
                             <tbody>
@@ -729,7 +675,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -761,7 +706,6 @@ Dashboard | MeroPredict
                                     </td>
 
                                 </tr>
-
 
 
                                 <tr>
@@ -797,7 +741,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -831,7 +774,6 @@ Dashboard | MeroPredict
                                 </tr>
 
 
-
                                 <tr>
 
                                     <td>
@@ -863,7 +805,6 @@ Dashboard | MeroPredict
                                     </td>
 
                                 </tr>
-
 
 
                                 <tr>
@@ -901,18 +842,14 @@ Dashboard | MeroPredict
 
                             </tbody>
 
-
                         </table>
 
-
                     </div>
-
 
                 </section>
 
 
             </div>
-
 
 
             <!-- =================================================
@@ -930,7 +867,6 @@ Dashboard | MeroPredict
                         <i class="bi bi-cash-stack"></i>
                     </span>
 
-
                     <div>
 
                         <small>
@@ -946,7 +882,6 @@ Dashboard | MeroPredict
                 </div>
 
 
-
                 <!-- MARKET CAP -->
 
                 <div class="stat-card">
@@ -954,7 +889,6 @@ Dashboard | MeroPredict
                     <span class="stat-icon">
                         <i class="bi bi-bank"></i>
                     </span>
-
 
                     <div>
 
@@ -971,7 +905,6 @@ Dashboard | MeroPredict
                 </div>
 
 
-
                 <!-- VOLUME -->
 
                 <div class="stat-card">
@@ -979,7 +912,6 @@ Dashboard | MeroPredict
                     <span class="stat-icon">
                         <i class="bi bi-bar-chart-line"></i>
                     </span>
-
 
                     <div>
 
@@ -1008,16 +940,10 @@ Dashboard | MeroPredict
 {% endblock %}
 
 
-
 {% block scripts %}
-
-<!-- Chart.js -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Dashboard JavaScript -->
 
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
 {% endblock %}
-

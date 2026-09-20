@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-Profile & Settings | MeroPredict
+Profile &amp; Settings | MeroPredict
 {% endblock %}
 
 
@@ -21,13 +20,11 @@ Profile & Settings | MeroPredict
 
 <div class="dashboard-layout">
 
-
     <!-- =========================================================
          SIDEBAR
     ========================================================= -->
 
     {% include 'sidebar.html' %}
-
 
 
     <!-- =========================================================
@@ -59,7 +56,6 @@ Profile & Settings | MeroPredict
             </div>
 
 
-
             <!-- TOPBAR RIGHT -->
 
             <div class="topbar-right">
@@ -80,36 +76,31 @@ Profile & Settings | MeroPredict
                 </button>
 
 
-
                 <!-- USER -->
 
                 <div class="user-profile">
 
-
                     <div class="user-avatar">
-                        RS
+                        {{ current_user.name[0] | upper }}
                     </div>
-
 
                     <div class="user-info">
 
                         <strong>
-                            Ram Sharma
+                            {{ current_user.name }}
                         </strong>
 
                         <small>
-                            Investor
+                            {{ current_user.role | capitalize }}
                         </small>
 
                     </div>
-
 
                 </div>
 
             </div>
 
         </header>
-
 
 
         <!-- =====================================================
@@ -128,7 +119,6 @@ Profile & Settings | MeroPredict
             </h1>
 
 
-
             <!-- =================================================
                  IDENTITY CARD
             ================================================= -->
@@ -138,22 +128,22 @@ Profile & Settings | MeroPredict
                 <div class="profile-identity">
 
                     <div class="profile-avatar-lg">
-                        RS
+                        {{ current_user.name[0] | upper }}
                     </div>
 
                     <div>
 
                         <h2>
-                            Ram Sharma
+                            {{ current_user.name }}
                         </h2>
 
                         <p>
-                            NEPSE Investor · Member since 2024
+                            NEPSE {{ current_user.role | capitalize }}
                         </p>
 
                         <span class="profile-badge">
-                            <i class="bi bi-patch-check-fill"></i>
-                            Verified Investor
+                            <i class="bi bi-person-check-fill"></i>
+                            {{ current_user.role | capitalize }} Account
                         </span>
 
                     </div>
@@ -161,7 +151,6 @@ Profile & Settings | MeroPredict
                 </div>
 
             </section>
-
 
 
             <!-- =================================================
@@ -184,13 +173,16 @@ Profile & Settings | MeroPredict
                         </label>
 
                         <div class="profile-input">
+
                             <i class="bi bi-person"></i>
+
                             <input
                                 type="text"
                                 id="fullname"
                                 name="fullname"
-                                value="Ram Sharma"
+                                value="{{ current_user.name }}"
                             >
+
                         </div>
 
                     </div>
@@ -203,13 +195,16 @@ Profile & Settings | MeroPredict
                         </label>
 
                         <div class="profile-input">
+
                             <i class="bi bi-envelope"></i>
+
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
-                                value="ram.sharma@example.com"
+                                value="{{ current_user.email }}"
                             >
+
                         </div>
 
                     </div>
@@ -222,28 +217,34 @@ Profile & Settings | MeroPredict
                         </label>
 
                         <div class="profile-input">
+
                             <i class="bi bi-telephone"></i>
+
                             <input
                                 type="tel"
                                 id="phone"
                                 name="phone"
-                                value="+977-9841234567"
+                                value=""
+                                placeholder="Enter your phone number"
                             >
+
                         </div>
 
                     </div>
 
 
                     <button class="profile-btn" type="submit">
+
                         <i class="bi bi-check-lg"></i>
+
                         Save Changes
+
                     </button>
 
 
                 </form>
 
             </section>
-
 
 
             <!-- =================================================
@@ -260,11 +261,24 @@ Profile & Settings | MeroPredict
                 <div class="pref-row">
 
                     <div class="pref-text">
-                        <strong>Prediction Updates</strong>
-                        <span>Notify when AI predictions are updated daily</span>
+
+                        <strong>
+                            Prediction Updates
+                        </strong>
+
+                        <span>
+                            Notify when AI predictions are updated daily
+                        </span>
+
                     </div>
 
-                    <button class="pref-toggle active" type="button" role="switch" aria-checked="true" aria-label="Prediction Updates"></button>
+                    <button
+                        class="pref-toggle active"
+                        type="button"
+                        role="switch"
+                        aria-checked="true"
+                        aria-label="Prediction Updates"
+                    ></button>
 
                 </div>
 
@@ -272,11 +286,24 @@ Profile & Settings | MeroPredict
                 <div class="pref-row">
 
                     <div class="pref-text">
-                        <strong>Top Movers Alert</strong>
-                        <span>Alert when watchlist stocks surge &gt;3%</span>
+
+                        <strong>
+                            Top Movers Alert
+                        </strong>
+
+                        <span>
+                            Alert when watchlist stocks surge &gt;3%
+                        </span>
+
                     </div>
 
-                    <button class="pref-toggle active" type="button" role="switch" aria-checked="true" aria-label="Top Movers Alert"></button>
+                    <button
+                        class="pref-toggle active"
+                        type="button"
+                        role="switch"
+                        aria-checked="true"
+                        aria-label="Top Movers Alert"
+                    ></button>
 
                 </div>
 
@@ -284,16 +311,28 @@ Profile & Settings | MeroPredict
                 <div class="pref-row">
 
                     <div class="pref-text">
-                        <strong>Model Retrained</strong>
-                        <span>Notify when prediction model is retrained</span>
+
+                        <strong>
+                            Model Retrained
+                        </strong>
+
+                        <span>
+                            Notify when prediction model is retrained
+                        </span>
+
                     </div>
 
-                    <button class="pref-toggle" type="button" role="switch" aria-checked="false" aria-label="Model Retrained"></button>
+                    <button
+                        class="pref-toggle"
+                        type="button"
+                        role="switch"
+                        aria-checked="false"
+                        aria-label="Model Retrained"
+                    ></button>
 
                 </div>
 
             </section>
-
 
 
             <!-- =================================================
@@ -309,18 +348,35 @@ Profile & Settings | MeroPredict
                 <div class="summary-grid">
 
                     <div class="summary-box">
+
                         <h2>5</h2>
-                        <p>Watchlist Stocks</p>
+
+                        <p>
+                            Watchlist Stocks
+                        </p>
+
                     </div>
 
+
                     <div class="summary-box">
+
                         <h2>142</h2>
-                        <p>Predictions Viewed</p>
+
+                        <p>
+                            Predictions Viewed
+                        </p>
+
                     </div>
 
+
                     <div class="summary-box">
+
                         <h2>89</h2>
-                        <p>Days Active</p>
+
+                        <p>
+                            Days Active
+                        </p>
+
                     </div>
 
                 </div>
@@ -335,8 +391,6 @@ Profile & Settings | MeroPredict
 </div>
 
 {% endblock %}
-
-
 
 
 {% block scripts %}
