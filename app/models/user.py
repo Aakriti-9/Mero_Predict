@@ -25,6 +25,11 @@ class User(UserMixin, db.Model):
         nullable=False,
         index=True
     )
+    
+    phone = db.Column(
+    db.String(20),
+    nullable=True
+    )
 
     password_hash = db.Column(
         db.String(255),

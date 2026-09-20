@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,  request, redirect, url_for
 from flask_login import login_required, current_user
+from app.extensions import db
 
 
 main = Blueprint(
@@ -19,9 +20,26 @@ def dashboard():
     return render_template("dashboard.html")
 
 
-@main.route("/profile")
+@main.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+
+    if request.method == "POST":
+
+        current_user.name = request.form.get(
+            "fullname",
+            ""
+        ).strip()
+
+        current_user.phone = request.form.get(
+            "phone",
+            ""
+        ).strip()
+
+        db.session.commit()
+
+        return redirect(url_for("main.profile"))
+
     return render_template("profile.html")
 
 
