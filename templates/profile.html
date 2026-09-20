@@ -85,14 +85,34 @@ Profile &amp; Settings | MeroPredict
                     </div>
 
                     <div class="user-info">
+                        <strong>{{ current_user.name }}</strong>
+                        <small>{{ current_user.role | capitalize }}</small>
+                    </div>
 
-                        <strong>
-                            {{ current_user.name }}
-                        </strong>
+                    <!-- HOVER CARD -->
+                    <div class="profile-hover-card">
 
-                        <small>
-                            {{ current_user.role | capitalize }}
-                        </small>
+                        <div class="phc-header">
+                            <div class="phc-avatar">
+                                {{ current_user.name[0] | upper }}
+                            </div>
+                            <div>
+                                <div class="phc-name">{{ current_user.name }}</div>
+                                <div class="phc-email">{{ current_user.email }}</div>
+                            </div>
+                        </div>
+
+                        <div class="phc-divider"></div>
+
+                        <div class="phc-row">
+                            <span>Role</span>
+                            <span>{{ current_user.role | capitalize }}</span>
+                        </div>
+
+                        <div class="phc-row">
+                            <span>Status</span>
+                            <span>Active</span>
+                        </div>
 
                     </div>
 

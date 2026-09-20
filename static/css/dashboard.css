@@ -421,7 +421,7 @@
     display: flex;
     align-items: center;
 
-    gap: 24px;
+    gap: 14px;
 
 }
 
@@ -473,9 +473,17 @@
 
 
 .user-profile {
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+
 }
 
 
@@ -483,6 +491,8 @@
 
     width: 42px;
     height: 42px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
@@ -529,6 +539,145 @@
     color: #7082aa;
 
     font-size: 11px;
+
+}
+
+
+
+/* =========================================================
+   PROFILE HOVER CARD
+========================================================= */
+
+.profile-hover-card {
+
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+
+    width: 220px;
+    padding: 16px;
+
+    border: 1px solid rgba(124, 145, 190, 0.14);
+    border-radius: 14px;
+
+    background: #0d1328;
+    box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.55);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+
+    transition:
+        opacity 0.16s ease,
+        transform 0.16s ease,
+        visibility 0.16s;
+
+    z-index: 1200;
+
+}
+
+
+.user-profile:hover .profile-hover-card,
+.user-profile:focus-visible .profile-hover-card {
+
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+
+}
+
+
+.phc-header {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.phc-avatar {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #06b6d4,
+        #0284c7
+    );
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    font-size: 13px;
+
+}
+
+
+.phc-name {
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.phc-email {
+
+    margin-top: 2px;
+
+    color: #7082aa;
+
+    font-size: 11px;
+
+}
+
+
+.phc-divider {
+
+    height: 1px;
+
+    margin: 10px 0;
+
+    background: rgba(124, 145, 190, 0.14);
+
+}
+
+
+.phc-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 4px 0;
+
+    color: #7080a5;
+
+    font-size: 12px;
+
+}
+
+
+.phc-row span:last-child {
+
+    color: #f5f7ff;
 
 }
 
@@ -1275,6 +1424,72 @@
 }
 
 
+.dashboard-layout.light-mode .profile-hover-card {
+
+    background: #ffffff;
+
+    border-color: #e4e9f2;
+
+    box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.dashboard-layout.light-mode .phc-name {
+
+    color: #172033;
+
+}
+
+
+.dashboard-layout.light-mode .phc-row span:last-child {
+
+    color: #172033;
+
+}
+
+
+.dashboard-layout.light-mode .phc-divider {
+
+    background: #e4e9f2;
+
+}
+
+.dashboard-layout.light-mode .sidebar-link,
+.dashboard-layout.light-mode .sidebar-bottom-link {
+    color: #4a5578;
+}
+
+.dashboard-layout.light-mode .sidebar-link:hover,
+.dashboard-layout.light-mode .sidebar-bottom-link:hover {
+    color: #172033;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-layout.light-mode .dashboard-logo strong {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .notification-btn {
+    color: #5a6788;
+}
+
+.dashboard-layout.light-mode .notification-btn:hover {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .user-info strong {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .user-info small {
+    color: #5a6788;
+}
+
+.dashboard-layout.light-mode .sidebar-label {
+    color: #7a88ad;
+}
+
 
 /* =========================================================
    RESPONSIVE
@@ -1408,6 +1623,12 @@
     .user-info {
 
         display: none;
+
+    }
+
+    .profile-hover-card {
+
+        right: -10px;
 
     }
 
