@@ -1,0 +1,480 @@
+.watchlist-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+
+.watchlist-summary-card {
+    padding: 18px 20px;
+    border: 1px solid rgba(124, 145, 190, 0.14);
+    border-radius: 14px;
+    background: #0d1328;
+    transition: 0.25s ease;
+}
+
+
+.watchlist-summary-card:hover {
+    transform: translateY(-3px);
+}
+
+
+.gainers-summary,
+.predicted-summary {
+    border-color: rgba(53, 214, 157, 0.18);
+    background: rgba(53, 214, 157, 0.05);
+}
+
+
+.losers-summary {
+    border-color: rgba(255, 104, 122, 0.18);
+    background: rgba(255, 104, 122, 0.05);
+}
+
+
+.ws-label {
+    display: block;
+    color: #8b9abd;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.watchlist-summary-card h2 {
+    margin: 14px 0 0;
+    font-weight: 700;
+}
+
+
+.ws-value {
+    font-size: 28px;
+}
+
+
+.ws-value.ws-positive {
+    color: #35d69d;
+}
+
+
+.ws-value.ws-negative {
+    color: #ff687a;
+}
+
+
+.ws-total {
+    margin-left: 2px;
+    color: #6a7aa0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+
+/* =========================================================
+   WATCHLIST GRID
+========================================================= */
+
+.watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+
+.watchlist-stock-card {
+    padding: 22px;
+    border: 1px solid rgba(124, 145, 190, 0.14);
+    border-radius: 15px;
+    background: #0d1328;
+    transition: 0.25s ease;
+}
+
+
+.watchlist-stock-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(16, 217, 196, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* TOP ROW: BADGE + STAR */
+
+.wsc-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+
+.wsc-badge {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: rgba(16, 217, 196, 0.1);
+    color: #10d9c4;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+
+.wsc-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: #4c5a80;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.wsc-star:hover {
+    color: #f5a623;
+}
+
+
+.wsc-star.active {
+    color: #f5a623;
+}
+
+
+
+/* NAME */
+
+.wsc-name {
+    margin-top: 14px;
+}
+
+
+.wsc-name strong {
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+
+.wsc-name small {
+    display: block;
+    margin-top: 3px;
+    color: #7182aa;
+    font-size: 12px;
+}
+
+
+
+/* PRICE ROW */
+
+.wsc-price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+
+.wsc-price {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+.wsc-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.wsc-change.wsc-positive {
+    color: #35d69d;
+}
+
+
+.wsc-change.wsc-negative {
+    color: #ff687a;
+}
+
+
+.wsc-subprice-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+
+.wsc-ltp-label {
+    color: #68789e;
+    font-size: 11px;
+}
+
+
+.wsc-change-pts {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.wsc-change-pts.wsc-positive {
+    color: #35d69d;
+}
+
+
+.wsc-change-pts.wsc-negative {
+    color: #ff687a;
+}
+
+
+
+/* DIVIDER */
+
+.wsc-divider {
+    height: 1px;
+    margin: 18px 0 16px;
+    background: rgba(124, 145, 190, 0.1);
+}
+
+
+
+/* STATS */
+
+.wsc-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+
+.wsc-stat small {
+    display: block;
+    margin-bottom: 6px;
+    color: #5f719b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+}
+
+
+.wsc-stat strong {
+    color: #dbe2f0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.wsc-predict-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: rgba(53, 214, 157, 0.1);
+    color: #35d69d;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+.wsc-predict-badge i {
+    font-size: 10px;
+}
+
+
+.wsc-predict-badge.wsc-predict-down {
+    background: rgba(255, 104, 122, 0.1);
+    color: #ff687a;
+}
+
+
+
+/* =========================================================
+   ADD MORE STOCKS
+========================================================= */
+
+.add-stocks-card {
+    padding: 22px;
+    border: 1px solid rgba(124, 145, 190, 0.14);
+    border-radius: 15px;
+    background: #0d1328;
+}
+
+
+.add-stocks-header h3 {
+    margin: 0 0 18px;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+
+.add-stocks-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+
+.add-stock-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 16px;
+    border: 1px solid rgba(124, 145, 190, 0.12);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.015);
+    transition: 0.2s ease;
+}
+
+
+.add-stock-chip:hover {
+    border-color: rgba(16, 217, 196, 0.25);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+
+.asc-badge {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgba(124, 145, 190, 0.14);
+    color: #b9c4e0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.asc-symbol {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.asc-change {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.asc-change.asc-positive {
+    color: #35d69d;
+}
+
+
+.asc-change.asc-negative {
+    color: #ff687a;
+}
+
+
+.asc-add {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #10d9c4;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+.asc-add:hover {
+    text-decoration: underline;
+}
+
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+.dashboard-layout.light-mode .watchlist-summary-card,
+.dashboard-layout.light-mode .watchlist-stock-card,
+.dashboard-layout.light-mode .add-stocks-card {
+    background: #ffffff;
+    border-color: #e4e9f2;
+}
+
+
+.dashboard-layout.light-mode .gainers-summary,
+.dashboard-layout.light-mode .predicted-summary {
+    background: rgba(53, 214, 157, 0.06);
+}
+
+
+.dashboard-layout.light-mode .losers-summary {
+    background: rgba(255, 104, 122, 0.06);
+}
+
+
+.dashboard-layout.light-mode .wsc-name strong,
+.dashboard-layout.light-mode .wsc-price,
+.dashboard-layout.light-mode .add-stocks-header h3,
+.dashboard-layout.light-mode .asc-symbol {
+    color: #172033;
+}
+
+
+.dashboard-layout.light-mode .wsc-stat strong {
+    color: #2c3552;
+}
+
+
+.dashboard-layout.light-mode .add-stock-chip {
+    background: #f7f9fc;
+    border-color: #e4e9f2;
+}
+
+
+.dashboard-layout.light-mode .asc-badge {
+    background: #eef1f8;
+    color: #4a5578;
+}
+
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+    .add-stocks-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 900px) {
+    .watchlist-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .watchlist-summary-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .add-stocks-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
