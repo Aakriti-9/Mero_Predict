@@ -20,6 +20,7 @@ def dashboard():
     return render_template("dashboard.html")
 
 
+from flask import flash
 @main.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
@@ -37,6 +38,8 @@ def profile():
         ).strip()
 
         db.session.commit()
+
+        flash("Profile updated successfully!", "success")
 
         return redirect(url_for("main.profile"))
 

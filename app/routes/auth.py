@@ -144,4 +144,4 @@ def logout():
         "success"
     )
 
-    return redirect(url_for("auth.login"))
+    return redirect(url_for("main.home"))
