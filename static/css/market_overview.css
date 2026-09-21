@@ -462,3 +462,32 @@
     }
 
 }
+
+
+/* =========================================================
+   CHART ENTRANCE ANIMATION
+   Only the canvas wrapper eases in — panel border/card
+   stays visible immediately, unaffected
+========================================================= */
+
+@keyframes overviewFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sector-chart-wrapper,
+.breadth-chart-wrapper,
+.turnover-chart-wrapper {
+    opacity: 0;
+    animation: overviewFadeInUp 0.7s ease forwards;
+}
+
+.sector-chart-wrapper { animation-delay: 0s; }
+.breadth-chart-wrapper { animation-delay: 0.15s; }
+.turnover-chart-wrapper { animation-delay: 0.30s; }

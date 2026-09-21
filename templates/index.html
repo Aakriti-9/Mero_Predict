@@ -783,7 +783,7 @@
 
                     <span class="feature-link">
                         Explore data
-                        <i class="bi bi-arrow-right"></i>
+                        <!-- <i class="bi bi-arrow-right"></i> -->
                     </span>
 
                 </div>
@@ -799,7 +799,7 @@
 
                     <div class="feature-icon">
 
-                        <i class="bi bi-lightning-charge"></i>
+                        <i class="bi bi-lightning-charge"></i> 
 
                     </div>
 
@@ -815,7 +815,7 @@
 
                     <span class="feature-link">
                         View predictions
-                        <i class="bi bi-arrow-right"></i>
+                        <!-- <i class="bi bi-arrow-right"></i> -->
                     </span>
 
                 </div>
@@ -846,7 +846,7 @@
 
                     <span class="feature-link">
                         Analyze companies
-                        <i class="bi bi-arrow-right"></i>
+                        <!-- <i class="bi bi-arrow-right"></i> -->
                     </span>
 
                 </div>
@@ -931,23 +931,6 @@
 
             </div>
 
-
-            <div class="footer-links">
-
-                <a href="{{ url_for('auth.login') }}">
-                    Home
-                </a>
-
-                <a href="{{ url_for('auth.login') }}">
-                    Dashboard
-                </a>
-
-                <a href="{{ url_for('auth.login') }}">
-                    Get Started
-                </a>
-
-            </div>
-
         </div>
 
 
@@ -974,6 +957,7 @@
 
 {% block scripts %}
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 {% endblock %}
