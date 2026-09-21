@@ -54,3 +54,8 @@ def admin_panel():
         return "Access denied", 403
 
     return render_template("admin_panel.html")
+
+@main.route("/watchlist")
+@login_required
+def watchlist():
+    return render_template("watchlist.html")
