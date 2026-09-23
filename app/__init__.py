@@ -20,6 +20,7 @@ def create_app():
 
     # Import models
     from app.models.user import User
+    from app.models.stock_price import StockPrice
 
     # User loader for Flask-Login
     @login_manager.user_loader
@@ -47,5 +48,8 @@ def create_app():
         os.path.join(app.root_path, app.template_folder, "index.html")
     )
     )
+    
+    with app.app_context():
+        db.create_all()
 
     return app
