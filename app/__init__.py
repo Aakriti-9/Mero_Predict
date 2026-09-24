@@ -48,8 +48,5 @@ def create_app():
         os.path.join(app.root_path, app.template_folder, "index.html")
     )
     )
-    
-    with app.app_context():
-        db.create_all()
 
     return app
