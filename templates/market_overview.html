@@ -7,11 +7,15 @@ Market Overview | MeroPredict
 
 {% block extra_css %}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/market_overview.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/market_overview.css') }}"
+>
 
 {% endblock %}
 
@@ -36,94 +40,10 @@ Market Overview | MeroPredict
 
 
         <!-- =====================================================
-             TOPBAR
+             SHARED TOPBAR
         ===================================================== -->
 
-        <header class="dashboard-topbar">
-
-
-            <!-- SEARCH -->
-
-            <div class="dashboard-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="companySearch"
-                    placeholder="Search company or symbol..."
-                >
-
-            </div>
-
-
-            <!-- TOPBAR RIGHT -->
-
-            <div class="topbar-right">
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="notification-btn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <i class="bi bi-bell"></i>
-
-                    <span class="notification-dot"></span>
-
-                </button>
-
-
-                <!-- USER PROFILE -->
-
-                <a href="{{ url_for('main.profile') }}"
-                   class="user-profile">
-
-                    <div class="user-avatar">
-                        {{ current_user.name[0] | upper }}
-                    </div>
-
-                    <div class="user-info">
-                        <strong>{{ current_user.name }}</strong>
-                        <small>{{ current_user.role | capitalize }}</small>
-                    </div>
-
-                    <!-- HOVER CARD -->
-                    <div class="profile-hover-card">
-
-                        <div class="phc-header">
-                            <div class="phc-avatar">
-                                {{ current_user.name[0] | upper }}
-                            </div>
-                            <div>
-                                <div class="phc-name">{{ current_user.name }}</div>
-                                <div class="phc-email">{{ current_user.email }}</div>
-                            </div>
-                        </div>
-
-                        <div class="phc-divider"></div>
-
-                        <div class="phc-row">
-                            <span>Role</span>
-                            <span>{{ current_user.role | capitalize }}</span>
-                        </div>
-
-                        <div class="phc-row">
-                            <span>Status</span>
-                            <span>Active</span>
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-            </div>
-
-        </header>
+        {% include "topbar.html" %}
 
 
         <!-- =====================================================
@@ -658,6 +578,9 @@ Market Overview | MeroPredict
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/market_overview.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/market_overview.js') }}"
+></script>
 
 {% endblock %}
+

@@ -1,0 +1,337 @@
+/* =========================================================
+   NOTIFICATION SYSTEM
+========================================================= */
+
+.notification-wrapper {
+    position: relative;
+}
+
+
+/* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
+
+.notification-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+
+    color: #cbd5e1;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.notification-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+}
+
+.notification-btn i {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   UNREAD COUNT
+========================================================= */
+
+.notification-count {
+    position: absolute;
+
+    top: -4px;
+    right: -4px;
+
+    min-width: 18px;
+    height: 18px;
+
+    padding: 0 4px;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ef4444;
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+.notification-count.show {
+    display: flex;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+.notification-dropdown {
+    position: absolute;
+
+    top: 48px;
+    right: 0;
+
+    width: 360px;
+
+    background: #0d1835;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 14px;
+
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+
+    overflow: hidden;
+
+    z-index: 1000;
+
+    display: none;
+}
+
+.notification-dropdown.show {
+    display: block;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.notification-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.notification-header h4 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.notification-header span {
+    color: #8ea0c5;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.notification-list {
+    max-height: 360px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.notification-empty {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #8ea0c5;
+}
+
+.notification-empty i {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 28px;
+}
+
+.notification-empty p {
+    margin: 0;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   NOTIFICATION ITEM
+========================================================= */
+
+.notification-item {
+    display: flex;
+
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.notification-item.unread {
+    background: rgba(45, 212, 191, 0.05);
+}
+
+
+/* =========================================================
+   NOTIFICATION ICON
+========================================================= */
+
+.notification-item-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(45, 212, 191, 0.10);
+
+    color: #2dd4bf;
+
+    border-radius: 50%;
+}
+
+.notification-item-icon i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   NOTIFICATION CONTENT
+========================================================= */
+
+.notification-item-content {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.notification-item-title {
+    margin-bottom: 3px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.notification-item-message {
+    color: #8ea0c5;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+.notification-item-time {
+    margin-top: 5px;
+
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   UNREAD MARKER
+========================================================= */
+
+.notification-unread-marker {
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    margin-top: 6px;
+
+    background: #2dd4bf;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.notification-footer {
+    padding: 10px 16px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    text-align: center;
+}
+
+.notification-footer button {
+    border: none;
+
+    background: transparent;
+
+    color: #2dd4bf;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.notification-footer button:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .notification-dropdown {
+        position: fixed;
+
+        top: 70px;
+        right: 12px;
+        left: 12px;
+
+        width: auto;
+    }
+
+}

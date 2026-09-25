@@ -1,365 +1,1785 @@
 // =========================================================
 // MERO-PREDICT
-// Professional NEPSE Chart — Live Streaming Edition
+// Landing Page — Database Connected Edition
 // =========================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    const canvas = document.getElementById("nepseChart");
+    const canvas =
+        document.getElementById("nepseChart");
+
+
+    /* =====================================================
+       CHECK CHART.JS
+    ===================================================== */
 
     if (!canvas) {
-        console.error("NEPSE chart canvas not found.");
-        return;
-    }
 
-    if (typeof Chart === "undefined") {
-        console.error("Chart.js is not loaded.");
-        return;
-    }
+        console.error(
+            "Market chart canvas not found."
+        );
 
+    } else if (
+        typeof Chart === "undefined"
+    ) {
 
-    // -----------------------------------------------------
-    // Seed Data
-    // -----------------------------------------------------
+        console.error(
+            "Chart.js is not loaded."
+        );
 
-    const MAX_POINTS = 20;
-
-    const seedLabels = [
-        "Jul 01", "Jul 03", "Jul 05", "Jul 07", "Jul 09",
-        "Jul 11", "Jul 13", "Jul 15", "Jul 17", "Jul 19",
-        "Jul 21", "Jul 23", "Jul 25", "Jul 27", "Jul 29"
-    ];
-
-    const seedData = [
-        2280, 2295, 2288, 2305, 2298,
-        2315, 2308, 2330, 2322, 2340,
-        2355, 2348, 2368, 2359, 2385
-    ];
-
-    const baselineValue = seedData[0];
-
-
-    // -----------------------------------------------------
-    // Canvas Context
-    // -----------------------------------------------------
-
-    const ctx = canvas.getContext("2d");
-
-    function buildGradient() {
-        const g = ctx.createLinearGradient(0, 0, 0, canvas.height || 280);
-        g.addColorStop(0, "rgba(0, 212, 199, 0.25)");
-        g.addColorStop(0.5, "rgba(0, 212, 199, 0.08)");
-        g.addColorStop(1, "rgba(0, 212, 199, 0)");
-        return g;
     }
 
 
-    // -----------------------------------------------------
-    // PLUGIN: Baseline reference line
-    // -----------------------------------------------------
+    /* =====================================================
+       LOAD LANDING PAGE MARKET DATA
+    ===================================================== */
 
-    const baselinePlugin = {
-        id: "baselineLine",
-        afterDatasetsDraw(chart) {
-            const { ctx, chartArea, scales } = chart;
-            const y = scales.y.getPixelForValue(baselineValue);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.setLineDash([4, 4]);
-            ctx.moveTo(chartArea.left, y);
-            ctx.lineTo(chartArea.right, y);
-            ctx.strokeStyle = "rgba(130, 150, 200, 0.22)";
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            ctx.restore();
-        }
-    };
+    loadLandingMarketData();
 
 
-    // -----------------------------------------------------
-    // PLUGIN: Crosshair on hover
-    // -----------------------------------------------------
+    /* =====================================================
+       FETCH DATA FROM FLASK
+    ===================================================== */
 
-    const crosshairPlugin = {
-        id: "crosshair",
-        afterDatasetsDraw(chart) {
-            const active = chart.getActiveElements();
-            if (!active || active.length === 0) return;
+    function loadLandingMarketData() {
 
-            const { ctx, chartArea } = chart;
-            const point = active[0].element;
-            const { x, y } = point;
+        fetch("/api/landing-market")
 
-            ctx.save();
+            .then(function (response) {
 
-            ctx.beginPath();
-            ctx.setLineDash([3, 3]);
-            ctx.moveTo(x, chartArea.top);
-            ctx.lineTo(x, chartArea.bottom);
-            ctx.strokeStyle = "rgba(0, 212, 199, 0.35)";
-            ctx.lineWidth = 1;
-            ctx.stroke();
+                if (!response.ok) {
 
-            ctx.beginPath();
-            ctx.moveTo(chartArea.left, y);
-            ctx.lineTo(chartArea.right, y);
-            ctx.strokeStyle = "rgba(0, 212, 199, 0.35)";
-            ctx.lineWidth = 1;
-            ctx.stroke();
+                    throw new Error(
+                        "Failed to load landing market data."
+                    );
 
-            ctx.restore();
-        }
-    };
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                console.log(
+                    "Landing market data:",
+                    data
+                );
 
 
-    // -----------------------------------------------------
-    // PLUGIN: Live pulse marker + price label
-    // -----------------------------------------------------
+                if (data.error) {
 
-    let pulsePhase = 0;
+                    throw new Error(
+                        data.error
+                    );
 
-    const livePricePlugin = {
-        id: "livePrice",
-        afterDatasetsDraw(chart) {
-            const meta = chart.getDatasetMeta(0);
-            const lastPoint = meta.data[meta.data.length - 1];
-            if (!lastPoint) return;
+                }
 
-            const { x, y } = lastPoint.getProps(["x", "y"], true);
-            const { chartArea } = chart;
-            const c = chart.ctx;
-            const currentValue = chart.data.datasets[0].data[chart.data.datasets[0].data.length - 1];
 
-            c.save();
+                /* -----------------------------------------
+                   UPDATE MARKET SUMMARY
+                ----------------------------------------- */
 
-            // Pulsing glow ring
-            const pulseRadius = 4 + Math.sin(pulsePhase) * 3;
-            c.beginPath();
-            c.arc(x, y, pulseRadius + 6, 0, Math.PI * 2);
-            c.fillStyle = "rgba(0, 212, 199, " + (0.22 - Math.sin(pulsePhase) * 0.08) + ")";
-            c.fill();
+                updateMarketSummary(data);
 
-            // Solid core dot
-            c.beginPath();
-            c.arc(x, y, 4, 0, Math.PI * 2);
-            c.fillStyle = "#00d4c7";
-            c.shadowColor = "#00d4c7";
-            c.shadowBlur = 9;
-            c.fill();
-            c.shadowBlur = 0;
 
-            // Dashed connector to right edge
-            c.beginPath();
-            c.setLineDash([2, 3]);
-            c.moveTo(x, y);
-            c.lineTo(chartArea.right, y);
-            c.strokeStyle = "rgba(0, 212, 199, 0.4)";
-            c.lineWidth = 1;
-            c.stroke();
-            c.setLineDash([]);
+                /* -----------------------------------------
+                   UPDATE TOP GAINERS
+                ----------------------------------------- */
 
-            // Price label box
-            const label = Number(currentValue).toLocaleString("en-IN", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+                updateTopGainers(
+                    data.top_gainers || []
+                );
+
+
+                /* -----------------------------------------
+                   UPDATE TOP LOSERS
+                ----------------------------------------- */
+
+                updateTopLosers(
+                    data.top_losers || []
+                );
+
+
+                /* -----------------------------------------
+                   UPDATE MINI STOCKS
+                ----------------------------------------- */
+
+                updateMiniStocks(
+                    data.top_gainers || []
+                );
+
+
+                /* -----------------------------------------
+                   UPDATE TURNOVER CHART
+                ----------------------------------------- */
+
+                if (
+                    canvas &&
+                    typeof Chart !== "undefined"
+                ) {
+
+                    createMarketChart(
+                        data.turnover_labels || [],
+                        data.turnover_data || []
+                    );
+
+                }
+
+            })
+
+            .catch(function (error) {
+
+                console.error(
+                    "Landing page market error:",
+                    error
+                );
+
             });
 
-            c.font = "600 11px Inter, sans-serif";
-            const textWidth = c.measureText(label).width;
-            const boxPadding = 6;
-            const boxWidth = textWidth + boxPadding * 2;
-            const boxHeight = 20;
-            const boxX = chartArea.right - boxWidth;
-            const boxY = y - boxHeight / 2;
-
-            c.beginPath();
-            c.roundRect(boxX, boxY, boxWidth, boxHeight, 5);
-            c.fillStyle = "#00d4c7";
-            c.fill();
-
-            c.fillStyle = "#062420";
-            c.textBaseline = "middle";
-            c.fillText(label, boxX + boxPadding, boxY + boxHeight / 2 + 0.5);
-
-            c.restore();
-        }
-    };
+    }
 
 
-    // -----------------------------------------------------
-    // Create Chart
-    // -----------------------------------------------------
+    /* =====================================================
+       UPDATE MARKET SUMMARY
+    ===================================================== */
 
-    const chart = new Chart(ctx, {
+    function updateMarketSummary(data) {
 
-        type: "line",
 
-        data: {
-            labels: [...seedLabels],
-            datasets: [
-                {
-                    label: "NEPSE Index",
-                    data: [...seedData],
+        /* =================================================
+           MARKET TURNOVER
+        ================================================= */
 
-                    borderColor: "#00d4c7",
-                    borderWidth: 3,
+        const summaryTurnover =
+            document.getElementById(
+                "summaryTurnover"
+            );
 
-                    backgroundColor: buildGradient(),
-                    fill: true,
 
-                    tension: 0.4,
+        if (summaryTurnover) {
 
-                    pointRadius: 0,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "#00d4c7",
-                    pointHoverBorderColor: "#ffffff",
-                    pointHoverBorderWidth: 2
-                }
-            ]
-        },
+            const turnover =
+                Number(
+                    data.total_turnover
+                );
 
-        options: {
 
-            responsive: true,
-            maintainAspectRatio: false,
+            if (Number.isFinite(turnover)) {
 
-            layout: {
-                padding: { right: 55 }
-            },
+                summaryTurnover.textContent =
+                    "NPR " +
+                    turnover.toFixed(2) +
+                    "B";
 
-            interaction: {
-                mode: "index",
-                intersect: false
-            },
+            } else {
 
-            plugins: {
-                legend: { display: false },
+                summaryTurnover.textContent =
+                    "N/A";
 
-                tooltip: {
-                    enabled: true,
-                    backgroundColor: "rgba(10, 20, 48, 0.95)",
-                    titleColor: "#ffffff",
-                    bodyColor: "#aab9e2",
-                    borderColor: "rgba(0, 212, 199, 0.35)",
-                    borderWidth: 1,
-                    padding: 12,
-                    cornerRadius: 10,
-                    displayColors: false,
-
-                    callbacks: {
-                        title: (items) => items[0].label,
-                        label: (context) =>
-                            " NEPSE  " +
-                            Number(context.parsed.y).toLocaleString("en-IN", {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
-                            })
-                    }
-                }
-            },
-
-            scales: {
-                x: {
-                    display: true,
-                    grid: { display: false },
-                    border: { display: false },
-                    ticks: {
-                        color: "#6079ad",
-                        font: { size: 11 },
-                        maxTicksLimit: 7,
-                        padding: 8
-                    }
-                },
-                y: {
-                    display: true,
-                    position: "right",
-                    grid: {
-                        color: "rgba(130, 150, 200, 0.08)",
-                        drawBorder: false
-                    },
-                    border: { display: false },
-                    ticks: {
-                        color: "#6079ad",
-                        font: { size: 11 },
-                        padding: 8,
-                        callback: (value) => value.toLocaleString()
-                    }
-                }
-            },
-
-            // ---------------------------------------------
-            // RISE-IN ANIMATION (initial load only)
-            // ---------------------------------------------
-
-            animation: {
-                duration: 2800,
-                easing: "easeInOutSine"
-            },
-
-            animations: {
-                y: {
-                    easing: "easeInOutSine",
-                    duration: 2800,
-                    from: (ctx2) => {
-                        if (ctx2.type === "data" && ctx2.mode === "default" && !ctx2.dropped) {
-                            ctx2.dropped = true;
-                            return ctx2.chart.scales.y.getPixelForValue(
-                                Math.min(...seedData) - 40
-                            );
-                        }
-                    }
-                }
             }
-        },
 
-        plugins: [baselinePlugin, crosshairPlugin, livePricePlugin]
-    });
-
-
-    // -----------------------------------------------------
-    // Live streaming — push a new point every few seconds,
-    // drop the oldest, so the chart scrolls forward
-    // -----------------------------------------------------
-
-    function pushLivePoint() {
-        const data = chart.data.datasets[0].data;
-        const last = data[data.length - 1];
-        const change = (Math.random() - 0.47) * 3.5;
-        const next = Number((last + change).toFixed(2));
-
-        const now = new Date();
-        const label = now.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-        });
-
-        chart.data.labels.push(label);
-        data.push(next);
-
-        if (chart.data.labels.length > MAX_POINTS) {
-            chart.data.labels.shift();
-            data.shift();
         }
 
-        chart.data.datasets[0].backgroundColor = buildGradient();
-        chart.update("none");
+
+        const summaryTurnoverDate =
+            document.getElementById(
+                "summaryTurnoverDate"
+            );
+
+
+        if (
+            summaryTurnoverDate &&
+            data.latest_date
+        ) {
+
+            summaryTurnoverDate.textContent =
+                data.latest_date;
+
+        }
+
+
+        /* =================================================
+           TRADED STOCKS
+        ================================================= */
+
+        const summaryStocks =
+            document.getElementById(
+                "summaryStocks"
+            );
+
+
+        if (summaryStocks) {
+
+            summaryStocks.textContent =
+                Number(
+                    data.total_stocks || 0
+                ).toLocaleString();
+
+        }
+
+
+        /* =================================================
+           GAINERS
+        ================================================= */
+
+        const summaryGainers =
+            document.getElementById(
+                "summaryGainers"
+            );
+
+
+        if (summaryGainers) {
+
+            summaryGainers.textContent =
+                Number(
+                    data.gainers || 0
+                ).toLocaleString();
+
+        }
+
+
+        /* =================================================
+           BEST GAINER TEXT
+        ================================================= */
+
+        const summaryGainerText =
+            document.getElementById(
+                "summaryGainerText"
+            );
+
+
+        if (
+            summaryGainerText &&
+            data.top_gainers &&
+            data.top_gainers.length > 0
+        ) {
+
+            const bestGainer =
+                data.top_gainers[0];
+
+
+            summaryGainerText.textContent =
+                "+" +
+                Number(
+                    bestGainer.change
+                ).toFixed(2) +
+                "% best";
+
+        }
+
+
+        /* =================================================
+           LOSERS
+        ================================================= */
+
+        const summaryLosers =
+            document.getElementById(
+                "summaryLosers"
+            );
+
+
+        if (summaryLosers) {
+
+            summaryLosers.textContent =
+                Number(
+                    data.losers || 0
+                ).toLocaleString();
+
+        }
+
+
+        /* =================================================
+           WORST LOSER TEXT
+        ================================================= */
+
+        const summaryLoserText =
+            document.getElementById(
+                "summaryLoserText"
+            );
+
+
+        if (
+            summaryLoserText &&
+            data.top_losers &&
+            data.top_losers.length > 0
+        ) {
+
+            const worstLoser =
+                data.top_losers[0];
+
+
+            summaryLoserText.textContent =
+                Number(
+                    worstLoser.change
+                ).toFixed(2) +
+                "% worst";
+
+        }
+
+
+        /* =================================================
+           HERO TURNOVER
+        ================================================= */
+
+        const heroTurnover =
+            document.getElementById(
+                "heroTurnover"
+            );
+
+
+        if (heroTurnover) {
+
+            const turnover =
+                Number(
+                    data.total_turnover
+                );
+
+
+            if (Number.isFinite(turnover)) {
+
+                heroTurnover.textContent =
+                    "NPR " +
+                    turnover.toFixed(2) +
+                    "B";
+
+            } else {
+
+                heroTurnover.textContent =
+                    "N/A";
+
+            }
+
+        }
+
+
+        /* =================================================
+           HERO DATE
+        ================================================= */
+
+        const heroTurnoverDate =
+            document.getElementById(
+                "heroTurnoverDate"
+            );
+
+
+        if (
+            heroTurnoverDate &&
+            data.latest_date
+        ) {
+
+            heroTurnoverDate.textContent =
+                data.latest_date;
+
+        }
+
+
+        /* =================================================
+           MARKET STATUS
+        ================================================= */
+
+        const marketStatus =
+            document.getElementById(
+                "marketStatus"
+            );
+
+
+        if (marketStatus) {
+
+            marketStatus.textContent =
+                "Historical Data";
+
+        }
+
+
+        /* =================================================
+           MARKET DATE
+        ================================================= */
+
+        const marketDate =
+            document.getElementById(
+                "marketDate"
+            );
+
+
+        if (
+            marketDate &&
+            data.latest_date
+        ) {
+
+            marketDate.textContent =
+                data.latest_date;
+
+        }
+
     }
 
-    setInterval(pushLivePoint, 2500);
+
+    /* =====================================================
+       UPDATE TOP GAINERS
+    ===================================================== */
+
+    function updateTopGainers(stocks) {
+
+        const heading =
+            document.querySelector(
+                ".gain-heading"
+            );
 
 
-    // -----------------------------------------------------
-    // Continuous pulse animation loop
-    // -----------------------------------------------------
+        if (!heading) {
 
-    function animatePulse() {
-        pulsePhase += 0.07;
-        chart.draw();
-        requestAnimationFrame(animatePulse);
+            return;
+
+        }
+
+
+        const card =
+            heading.closest(
+                ".stock-table-card"
+            );
+
+
+        if (!card) {
+
+            return;
+
+        }
+
+
+        const tbody =
+            card.querySelector(
+                "tbody"
+            );
+
+
+        if (!tbody) {
+
+            return;
+
+        }
+
+
+        const count =
+            card.querySelector(
+                ".table-count"
+            );
+
+
+        if (count) {
+
+            count.textContent =
+                stocks.length +
+                " stocks";
+
+        }
+
+
+        tbody.innerHTML = "";
+
+
+        if (stocks.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td colspan="3">
+                        No gainers available
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        stocks.forEach(
+            function (stock) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <strong>
+                            ${escapeHtml(
+                                stock.symbol
+                            )}
+                        </strong>
+
+                        <small>
+                            NEPSE
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        ${formatPrice(
+                            stock.price
+                        )}
+
+                    </td>
+
+
+                    <td class="positive-change">
+
+                        ▲ +
+
+                        ${formatPercentage(
+                            stock.change
+                        )}
+
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(row);
+
+            }
+        );
+
     }
 
-    requestAnimationFrame(animatePulse);
+
+    /* =====================================================
+       UPDATE TOP LOSERS
+    ===================================================== */
+
+    function updateTopLosers(stocks) {
+
+        const heading =
+            document.querySelector(
+                ".loss-heading"
+            );
+
+
+        if (!heading) {
+
+            return;
+
+        }
+
+
+        const card =
+            heading.closest(
+                ".stock-table-card"
+            );
+
+
+        if (!card) {
+
+            return;
+
+        }
+
+
+        const tbody =
+            card.querySelector(
+                "tbody"
+            );
+
+
+        if (!tbody) {
+
+            return;
+
+        }
+
+
+        const count =
+            card.querySelector(
+                ".table-count"
+            );
+
+
+        if (count) {
+
+            count.textContent =
+                stocks.length +
+                " stocks";
+
+        }
+
+
+        tbody.innerHTML = "";
+
+
+        if (stocks.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td colspan="3">
+                        No losers available
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        stocks.forEach(
+            function (stock) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <strong>
+                            ${escapeHtml(
+                                stock.symbol
+                            )}
+                        </strong>
+
+                        <small>
+                            NEPSE
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        ${formatPrice(
+                            stock.price
+                        )}
+
+                    </td>
+
+
+                    <td class="negative-change">
+
+                        ▼
+
+                        ${formatPercentage(
+                            stock.change
+                        )}
+
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(row);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       UPDATE MINI STOCK CARDS
+       
+       Uses top 3 gainers from database.
+    ===================================================== */
+
+    function updateMiniStocks(stocks) {
+
+        const miniStocks =
+            stocks.slice(
+                0,
+                3
+            );
+
+
+        miniStocks.forEach(
+            function (stock, index) {
+
+                const number =
+                    index + 1;
+
+
+                const symbol =
+                    document.getElementById(
+                        "miniStock" +
+                        number +
+                        "Symbol"
+                    );
+
+
+                const price =
+                    document.getElementById(
+                        "miniStock" +
+                        number +
+                        "Price"
+                    );
+
+
+                const change =
+                    document.getElementById(
+                        "miniStock" +
+                        number +
+                        "Change"
+                    );
+
+
+                if (symbol) {
+
+                    symbol.textContent =
+                        stock.symbol || "---";
+
+                }
+
+
+                if (price) {
+
+                    price.textContent =
+                        formatPrice(
+                            stock.price
+                        );
+
+                }
+
+
+                if (change) {
+
+                    change.textContent =
+                        "+" +
+                        formatPercentage(
+                            stock.change
+                        );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FORMAT PRICE
+    ===================================================== */
+
+    function formatPrice(price) {
+
+        const value =
+            Number(price);
+
+
+        if (!Number.isFinite(value)) {
+
+            return "N/A";
+
+        }
+
+
+        return value.toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FORMAT PERCENTAGE
+    ===================================================== */
+
+    function formatPercentage(value) {
+
+        const number =
+            Number(value);
+
+
+        if (!Number.isFinite(number)) {
+
+            return "0.00%";
+
+        }
+
+
+        return Math.abs(number).toFixed(2) +
+               "%";
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHtml(value) {
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =====================================================
+       MARKET TURNOVER CHART
+       
+       REAL DATABASE DATA
+       
+       MySQL
+          ↓
+       Flask
+          ↓
+       /api/landing-market
+          ↓
+       turnover_labels
+       turnover_data
+          ↓
+       Chart.js
+    ===================================================== */
+
+    function createMarketChart(
+        chartLabels,
+        chartData
+    ) {
+
+        if (
+            !canvas ||
+            typeof Chart === "undefined"
+        ) {
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           Validate arrays
+        --------------------------------------------- */
+
+        if (
+            !Array.isArray(chartLabels) ||
+            !Array.isArray(chartData) ||
+            chartLabels.length === 0 ||
+            chartData.length === 0
+        ) {
+
+            console.error(
+                "No turnover chart data available."
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           Keep labels and values aligned
+        --------------------------------------------- */
+
+        const length =
+            Math.min(
+                chartLabels.length,
+                chartData.length
+            );
+
+
+        const labels =
+            chartLabels.slice(
+                0,
+                length
+            );
+
+
+        const values =
+            chartData
+                .slice(
+                    0,
+                    length
+                )
+                .map(
+                    function (value) {
+
+                        return Number(value);
+
+                    }
+                )
+                .filter(
+                    function (value) {
+
+                        return Number.isFinite(
+                            value
+                        );
+
+                    }
+                );
+
+
+        if (values.length === 0) {
+
+            console.error(
+                "Turnover values are invalid."
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           Destroy existing chart
+        --------------------------------------------- */
+
+        if (window.meroMarketChart) {
+
+            window.meroMarketChart.destroy();
+
+        }
+
+
+        const ctx =
+            canvas.getContext(
+                "2d"
+            );
+
+
+        /* ---------------------------------------------
+           Baseline
+        --------------------------------------------- */
+
+        const baselineValue =
+            values[0];
+
+
+        /* ---------------------------------------------
+           Gradient
+        --------------------------------------------- */
+
+        function buildGradient() {
+
+            const gradient =
+                ctx.createLinearGradient(
+                    0,
+                    0,
+                    0,
+                    canvas.height || 280
+                );
+
+
+            gradient.addColorStop(
+                0,
+                "rgba(0, 212, 199, 0.25)"
+            );
+
+
+            gradient.addColorStop(
+                0.5,
+                "rgba(0, 212, 199, 0.08)"
+            );
+
+
+            gradient.addColorStop(
+                1,
+                "rgba(0, 212, 199, 0)"
+            );
+
+
+            return gradient;
+
+        }
+
+
+        /* =================================================
+           BASELINE PLUGIN
+        ================================================= */
+
+        const baselinePlugin = {
+
+            id: "baselineLine",
+
+
+            afterDatasetsDraw(chart) {
+
+                const {
+                    ctx,
+                    chartArea,
+                    scales
+                } = chart;
+
+
+                if (
+                    !scales.y ||
+                    !chartArea
+                ) {
+
+                    return;
+
+                }
+
+
+                const y =
+                    scales.y.getPixelForValue(
+                        baselineValue
+                    );
+
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+                ctx.setLineDash([
+                    4,
+                    4
+                ]);
+
+
+                ctx.moveTo(
+                    chartArea.left,
+                    y
+                );
+
+
+                ctx.lineTo(
+                    chartArea.right,
+                    y
+                );
+
+
+                ctx.strokeStyle =
+                    "rgba(130, 150, 200, 0.22)";
+
+
+                ctx.lineWidth = 1;
+
+                ctx.stroke();
+
+
+                ctx.restore();
+
+            }
+
+        };
+
+
+        /* =================================================
+           CROSSHAIR PLUGIN
+        ================================================= */
+
+        const crosshairPlugin = {
+
+            id: "crosshair",
+
+
+            afterDatasetsDraw(chart) {
+
+                const active =
+                    chart.getActiveElements();
+
+
+                if (
+                    !active ||
+                    active.length === 0
+                ) {
+
+                    return;
+
+                }
+
+
+                const {
+                    ctx,
+                    chartArea
+                } = chart;
+
+
+                const point =
+                    active[0].element;
+
+
+                const {
+                    x,
+                    y
+                } = point;
+
+
+                ctx.save();
+
+
+                /* Vertical */
+
+                ctx.beginPath();
+
+                ctx.setLineDash([
+                    3,
+                    3
+                ]);
+
+
+                ctx.moveTo(
+                    x,
+                    chartArea.top
+                );
+
+
+                ctx.lineTo(
+                    x,
+                    chartArea.bottom
+                );
+
+
+                ctx.strokeStyle =
+                    "rgba(0, 212, 199, 0.35)";
+
+
+                ctx.lineWidth = 1;
+
+                ctx.stroke();
+
+
+                /* Horizontal */
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    chartArea.left,
+                    y
+                );
+
+
+                ctx.lineTo(
+                    chartArea.right,
+                    y
+                );
+
+
+                ctx.strokeStyle =
+                    "rgba(0, 212, 199, 0.35)";
+
+
+                ctx.lineWidth = 1;
+
+                ctx.stroke();
+
+
+                ctx.restore();
+
+            }
+
+        };
+
+
+        /* =================================================
+           LAST POINT PLUGIN
+        ================================================= */
+
+        const livePricePlugin = {
+
+            id: "livePrice",
+
+
+            afterDatasetsDraw(chart) {
+
+                const meta =
+                    chart.getDatasetMeta(
+                        0
+                    );
+
+
+                if (
+                    !meta ||
+                    !meta.data ||
+                    meta.data.length === 0
+                ) {
+
+                    return;
+
+                }
+
+
+                const lastPoint =
+                    meta.data[
+                        meta.data.length - 1
+                    ];
+
+
+                if (!lastPoint) {
+
+                    return;
+
+                }
+
+
+                const {
+                    x,
+                    y
+                } =
+                    lastPoint.getProps(
+                        [
+                            "x",
+                            "y"
+                        ],
+                        true
+                    );
+
+
+                const {
+                    chartArea
+                } = chart;
+
+
+                const c =
+                    chart.ctx;
+
+
+                const currentValue =
+                    chart.data.datasets[0]
+                        .data[
+                            chart.data.datasets[0]
+                                .data.length - 1
+                        ];
+
+
+                c.save();
+
+
+                /* -----------------------------------------
+                   Glow
+                ----------------------------------------- */
+
+                c.beginPath();
+
+
+                c.arc(
+                    x,
+                    y,
+                    7,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                c.fillStyle =
+                    "rgba(0, 212, 199, 0.16)";
+
+
+                c.fill();
+
+
+                /* -----------------------------------------
+                   Core
+                ----------------------------------------- */
+
+                c.beginPath();
+
+
+                c.arc(
+                    x,
+                    y,
+                    4,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                c.fillStyle =
+                    "#00d4c7";
+
+
+                c.shadowColor =
+                    "#00d4c7";
+
+
+                c.shadowBlur = 9;
+
+
+                c.fill();
+
+
+                c.shadowBlur = 0;
+
+
+                /* -----------------------------------------
+                   Connector
+                ----------------------------------------- */
+
+                c.beginPath();
+
+
+                c.setLineDash([
+                    2,
+                    3
+                ]);
+
+
+                c.moveTo(
+                    x,
+                    y
+                );
+
+
+                c.lineTo(
+                    chartArea.right,
+                    y
+                );
+
+
+                c.strokeStyle =
+                    "rgba(0, 212, 199, 0.4)";
+
+
+                c.lineWidth = 1;
+
+
+                c.stroke();
+
+
+                c.setLineDash([]);
+
+
+                /* -----------------------------------------
+                   Last turnover value
+                ----------------------------------------- */
+
+                const label =
+                    Number(
+                        currentValue
+                    ).toFixed(2) +
+                    "B";
+
+
+                c.font =
+                    "600 11px Inter, sans-serif";
+
+
+                const textWidth =
+                    c.measureText(
+                        label
+                    ).width;
+
+
+                const boxPadding = 6;
+
+
+                const boxWidth =
+                    textWidth +
+                    boxPadding * 2;
+
+
+                const boxHeight = 20;
+
+
+                const boxX =
+                    chartArea.right -
+                    boxWidth;
+
+
+                const boxY =
+                    y -
+                    boxHeight / 2;
+
+
+                c.beginPath();
+
+
+                c.roundRect(
+                    boxX,
+                    boxY,
+                    boxWidth,
+                    boxHeight,
+                    5
+                );
+
+
+                c.fillStyle =
+                    "#00d4c7";
+
+
+                c.fill();
+
+
+                c.fillStyle =
+                    "#062420";
+
+
+                c.textBaseline =
+                    "middle";
+
+
+                c.fillText(
+                    label,
+                    boxX +
+                        boxPadding,
+                    boxY +
+                        boxHeight / 2 +
+                        0.5
+                );
+
+
+                c.restore();
+
+            }
+
+        };
+
+
+        /* =================================================
+           CREATE CHART
+        ================================================= */
+
+        window.meroMarketChart =
+            new Chart(
+                ctx,
+                {
+
+                    type: "line",
+
+
+                    data: {
+
+                        labels:
+                            labels,
+
+
+                        datasets: [
+
+                            {
+
+                                label:
+                                    "Daily Market Turnover",
+
+
+                                data:
+                                    values,
+
+
+                                borderColor:
+                                    "#00d4c7",
+
+
+                                borderWidth: 3,
+
+
+                                backgroundColor:
+                                    buildGradient(),
+
+
+                                fill: true,
+
+
+                                tension:
+                                    0.4,
+
+
+                                pointRadius:
+                                    0,
+
+
+                                pointHoverRadius:
+                                    5,
+
+
+                                pointHoverBackgroundColor:
+                                    "#00d4c7",
+
+
+                                pointHoverBorderColor:
+                                    "#ffffff",
+
+
+                                pointHoverBorderWidth:
+                                    2
+
+                            }
+
+                        ]
+
+                    },
+
+
+                    options: {
+
+                        responsive: true,
+
+
+                        maintainAspectRatio:
+                            false,
+
+
+                        layout: {
+
+                            padding: {
+
+                                right: 55
+
+                            }
+
+                        },
+
+
+                        interaction: {
+
+                            mode: "index",
+
+                            intersect: false
+
+                        },
+
+
+                        plugins: {
+
+                            legend: {
+
+                                display: false
+
+                            },
+
+
+                            tooltip: {
+
+                                enabled: true,
+
+
+                                backgroundColor:
+                                    "rgba(10, 20, 48, 0.95)",
+
+
+                                titleColor:
+                                    "#ffffff",
+
+
+                                bodyColor:
+                                    "#aab9e2",
+
+
+                                borderColor:
+                                    "rgba(0, 212, 199, 0.35)",
+
+
+                                borderWidth: 1,
+
+
+                                padding: 12,
+
+
+                                cornerRadius: 10,
+
+
+                                displayColors:
+                                    false,
+
+
+                                callbacks: {
+
+                                    title:
+                                        function (
+                                            items
+                                        ) {
+
+                                            return items[0]
+                                                .label;
+
+                                        },
+
+
+                                    label:
+                                        function (
+                                            context
+                                        ) {
+
+                                            return (
+                                                " Turnover  " +
+                                                Number(
+                                                    context.parsed.y
+                                                ).toFixed(2) +
+                                                "B"
+                                            );
+
+                                        }
+
+                                }
+
+                            }
+
+                        },
+
+
+                        scales: {
+
+                            x: {
+
+                                display: true,
+
+
+                                grid: {
+
+                                    display: false
+
+                                },
+
+
+                                border: {
+
+                                    display: false
+
+                                },
+
+
+                                ticks: {
+
+                                    color:
+                                        "#6079ad",
+
+
+                                    font: {
+
+                                        size: 11
+
+                                    },
+
+
+                                    maxTicksLimit:
+                                        7,
+
+
+                                    padding: 8
+
+                                }
+
+                            },
+
+
+                            y: {
+
+                                display: true,
+
+
+                                position: "right",
+
+
+                                grid: {
+
+                                    color:
+                                        "rgba(130, 150, 200, 0.08)",
+
+
+                                    drawBorder:
+                                        false
+
+                                },
+
+
+                                border: {
+
+                                    display: false
+
+                                },
+
+
+                                ticks: {
+
+                                    color:
+                                        "#6079ad",
+
+
+                                    font: {
+
+                                        size: 11
+
+                                    },
+
+
+                                    padding: 8,
+
+
+                                    callback:
+                                        function (
+                                            value
+                                        ) {
+
+                                            return (
+                                                Number(
+                                                    value
+                                                ).toFixed(1) +
+                                                "B"
+                                            );
+
+                                        }
+
+                                }
+
+                            }
+
+                        },
+
+
+                        animation: {
+
+                            duration:
+                                1200,
+
+
+                            easing:
+                                "easeInOutSine"
+
+                        }
+
+                    },
+
+
+                    plugins: [
+
+                        baselinePlugin,
+
+                        crosshairPlugin,
+
+                        livePricePlugin
+
+                    ]
+
+                }
+
+            );
+
+    }
 
 });
+

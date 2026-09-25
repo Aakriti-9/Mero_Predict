@@ -491,3 +491,106 @@
 .sector-chart-wrapper { animation-delay: 0s; }
 .breadth-chart-wrapper { animation-delay: 0.15s; }
 .turnover-chart-wrapper { animation-delay: 0.30s; }
+
+
+/* =========================================================
+   SECTOR PERFORMANCE — RANKED BAR LIST
+   Replaces the Chart.js bars with a diverging, center-
+   anchored bar list ranked best-to-worst performer
+========================================================= */
+
+.sector-rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 4px 4px 8px;
+}
+
+.sector-rank-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 60px;
+    align-items: center;
+    gap: 12px;
+}
+
+.sector-rank-name {
+    color: #dbe4f7;
+    font-size: 13px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sector-rank-track {
+    position: relative;
+    height: 10px;
+
+    background: rgba(120, 145, 190, 0.10);
+    border-radius: 6px;
+
+    overflow: hidden;
+}
+
+.sector-rank-fill {
+    position: absolute;
+    top: 0;
+    height: 100%;
+
+    border-radius: 6px;
+
+    width: 0%; /* animated in via JS */
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sector-rank-fill.positive {
+    left: 50%;
+    background: linear-gradient(90deg, rgba(32, 211, 107, 0.6), #20d36b);
+}
+
+.sector-rank-fill.negative {
+    right: 50%;
+    background: linear-gradient(270deg, rgba(255, 86, 92, 0.6), #ff565c);
+}
+
+.sector-rank-track::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(120, 145, 190, 0.25);
+}
+
+.sector-rank-value {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.sector-rank-value.positive {
+    color: #20d36b;
+}
+
+.sector-rank-value.negative {
+    color: #ff565c;
+}
+
+
+/* Light mode support for the ranked list */
+
+.dashboard-layout.light-mode .sector-rank-name {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .sector-rank-track {
+    background: rgba(23, 32, 51, 0.06);
+}
+
+.dashboard-layout.light-mode .sector-rank-track::before {
+    background: rgba(23, 32, 51, 0.15);
+}

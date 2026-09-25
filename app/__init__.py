@@ -31,11 +31,15 @@ def create_app():
     from app.routes.main import main
     from app.routes.auth import auth
     from app.routes.market import market
+    from app.routes.admin import admin
+    from app.routes.watchlist import watchlist
 
     
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(market)
+    app.register_blueprint(admin)
+    app.register_blueprint(watchlist)
     
     import os
 
@@ -48,8 +52,5 @@ def create_app():
         os.path.join(app.root_path, app.template_folder, "index.html")
     )
     )
-    
-    with app.app_context():
-        db.create_all()
 
     return app

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block title %}
 Dashboard | MeroPredict
 {% endblock %}
@@ -7,8 +8,10 @@ Dashboard | MeroPredict
 
 {% block extra_css %}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
 
 {% endblock %}
 
@@ -22,92 +25,21 @@ Dashboard | MeroPredict
          SIDEBAR
     ========================================================= -->
 
-    {% include 'sidebar.html' %}
+    {% include "sidebar.html" %}
 
 
     <!-- =========================================================
-         MAIN CONTENT
+         MAIN DASHBOARD
     ========================================================= -->
 
     <main class="dashboard-main">
 
 
         <!-- =====================================================
-             TOPBAR
+             SHARED TOPBAR
         ===================================================== -->
 
-        <header class="dashboard-topbar">
-
-
-            <!-- SEARCH -->
-
-            <div class="dashboard-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="companySearch"
-                    placeholder="Search company or symbol..."
-                >
-
-            </div>
-
-
-            <!-- TOPBAR RIGHT -->
-
-            <div class="topbar-right">
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="notification-btn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <i class="bi bi-bell"></i>
-
-                    <span class="notification-dot"></span>
-
-                </button>
-
-
-                <!-- USER PROFILE -->
-
-                <a href="{{ url_for('main.profile') }}"
-                    class="user-profile">
-
-                    <div class="user-avatar">
-                        {{ current_user.name[0] | upper }}
-                    </div>
-
-                    <div class="user-info">
-                        <strong>{{ current_user.name }}</strong>
-                        <small>{{ current_user.role | capitalize }}</small>
-                    </div>
-
-                         <!-- hover card -->
-                    <div class="profile-hover-card">
-                        <div class="phc-header">
-                            <div class="phc-avatar">{{ current_user.name[0] | upper }}</div>
-                            <div>
-                                <div class="phc-name">{{ current_user.name }}</div>
-                                <div class="phc-email">{{ current_user.email }}</div>
-                            </div>
-                        </div>
-                        <div class="phc-divider"></div>
-                        <div class="phc-row"><span>Role</span><span>{{ current_user.role | capitalize }}</span></div>
-                        <div class="phc-row"><span>Status</span><span>Active</span></div>
-                    </div>
-
-                </a>
-
-
-            </div>
-
-        </header>
+        {% include "topbar.html" %}
 
 
         <!-- =====================================================
@@ -121,7 +53,8 @@ Dashboard | MeroPredict
                  PAGE HEADER
             ================================================= -->
 
-            <div class="dashboard-page-header">
+            <section class="dashboard-page-header">
+
 
                 <div>
 
@@ -129,9 +62,8 @@ Dashboard | MeroPredict
                         Market Dashboard
                     </h1>
 
-                    <p>
-                        Sunday, 14 June 2026
-                        · NEPSE Trading Hours: 11:00–15:00 NST
+                    <p id="dashboardDate">
+                        Loading market data...
                     </p>
 
                 </div>
@@ -139,167 +71,14 @@ Dashboard | MeroPredict
 
                 <!-- MARKET STATUS -->
 
-                <div class="market-open">
+                <div
+                    class="market-open"
+                    id="marketStatus"
+                >
 
                     <span class="market-dot"></span>
 
-                    Market Open
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 SUMMARY CARDS
-            ================================================= -->
-
-            <div class="dashboard-cards">
-
-
-                <!-- NEPSE INDEX -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-label">
-
-                        <span>
-                            NEPSE INDEX
-                        </span>
-
-                        <i class="bi bi-activity card-icon-teal"></i>
-
-                    </div>
-
-                    <h2>
-                        2,347.85
-                    </h2>
-
-                    <p class="card-positive">
-
-                        <i class="bi bi-arrow-up"></i>
-
-                        +27.42
-
-                        <span>
-                            (1.18%)
-                        </span>
-
-                    </p>
-
-                </div>
-
-
-                <!-- MARKET SENTIMENT -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-label">
-
-                        <span>
-                            MARKET SENTIMENT
-                        </span>
-
-                        <i class="bi bi-graph-up-arrow card-icon-green"></i>
-
-                    </div>
-
-                    <h2 class="sentiment-value">
-                        BULLISH
-                    </h2>
-
-                    <p>
-                        142 gainers vs 73 losers
-                    </p>
-
-                </div>
-
-
-                <!-- TOTAL GAINERS -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-label">
-
-                        <span>
-                            TOTAL GAINERS
-                        </span>
-
-                        <i class="bi bi-graph-up-arrow card-icon-green"></i>
-
-                    </div>
-
-                    <h2>
-                        142
-                    </h2>
-
-                    <p>
-                        15 unchanged
-                    </p>
-
-                </div>
-
-
-                <!-- TOTAL LOSERS -->
-
-                <div class="dashboard-card loser-card">
-
-                    <div class="card-label">
-
-                        <span>
-                            TOTAL LOSERS
-                        </span>
-
-                        <i class="bi bi-graph-down-arrow card-icon-red"></i>
-
-                    </div>
-
-                    <h2>
-                        73
-                    </h2>
-
-                    <p>
-                        of 230 listed
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 NEPSE CHART
-            ================================================= -->
-
-            <section class="chart-card">
-
-                <div class="chart-header">
-
-                    <div>
-
-                        <h3>
-                            NEPSE Index Trend
-                        </h3>
-
-                        <p>
-                            Last 60 trading days
-                        </p>
-
-                    </div>
-
-                    <div class="chart-legend">
-
-                        <span></span>
-
-                        NEPSE
-
-                    </div>
-
-                </div>
-
-                <div class="chart-container">
-
-                    <canvas id="nepseChart"></canvas>
+                    Loading...
 
                 </div>
 
@@ -307,19 +86,196 @@ Dashboard | MeroPredict
 
 
             <!-- =================================================
-                 MARKET TABLES
+                 MARKET SUMMARY CARDS
             ================================================= -->
 
-            <div class="market-tables">
+            <section class="dashboard-cards">
+
+
+                <!-- MARKET ACTIVITY -->
+
+                <article class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            MARKET ACTIVITY
+                        </span>
+
+                        <i
+                            class="bi bi-activity card-icon-teal"
+                        ></i>
+
+                    </div>
+
+
+                    <h2 id="marketActivity">
+                        0
+                    </h2>
+
+
+                    <p id="marketActivityDetails">
+                        stocks traded today
+                    </p>
+
+                </article>
+
+
+                <!-- MARKET SENTIMENT -->
+
+                <article class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            MARKET SENTIMENT
+                        </span>
+
+                        <i
+                            class="bi bi-graph-up-arrow card-icon-green"
+                        ></i>
+
+                    </div>
+
+
+                    <h2
+                        class="sentiment-value"
+                        id="marketSentiment"
+                    >
+                        Loading...
+                    </h2>
+
+
+                    <p id="sentimentDetails">
+                        Loading market activity...
+                    </p>
+
+                </article>
+
+
+                <!-- TOTAL GAINERS -->
+
+                <article class="dashboard-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            TOTAL GAINERS
+                        </span>
+
+                        <i
+                            class="bi bi-graph-up-arrow card-icon-green"
+                        ></i>
+
+                    </div>
+
+
+                    <h2 id="totalGainers">
+                        0
+                    </h2>
+
+
+                    <p id="unchangedStocks">
+                        0 unchanged
+                    </p>
+
+                </article>
+
+
+                <!-- TOTAL LOSERS -->
+
+                <article class="dashboard-card loser-card">
+
+                    <div class="card-label">
+
+                        <span>
+                            TOTAL LOSERS
+                        </span>
+
+                        <i
+                            class="bi bi-graph-down-arrow card-icon-red"
+                        ></i>
+
+                    </div>
+
+
+                    <h2 id="totalLosers">
+                        0
+                    </h2>
+
+
+                    <p id="listedStocks">
+                        0 stocks tracked
+                    </p>
+
+                </article>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 DAILY MARKET TURNOVER
+            ================================================= -->
+
+            <section class="chart-card">
+
+
+                <div class="chart-header">
+
+
+                    <div>
+
+                        <h3>
+                            Daily Market Turnover
+                        </h3>
+
+                        <p>
+                            Last 20 trading days
+                        </p>
+
+                    </div>
+
+
+                    <div class="chart-legend">
+
+                        <span></span>
+
+                        Turnover
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="nepseChart"
+                        aria-label="Daily market turnover chart"
+                    ></canvas>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MARKET MOVERS
+            ================================================= -->
+
+            <section class="market-tables">
 
 
                 <!-- =================================================
                      TOP GAINERS
                 ================================================= -->
 
-                <section class="market-table-card">
+                <article class="market-table-card">
+
 
                     <div class="table-card-header">
+
 
                         <div>
 
@@ -327,9 +283,12 @@ Dashboard | MeroPredict
                                 MARKET MOVERS
                             </span>
 
+
                             <h3>
 
-                                <i class="bi bi-graph-up-arrow"></i>
+                                <i
+                                    class="bi bi-graph-up-arrow"
+                                ></i>
 
                                 Top Gainers
 
@@ -337,7 +296,11 @@ Dashboard | MeroPredict
 
                         </div>
 
-                        <a href="#">
+
+                        <a
+                            href="#"
+                            class="table-view-link"
+                        >
                             View all →
                         </a>
 
@@ -345,6 +308,7 @@ Dashboard | MeroPredict
 
 
                     <div class="table-responsive">
+
 
                         <table>
 
@@ -373,206 +337,18 @@ Dashboard | MeroPredict
                             </thead>
 
 
-                            <tbody>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            GBIME
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        210
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 4.20%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        652,138
-                                    </td>
-
-                                </tr>
-
+                            <tbody id="topGainersTable">
 
                                 <tr>
 
-                                    <td>
-
-                                        <strong>
-                                            UPPER
-                                        </strong>
-
-                                        <small>
-                                            Hydropower
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        305
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 3.10%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        267,954
+                                    <td
+                                        colspan="4"
+                                        class="table-loading"
+                                    >
+                                        Loading market data...
                                     </td>
 
                                 </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            HIDCL
-                                        </strong>
-
-                                        <small>
-                                            Hydropower
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        230
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 2.70%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        556,652
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            PCBL
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        165
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 2.40%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        751,725
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            NABIL
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        1,285
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 2.30%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        106,609
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            BOKL
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        215
-                                    </td>
-
-                                    <td>
-
-                                        <span class="gain-badge">
-                                            ▲ 1.80%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        522,793
-                                    </td>
-
-                                </tr>
-
 
                             </tbody>
 
@@ -580,16 +356,18 @@ Dashboard | MeroPredict
 
                     </div>
 
-                </section>
+                </article>
 
 
                 <!-- =================================================
                      TOP LOSERS
                 ================================================= -->
 
-                <section class="market-table-card">
+                <article class="market-table-card">
+
 
                     <div class="table-card-header">
+
 
                         <div>
 
@@ -597,9 +375,12 @@ Dashboard | MeroPredict
                                 MARKET MOVERS
                             </span>
 
+
                             <h3 class="loss-title">
 
-                                <i class="bi bi-graph-down-arrow"></i>
+                                <i
+                                    class="bi bi-graph-down-arrow"
+                                ></i>
 
                                 Top Losers
 
@@ -607,7 +388,11 @@ Dashboard | MeroPredict
 
                         </div>
 
-                        <a href="#">
+
+                        <a
+                            href="#"
+                            class="table-view-link"
+                        >
                             View all →
                         </a>
 
@@ -615,6 +400,7 @@ Dashboard | MeroPredict
 
 
                     <div class="table-responsive">
+
 
                         <table>
 
@@ -643,206 +429,18 @@ Dashboard | MeroPredict
                             </thead>
 
 
-                            <tbody>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            SHIVM
-                                        </strong>
-
-                                        <small>
-                                            Manufacturing
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        145
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 3.20%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        370,835
-                                    </td>
-
-                                </tr>
-
+                            <tbody id="topLosersTable">
 
                                 <tr>
 
-                                    <td>
-
-                                        <strong>
-                                            SRBL
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        170
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 2.80%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        657,957
+                                    <td
+                                        colspan="4"
+                                        class="table-loading"
+                                    >
+                                        Loading market data...
                                     </td>
 
                                 </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            ADBL
-                                        </strong>
-
-                                        <small>
-                                            Dev. Bank
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        280
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 2.10%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        446,097
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            NICA
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        380
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 1.80%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        190,979
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            NIB
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        405
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 1.20%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        455,489
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-
-                                        <strong>
-                                            SANIMA
-                                        </strong>
-
-                                        <small>
-                                            Banking
-                                        </small>
-
-                                    </td>
-
-                                    <td>
-                                        195
-                                    </td>
-
-                                    <td>
-
-                                        <span class="loss-badge">
-                                            ▼ 0.90%
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-                                        57,933
-                                    </td>
-
-                                </tr>
-
 
                             </tbody>
 
@@ -850,26 +448,30 @@ Dashboard | MeroPredict
 
                     </div>
 
-                </section>
+                </article>
 
 
-            </div>
+            </section>
 
 
             <!-- =================================================
                  MARKET STATISTICS
             ================================================= -->
 
-            <div class="market-statistics">
+            <section class="market-statistics">
 
 
-                <!-- TURNOVER -->
+                <!-- TOTAL TURNOVER -->
 
-                <div class="stat-card">
+                <article class="stat-card">
+
 
                     <span class="stat-icon">
+
                         <i class="bi bi-cash-stack"></i>
+
                     </span>
+
 
                     <div>
 
@@ -877,22 +479,27 @@ Dashboard | MeroPredict
                             Total Turnover
                         </small>
 
-                        <strong>
-                            NPR 4.82B
+
+                        <strong id="totalTurnover">
+                            NPR 0.00B
                         </strong>
 
                     </div>
 
-                </div>
+                </article>
 
 
-                <!-- MARKET CAP -->
+                <!-- MARKET CAPITALIZATION -->
 
-                <div class="stat-card">
+                <article class="stat-card">
+
 
                     <span class="stat-icon">
+
                         <i class="bi bi-bank"></i>
+
                     </span>
+
 
                     <div>
 
@@ -900,22 +507,27 @@ Dashboard | MeroPredict
                             Market Capitalization
                         </small>
 
-                        <strong>
-                            NPR 3456.79B
+
+                        <strong id="marketCap">
+                            N/A
                         </strong>
 
                     </div>
 
-                </div>
+                </article>
 
 
-                <!-- VOLUME -->
+                <!-- TOTAL VOLUME -->
 
-                <div class="stat-card">
+                <article class="stat-card">
+
 
                     <span class="stat-icon">
+
                         <i class="bi bi-bar-chart-line"></i>
+
                     </span>
+
 
                     <div>
 
@@ -923,16 +535,17 @@ Dashboard | MeroPredict
                             Total Volume
                         </small>
 
-                        <strong>
-                            12,453,678
+
+                        <strong id="totalVolume">
+                            0
                         </strong>
 
                     </div>
 
-                </div>
+                </article>
 
 
-            </div>
+            </section>
 
 
         </div>
@@ -946,8 +559,8 @@ Dashboard | MeroPredict
 
 {% block scripts %}
 
-<!-- Dashboard JavaScript -->
-
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/dashboard.js') }}"
+></script>
 
 {% endblock %}

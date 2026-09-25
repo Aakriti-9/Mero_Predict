@@ -1,0 +1,256 @@
+<header class="dashboard-topbar">
+
+    <!-- =========================================================
+         SEARCH
+    ========================================================= -->
+
+    <div class="dashboard-search">
+
+        <i class="bi bi-search"></i>
+
+        <input
+            type="text"
+            id="companySearch"
+            placeholder="Search company or symbol..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- =========================================================
+         TOPBAR RIGHT
+    ========================================================= -->
+
+    <div class="topbar-right">
+
+
+        <!-- =====================================================
+             NOTIFICATIONS
+        ===================================================== -->
+
+        <div class="notification-wrapper">
+
+            <button
+                class="notification-btn"
+                id="notificationButton"
+                type="button"
+                aria-label="Notifications"
+                aria-expanded="false"
+            >
+
+                <i class="bi bi-bell"></i>
+
+
+                <!--
+                    Notification badge.
+
+                    0 unread  → hidden
+                    1 unread  → 1
+                    2 unread  → 2
+                    3 unread  → 3
+                    etc.
+                -->
+
+                <span
+                    class="notification-count"
+                    id="notificationCount"
+                ></span>
+
+            </button>
+
+
+            <!-- =================================================
+                 NOTIFICATION DROPDOWN
+            ================================================= -->
+
+            <div
+                class="notification-dropdown"
+                id="notificationDropdown"
+            >
+
+
+                <!-- =================================================
+                     NOTIFICATION HEADER
+                ================================================= -->
+
+                <div class="notification-header">
+
+                    <h4>
+                        Notifications
+                    </h4>
+
+                    <span id="notificationStatus">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     NOTIFICATION LIST
+                ================================================= -->
+
+                <div
+                    class="notification-list"
+                    id="notificationList"
+                >
+
+                    <div class="notification-empty">
+
+                        <i class="bi bi-bell"></i>
+
+                        <p>
+                            Loading notifications...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     NOTIFICATION FOOTER
+                ================================================= -->
+
+                <div class="notification-footer">
+
+                    <button
+                        type="button"
+                        id="markAllNotifications"
+                    >
+                        Mark all as read
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             USER PROFILE
+        ===================================================== -->
+
+        <a
+            href="{{ url_for('main.profile') }}"
+            class="user-profile"
+        >
+
+
+            <!-- =================================================
+                 USER AVATAR
+            ================================================= -->
+
+            <div class="user-avatar">
+
+                {{ current_user.name[0] | upper }}
+
+            </div>
+
+
+            <!-- =================================================
+                 USER INFORMATION
+            ================================================= -->
+
+            <div class="user-info">
+
+                <strong>
+                    {{ current_user.name }}
+                </strong>
+
+                <small>
+                    {{ current_user.role | capitalize }}
+                </small>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE HOVER CARD
+            ================================================= -->
+
+            <div class="profile-hover-card">
+
+
+                <!-- =================================================
+                     PROFILE HEADER
+                ================================================= -->
+
+                <div class="phc-header">
+
+                    <div class="phc-avatar">
+
+                        {{ current_user.name[0] | upper }}
+
+                    </div>
+
+                    <div>
+
+                        <div class="phc-name">
+
+                            {{ current_user.name }}
+
+                        </div>
+
+                        <div class="phc-email">
+
+                            {{ current_user.email }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DIVIDER
+                ================================================= -->
+
+                <div class="phc-divider"></div>
+
+
+                <!-- =================================================
+                     ROLE
+                ================================================= -->
+
+                <div class="phc-row">
+
+                    <span>
+                        Role
+                    </span>
+
+                    <span>
+                        {{ current_user.role | capitalize }}
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     STATUS
+                ================================================= -->
+
+                <div class="phc-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <span>
+                        Active
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </a>
+
+
+    </div>
+
+</header>

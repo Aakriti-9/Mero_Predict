@@ -7,11 +7,15 @@ Watchlist | MeroPredict
 
 {% block extra_css %}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/watchlist.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/watchlist.css') }}"
+>
 
 {% endblock %}
 
@@ -36,81 +40,10 @@ Watchlist | MeroPredict
 
 
         <!-- =====================================================
-             TOPBAR
+             SHARED TOPBAR
         ===================================================== -->
 
-        <header class="dashboard-topbar">
-
-
-            <!-- SEARCH -->
-
-            <div class="dashboard-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="companySearch"
-                    placeholder="Search company or symbol..."
-                >
-
-            </div>
-
-
-            <!-- TOPBAR RIGHT -->
-
-            <div class="topbar-right">
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="notification-btn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <i class="bi bi-bell"></i>
-
-                    <span class="notification-dot"></span>
-
-                </button>
-
-
-                <!-- USER PROFILE -->
-
-                <a href="{{ url_for('main.profile') }}"
-                    class="user-profile">
-
-                    <div class="user-avatar">
-                        {{ current_user.name[0] | upper }}
-                    </div>
-
-                    <div class="user-info">
-                        <strong>{{ current_user.name }}</strong>
-                        <small>{{ current_user.role | capitalize }}</small>
-                    </div>
-
-                    <!-- hover card -->
-                    <div class="profile-hover-card">
-                        <div class="phc-header">
-                            <div class="phc-avatar">{{ current_user.name[0] | upper }}</div>
-                            <div>
-                                <div class="phc-name">{{ current_user.name }}</div>
-                                <div class="phc-email">{{ current_user.email }}</div>
-                            </div>
-                        </div>
-                        <div class="phc-divider"></div>
-                        <div class="phc-row"><span>Role</span><span>{{ current_user.role | capitalize }}</span></div>
-                        <div class="phc-row"><span>Status</span><span>Active</span></div>
-                    </div>
-
-                </a>
-
-
-            </div>
-
-        </header>
+        {% include "topbar.html" %}
 
 
         <!-- =====================================================
@@ -132,8 +65,8 @@ Watchlist | MeroPredict
                         Watchlist
                     </h1>
 
-                    <p>
-                        5 stocks tracked
+                    <p id="watchlistCount">
+                        0 stocks tracked
                     </p>
 
                 </div>
@@ -148,7 +81,7 @@ Watchlist | MeroPredict
             <div class="watchlist-summary-cards">
 
 
-                <!-- GAINERS IN LIST -->
+                <!-- GAINERS -->
 
                 <div class="watchlist-summary-card gainers-summary">
 
@@ -157,13 +90,27 @@ Watchlist | MeroPredict
                     </span>
 
                     <h2>
-                        <span class="ws-value ws-positive">5</span><span class="ws-total">/5</span>
+
+                        <span
+                            id="watchlistGainers"
+                            class="ws-value ws-positive"
+                        >
+                            0
+                        </span>
+
+                        <span
+                            id="watchlistTotalGainers"
+                            class="ws-total"
+                        >
+                            /0
+                        </span>
+
                     </h2>
 
                 </div>
 
 
-                <!-- LOSERS IN LIST -->
+                <!-- LOSERS -->
 
                 <div class="watchlist-summary-card losers-summary">
 
@@ -172,7 +119,21 @@ Watchlist | MeroPredict
                     </span>
 
                     <h2>
-                        <span class="ws-value ws-negative">0</span><span class="ws-total">/5</span>
+
+                        <span
+                            id="watchlistLosers"
+                            class="ws-value ws-negative"
+                        >
+                            0
+                        </span>
+
+                        <span
+                            id="watchlistTotalLosers"
+                            class="ws-total"
+                        >
+                            /0
+                        </span>
+
                     </h2>
 
                 </div>
@@ -187,10 +148,25 @@ Watchlist | MeroPredict
                     </span>
 
                     <h2>
-                        <span class="ws-value ws-positive">5</span><span class="ws-total">/5</span>
+
+                        <span
+                            id="watchlistPredictedUp"
+                            class="ws-value ws-positive"
+                        >
+                            —
+                        </span>
+
+                        <span
+                            id="watchlistPredictedTotal"
+                            class="ws-total"
+                        >
+                            /0
+                        </span>
+
                     </h2>
 
                 </div>
+
 
             </div>
 
@@ -199,268 +175,29 @@ Watchlist | MeroPredict
                  WATCHLIST STOCK CARDS
             ================================================= -->
 
-            <div class="watchlist-grid">
+            <div
+                class="watchlist-grid"
+                id="watchlistGrid"
+            >
 
+                <!--
+                    Stock cards are loaded dynamically
+                    from /api/watchlist
+                -->
 
-                <!-- NABIL -->
+                <div class="watchlist-empty">
 
-                <div class="watchlist-stock-card">
+                    <i class="bi bi-star"></i>
 
-                    <div class="wsc-top">
-                        <span class="wsc-badge">NA</span>
-                        <button class="wsc-star active" type="button" aria-label="Toggle favorite">
-                            <i class="bi bi-star-fill"></i>
-                        </button>
-                    </div>
+                    <h3>
+                        Loading watchlist...
+                    </h3>
 
-                    <div class="wsc-name">
-                        <strong>NABIL</strong>
-                        <small>Nabil Bank Ltd</small>
-                    </div>
-
-                    <div class="wsc-price-row">
-                        <span class="wsc-price">1,285</span>
-                        <span class="wsc-change wsc-positive">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            +2.30%
-                        </span>
-                    </div>
-
-                    <div class="wsc-subprice-row">
-                        <small class="wsc-ltp-label">NPR · Last Trade</small>
-                        <small class="wsc-change-pts wsc-positive">+29.55 pts</small>
-                    </div>
-
-                    <div class="wsc-divider"></div>
-
-                    <div class="wsc-stats">
-                        <div class="wsc-stat">
-                            <small>VOLUME</small>
-                            <strong>106,609</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>P/E</small>
-                            <strong>17.4x</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>PREDICT</small>
-                            <span class="wsc-predict-badge">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                UP · 70%
-                            </span>
-                        </div>
-                    </div>
+                    <p>
+                        Your saved stocks will appear here.
+                    </p>
 
                 </div>
-
-
-                <!-- NLIC -->
-
-                <div class="watchlist-stock-card">
-
-                    <div class="wsc-top">
-                        <span class="wsc-badge">NL</span>
-                        <button class="wsc-star active" type="button" aria-label="Toggle favorite">
-                            <i class="bi bi-star-fill"></i>
-                        </button>
-                    </div>
-
-                    <div class="wsc-name">
-                        <strong>NLIC</strong>
-                        <small>Nepal Life Insurance Com...</small>
-                    </div>
-
-                    <div class="wsc-price-row">
-                        <span class="wsc-price">850</span>
-                        <span class="wsc-change wsc-positive">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            +0.80%
-                        </span>
-                    </div>
-
-                    <div class="wsc-subprice-row">
-                        <small class="wsc-ltp-label">NPR · Last Trade</small>
-                        <small class="wsc-change-pts wsc-positive">+6.80 pts</small>
-                    </div>
-
-                    <div class="wsc-divider"></div>
-
-                    <div class="wsc-stats">
-                        <div class="wsc-stat">
-                            <small>VOLUME</small>
-                            <strong>669,074</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>P/E</small>
-                            <strong>19.9x</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>PREDICT</small>
-                            <span class="wsc-predict-badge">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                UP · 79%
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- NMB -->
-
-                <div class="watchlist-stock-card">
-
-                    <div class="wsc-top">
-                        <span class="wsc-badge">NM</span>
-                        <button class="wsc-star active" type="button" aria-label="Toggle favorite">
-                            <i class="bi bi-star-fill"></i>
-                        </button>
-                    </div>
-
-                    <div class="wsc-name">
-                        <strong>NMB</strong>
-                        <small>NMB Bank Ltd</small>
-                    </div>
-
-                    <div class="wsc-price-row">
-                        <span class="wsc-price">390</span>
-                        <span class="wsc-change wsc-positive">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            +1.50%
-                        </span>
-                    </div>
-
-                    <div class="wsc-subprice-row">
-                        <small class="wsc-ltp-label">NPR · Last Trade</small>
-                        <small class="wsc-change-pts wsc-positive">+5.76 pts</small>
-                    </div>
-
-                    <div class="wsc-divider"></div>
-
-                    <div class="wsc-stats">
-                        <div class="wsc-stat">
-                            <small>VOLUME</small>
-                            <strong>234,118</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>P/E</small>
-                            <strong>14.2x</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>PREDICT</small>
-                            <span class="wsc-predict-badge">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                UP · 65%
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- HIDCL -->
-
-                <div class="watchlist-stock-card">
-
-                    <div class="wsc-top">
-                        <span class="wsc-badge">HI</span>
-                        <button class="wsc-star active" type="button" aria-label="Toggle favorite">
-                            <i class="bi bi-star-fill"></i>
-                        </button>
-                    </div>
-
-                    <div class="wsc-name">
-                        <strong>HIDCL</strong>
-                        <small>Hydroelectricity Investme...</small>
-                    </div>
-
-                    <div class="wsc-price-row">
-                        <span class="wsc-price">230</span>
-                        <span class="wsc-change wsc-positive">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            +2.70%
-                        </span>
-                    </div>
-
-                    <div class="wsc-subprice-row">
-                        <small class="wsc-ltp-label">NPR · Last Trade</small>
-                        <small class="wsc-change-pts wsc-positive">+6.04 pts</small>
-                    </div>
-
-                    <div class="wsc-divider"></div>
-
-                    <div class="wsc-stats">
-                        <div class="wsc-stat">
-                            <small>VOLUME</small>
-                            <strong>556,652</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>P/E</small>
-                            <strong>22.1x</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>PREDICT</small>
-                            <span class="wsc-predict-badge">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                UP · 74%
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- BOKL -->
-
-                <div class="watchlist-stock-card">
-
-                    <div class="wsc-top">
-                        <span class="wsc-badge">BO</span>
-                        <button class="wsc-star active" type="button" aria-label="Toggle favorite">
-                            <i class="bi bi-star-fill"></i>
-                        </button>
-                    </div>
-
-                    <div class="wsc-name">
-                        <strong>BOKL</strong>
-                        <small>Bank of Kathmandu Ltd</small>
-                    </div>
-
-                    <div class="wsc-price-row">
-                        <span class="wsc-price">215</span>
-                        <span class="wsc-change wsc-positive">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            +1.80%
-                        </span>
-                    </div>
-
-                    <div class="wsc-subprice-row">
-                        <small class="wsc-ltp-label">NPR · Last Trade</small>
-                        <small class="wsc-change-pts wsc-positive">+3.87 pts</small>
-                    </div>
-
-                    <div class="wsc-divider"></div>
-
-                    <div class="wsc-stats">
-                        <div class="wsc-stat">
-                            <small>VOLUME</small>
-                            <strong>522,793</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>P/E</small>
-                            <strong>15.8x</strong>
-                        </div>
-                        <div class="wsc-stat">
-                            <small>PREDICT</small>
-                            <span class="wsc-predict-badge">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                                UP · 87%
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
 
             </div>
 
@@ -471,86 +208,296 @@ Watchlist | MeroPredict
 
             <section class="add-stocks-card">
 
+
                 <div class="add-stocks-header">
 
-                    <h3>
-                        Add More Stocks
-                    </h3>
+                    <div>
+
+                        <h3>
+                            Add More Stocks
+                        </h3>
+
+                        <p>
+                            Add stocks to your personal watchlist.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
                 <div class="add-stocks-grid">
 
-                    <div class="add-stock-chip">
-                        <span class="asc-badge">NI</span>
-                        <strong class="asc-symbol">NIB</strong>
-                        <span class="asc-change asc-negative">-1.20%</span>
-                        <button class="asc-add" type="button" data-symbol="NIB">+ Add</button>
-                    </div>
+
+                    <!-- ACLBSL -->
 
                     <div class="add-stock-chip">
-                        <span class="asc-badge">UP</span>
-                        <strong class="asc-symbol">UPPER</strong>
-                        <span class="asc-change asc-positive">+3.10%</span>
-                        <button class="asc-add" type="button" data-symbol="UPPER">+ Add</button>
+
+                        <span class="asc-badge">
+                            AC
+                        </span>
+
+                        <strong class="asc-symbol">
+                            ACLBSL
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="ACLBSL"
+                        >
+                            + Add
+                        </button>
+
                     </div>
 
-                    <div class="add-stock-chip">
-                        <span class="asc-badge">PR</span>
-                        <strong class="asc-symbol">PRVU</strong>
-                        <span class="asc-change asc-negative">-0.50%</span>
-                        <button class="asc-add" type="button" data-symbol="PRVU">+ Add</button>
-                    </div>
+
+                    <!-- UPPER -->
 
                     <div class="add-stock-chip">
-                        <span class="asc-badge">GB</span>
-                        <strong class="asc-symbol">GBIME</strong>
-                        <span class="asc-change asc-positive">+4.20%</span>
-                        <button class="asc-add" type="button" data-symbol="GBIME">+ Add</button>
+
+                        <span class="asc-badge">
+                            UP
+                        </span>
+
+                        <strong class="asc-symbol">
+                            UPPER
+                        </strong>
+
+                        <span class="asc-change asc-positive">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="UPPER"
+                        >
+                            + Add
+                        </button>
+
                     </div>
 
-                    <div class="add-stock-chip">
-                        <span class="asc-badge">AD</span>
-                        <strong class="asc-symbol">ADBL</strong>
-                        <span class="asc-change asc-negative">-2.10%</span>
-                        <button class="asc-add" type="button" data-symbol="ADBL">+ Add</button>
-                    </div>
+
+                    <!-- PRVU -->
 
                     <div class="add-stock-chip">
-                        <span class="asc-badge">NI</span>
-                        <strong class="asc-symbol">NICA</strong>
-                        <span class="asc-change asc-negative">-1.80%</span>
-                        <button class="asc-add" type="button" data-symbol="NICA">+ Add</button>
+
+                        <span class="asc-badge">
+                            PR
+                        </span>
+
+                        <strong class="asc-symbol">
+                            PRVU
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="PRVU"
+                        >
+                            + Add
+                        </button>
+
                     </div>
 
-                    <div class="add-stock-chip">
-                        <span class="asc-badge">SH</span>
-                        <strong class="asc-symbol">SHIVM</strong>
-                        <span class="asc-change asc-negative">-3.20%</span>
-                        <button class="asc-add" type="button" data-symbol="SHIVM">+ Add</button>
-                    </div>
+
+                    <!-- GBIME -->
 
                     <div class="add-stock-chip">
-                        <span class="asc-badge">SH</span>
-                        <strong class="asc-symbol">SHL</strong>
-                        <span class="asc-change asc-positive">+1.40%</span>
-                        <button class="asc-add" type="button" data-symbol="SHL">+ Add</button>
+
+                        <span class="asc-badge">
+                            GB
+                        </span>
+
+                        <strong class="asc-symbol">
+                            GBIME
+                        </strong>
+
+                        <span class="asc-change asc-positive">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="GBIME"
+                        >
+                            + Add
+                        </button>
+
                     </div>
 
-                    <div class="add-stock-chip">
-                        <span class="asc-badge">CB</span>
-                        <strong class="asc-symbol">CBBL</strong>
-                        <span class="asc-change asc-positive">+0.60%</span>
-                        <button class="asc-add" type="button" data-symbol="CBBL">+ Add</button>
-                    </div>
+
+                    <!-- ADBL -->
 
                     <div class="add-stock-chip">
-                        <span class="asc-badge">SA</span>
-                        <strong class="asc-symbol">SANIMA</strong>
-                        <span class="asc-change asc-negative">-0.90%</span>
-                        <button class="asc-add" type="button" data-symbol="SANIMA">+ Add</button>
+
+                        <span class="asc-badge">
+                            AD
+                        </span>
+
+                        <strong class="asc-symbol">
+                            ADBL
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="ADBL"
+                        >
+                            + Add
+                        </button>
+
                     </div>
+
+
+                    <!-- NICA -->
+
+                    <div class="add-stock-chip">
+
+                        <span class="asc-badge">
+                            NI
+                        </span>
+
+                        <strong class="asc-symbol">
+                            NICA
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="NICA"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+
+                    <!-- SHIVM -->
+
+                    <div class="add-stock-chip">
+
+                        <span class="asc-badge">
+                            SH
+                        </span>
+
+                        <strong class="asc-symbol">
+                            SHIVM
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="SHIVM"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+
+                    <!-- SHL -->
+
+                    <div class="add-stock-chip">
+
+                        <span class="asc-badge">
+                            SH
+                        </span>
+
+                        <strong class="asc-symbol">
+                            SHL
+                        </strong>
+
+                        <span class="asc-change asc-positive">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="SHL"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+
+                    <!-- CBBL -->
+
+                    <div class="add-stock-chip">
+
+                        <span class="asc-badge">
+                            CB
+                        </span>
+
+                        <strong class="asc-symbol">
+                            CBBL
+                        </strong>
+
+                        <span class="asc-change asc-positive">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="CBBL"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+
+                    <!-- SANIMA -->
+
+                    <div class="add-stock-chip">
+
+                        <span class="asc-badge">
+                            SA
+                        </span>
+
+                        <strong class="asc-symbol">
+                            SANIMA
+                        </strong>
+
+                        <span class="asc-change asc-negative">
+                            —
+                        </span>
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="SANIMA"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
 
                 </div>
 
@@ -568,6 +515,9 @@ Watchlist | MeroPredict
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/watchlist.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/watchlist.js') }}"
+></script>
 
 {% endblock %}
+

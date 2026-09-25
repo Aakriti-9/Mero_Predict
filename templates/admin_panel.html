@@ -8,11 +8,15 @@ Admin Panel | MeroPredict
 
 {% block extra_css %}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/admin_panel.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/admin_panel.css') }}"
+>
 
 {% endblock %}
 
@@ -37,68 +41,10 @@ Admin Panel | MeroPredict
 
 
         <!-- =====================================================
-             TOPBAR
+             SHARED TOPBAR
         ===================================================== -->
 
-        <header class="dashboard-topbar">
-
-
-            <!-- SEARCH -->
-
-            <div class="dashboard-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="companySearch"
-                    placeholder="Search company or symbol..."
-                >
-
-            </div>
-
-
-            <!-- TOPBAR RIGHT -->
-
-            <div class="topbar-right">
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="notification-btn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <i class="bi bi-bell"></i>
-
-                    <span class="notification-dot"></span>
-
-                </button>
-
-
-                <!-- ADMIN USER -->
-                <a href="{{ url_for('main.profile') }}" class="user-profile">
-
-    <div class="user-avatar">
-        {{ current_user.name[0] | upper }}
-    </div>
-
-    <div class="user-info">
-
-        <strong>
-            {{ current_user.name }}
-        </strong>
-
-        <small>
-            {{ current_user.role | capitalize }}
-        </small>
-
-    </div>
-
-</a>
-</header>
+        {% include "topbar.html" %}
 
 
         <!-- =====================================================
@@ -117,8 +63,11 @@ Admin Panel | MeroPredict
                 <div class="admin-header-left">
 
                     <span class="admin-header-icon">
+
                         <i class="bi bi-lightning-charge-fill"></i>
+
                     </span>
+
 
                     <div>
 
@@ -164,14 +113,18 @@ Admin Panel | MeroPredict
 
                     </span>
 
+
                     <div>
 
                         <small>
                             Total Companies
                         </small>
 
-                        <strong>
-                            230
+
+                        <strong id="totalCompanies">
+
+                            Loading...
+
                         </strong>
 
                     </div>
@@ -189,14 +142,18 @@ Admin Panel | MeroPredict
 
                     </span>
 
+
                     <div>
 
                         <small>
                             Model Accuracy
                         </small>
 
-                        <strong>
-                            74.2%
+
+                        <strong id="modelAccuracy">
+
+                            Loading...
+
                         </strong>
 
                     </div>
@@ -214,14 +171,18 @@ Admin Panel | MeroPredict
 
                     </span>
 
+
                     <div>
 
                         <small>
                             Training Samples
                         </small>
 
-                        <strong>
-                            18,450
+
+                        <strong id="trainingSamples">
+
+                            Loading...
+
                         </strong>
 
                     </div>
@@ -239,14 +200,18 @@ Admin Panel | MeroPredict
 
                     </span>
 
+
                     <div>
 
                         <small>
                             Last Updated
                         </small>
 
-                        <strong>
-                            2026-06-13
+
+                        <strong id="lastUpdated">
+
+                            Loading...
+
                         </strong>
 
                     </div>
@@ -261,7 +226,10 @@ Admin Panel | MeroPredict
                  ADMIN TABS
             ================================================= -->
 
-            <div class="admin-tabs" role="tablist">
+            <div
+                class="admin-tabs"
+                role="tablist"
+            >
 
 
                 <!-- UPLOAD DATA -->
@@ -361,19 +329,24 @@ Admin Panel | MeroPredict
 
                     <i class="bi bi-cloud-arrow-up"></i>
 
+
                     <h3>
                         Drop CSV file here or click to browse
                     </h3>
+
 
                     <p>
                         Supports NEPSE daily data format
                         (CSV, max 50MB)
                     </p>
 
+
                     <input
                         type="file"
                         id="csvFileInput"
+                        name="files"
                         accept=".csv"
+                        multiple
                         hidden
                     >
 
@@ -393,7 +366,10 @@ Admin Panel | MeroPredict
 
                     <div class="table-responsive">
 
-                        <table class="admin-table">
+                        <table
+                            class="admin-table"
+                            id="recentUploadsTable"
+                        >
 
                             <thead>
 
@@ -422,122 +398,13 @@ Admin Panel | MeroPredict
 
                             <tbody>
 
-
                                 <tr>
 
-                                    <td>
-                                        2026-06-14
-                                    </td>
-
-                                    <td>
-                                        NEPSE_data_20260614.csv
-                                    </td>
-
-                                    <td>
-                                        2,304
-                                    </td>
-
-                                    <td>
-
-                                        <span class="status-badge status-success">
-
-                                            <i class="bi bi-check-circle-fill"></i>
-
-                                            Success
-
-                                        </span>
-
+                                    <td colspan="4">
+                                        Loading recent uploads...
                                     </td>
 
                                 </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        2026-06-13
-                                    </td>
-
-                                    <td>
-                                        NEPSE_data_20260613.csv
-                                    </td>
-
-                                    <td>
-                                        2,298
-                                    </td>
-
-                                    <td>
-
-                                        <span class="status-badge status-success">
-
-                                            <i class="bi bi-check-circle-fill"></i>
-
-                                            Success
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        2026-06-12
-                                    </td>
-
-                                    <td>
-                                        NEPSE_data_20260612.csv
-                                    </td>
-
-                                    <td>
-                                        —
-                                    </td>
-
-                                    <td>
-
-                                        <span class="status-badge status-failed">
-
-                                            <i class="bi bi-x-circle-fill"></i>
-
-                                            Failed
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        2026-06-11
-                                    </td>
-
-                                    <td>
-                                        NEPSE_data_20260611.csv
-                                    </td>
-
-                                    <td>
-                                        2,312
-                                    </td>
-
-                                    <td>
-
-                                        <span class="status-badge status-success">
-
-                                            <i class="bi bi-check-circle-fill"></i>
-
-                                            Success
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
 
                             </tbody>
 
@@ -604,6 +471,9 @@ Admin Panel | MeroPredict
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/admin_panel.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/admin_panel.js') }}"
+></script>
 
 {% endblock %}
+

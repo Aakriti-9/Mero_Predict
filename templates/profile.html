@@ -7,11 +7,15 @@ Profile &amp; Settings | MeroPredict
 
 {% block extra_css %}
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/profile.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/profile.css') }}"
+>
 
 {% endblock %}
 
@@ -19,6 +23,7 @@ Profile &amp; Settings | MeroPredict
 {% block content %}
 
 <div class="dashboard-layout">
+
 
     <!-- =========================================================
          SIDEBAR
@@ -35,92 +40,10 @@ Profile &amp; Settings | MeroPredict
 
 
         <!-- =====================================================
-             TOPBAR
+             SHARED TOPBAR
         ===================================================== -->
 
-        <header class="dashboard-topbar">
-
-
-            <!-- SEARCH -->
-
-            <div class="dashboard-search">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                    type="text"
-                    id="companySearch"
-                    placeholder="Search company or symbol..."
-                >
-
-            </div>
-
-
-            <!-- TOPBAR RIGHT -->
-
-            <div class="topbar-right">
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="notification-btn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <i class="bi bi-bell"></i>
-
-                    <span class="notification-dot"></span>
-
-                </button>
-
-
-                <!-- USER -->
-
-                <div class="user-profile">
-
-                    <div class="user-avatar">
-                        {{ current_user.name[0] | upper }}
-                    </div>
-
-                    <div class="user-info">
-                        <strong>{{ current_user.name }}</strong>
-                        <small>{{ current_user.role | capitalize }}</small>
-                    </div>
-
-                    <!-- HOVER CARD -->
-                    <div class="profile-hover-card">
-
-                        <div class="phc-header">
-                            <div class="phc-avatar">
-                                {{ current_user.name[0] | upper }}
-                            </div>
-                            <div>
-                                <div class="phc-name">{{ current_user.name }}</div>
-                                <div class="phc-email">{{ current_user.email }}</div>
-                            </div>
-                        </div>
-
-                        <div class="phc-divider"></div>
-
-                        <div class="phc-row">
-                            <span>Role</span>
-                            <span>{{ current_user.role | capitalize }}</span>
-                        </div>
-
-                        <div class="phc-row">
-                            <span>Status</span>
-                            <span>Active</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </header>
+        {% include "topbar.html" %}
 
 
         <!-- =====================================================
@@ -162,8 +85,11 @@ Profile &amp; Settings | MeroPredict
                         </p>
 
                         <span class="profile-badge">
+
                             <i class="bi bi-person-check-fill"></i>
+
                             {{ current_user.role | capitalize }} Account
+
                         </span>
 
                     </div>
@@ -183,7 +109,14 @@ Profile &amp; Settings | MeroPredict
                     Personal Information
                 </h3>
 
-                <form method="POST" action="{{ url_for('main.profile') }}">
+
+                <form
+                    method="POST"
+                    action="{{ url_for('main.profile') }}"
+                >
+
+
+                    <!-- FULL NAME -->
 
                     <div class="profile-field">
 
@@ -207,6 +140,8 @@ Profile &amp; Settings | MeroPredict
                     </div>
 
 
+                    <!-- EMAIL -->
+
                     <div class="profile-field">
 
                         <label for="email">
@@ -228,6 +163,8 @@ Profile &amp; Settings | MeroPredict
 
                     </div>
 
+
+                    <!-- PHONE -->
 
                     <div class="profile-field">
 
@@ -252,7 +189,12 @@ Profile &amp; Settings | MeroPredict
                     </div>
 
 
-                    <button class="profile-btn" type="submit">
+                    <!-- SAVE BUTTON -->
+
+                    <button
+                        class="profile-btn"
+                        type="submit"
+                    >
 
                         <i class="bi bi-check-lg"></i>
 
@@ -277,6 +219,10 @@ Profile &amp; Settings | MeroPredict
                 </h3>
 
 
+                <!-- =================================================
+                     PREDICTION UPDATES
+                ================================================= -->
+
                 <div class="pref-row">
 
                     <div class="pref-text">
@@ -291,16 +237,22 @@ Profile &amp; Settings | MeroPredict
 
                     </div>
 
+
                     <button
-                        class="pref-toggle active"
+                        class="pref-toggle {% if notification_preferences['prediction_updates'] %}active{% endif %}"
                         type="button"
                         role="switch"
-                        aria-checked="true"
+                        aria-checked="{{ 'true' if notification_preferences['prediction_updates'] else 'false' }}"
                         aria-label="Prediction Updates"
+                        data-setting="prediction_updates"
                     ></button>
 
                 </div>
 
+
+                <!-- =================================================
+                     TOP MOVERS ALERT
+                ================================================= -->
 
                 <div class="pref-row">
 
@@ -316,16 +268,22 @@ Profile &amp; Settings | MeroPredict
 
                     </div>
 
+
                     <button
-                        class="pref-toggle active"
+                        class="pref-toggle {% if notification_preferences['top_movers'] %}active{% endif %}"
                         type="button"
                         role="switch"
-                        aria-checked="true"
+                        aria-checked="{{ 'true' if notification_preferences['top_movers'] else 'false' }}"
                         aria-label="Top Movers Alert"
+                        data-setting="top_movers"
                     ></button>
 
                 </div>
 
+
+                <!-- =================================================
+                     MODEL RETRAINED
+                ================================================= -->
 
                 <div class="pref-row">
 
@@ -341,15 +299,18 @@ Profile &amp; Settings | MeroPredict
 
                     </div>
 
+
                     <button
-                        class="pref-toggle"
+                        class="pref-toggle {% if notification_preferences['model_retrained'] %}active{% endif %}"
                         type="button"
                         role="switch"
-                        aria-checked="false"
+                        aria-checked="{{ 'true' if notification_preferences['model_retrained'] else 'false' }}"
                         aria-label="Model Retrained"
+                        data-setting="model_retrained"
                     ></button>
 
                 </div>
+
 
             </section>
 
@@ -364,11 +325,17 @@ Profile &amp; Settings | MeroPredict
                     Account Summary
                 </h3>
 
+
                 <div class="summary-grid">
+
+
+                    <!-- WATCHLIST -->
 
                     <div class="summary-box">
 
-                        <h2>5</h2>
+                        <h2>
+                            5
+                        </h2>
 
                         <p>
                             Watchlist Stocks
@@ -377,9 +344,13 @@ Profile &amp; Settings | MeroPredict
                     </div>
 
 
+                    <!-- PREDICTIONS VIEWED -->
+
                     <div class="summary-box">
 
-                        <h2>142</h2>
+                        <h2>
+                            142
+                        </h2>
 
                         <p>
                             Predictions Viewed
@@ -388,15 +359,20 @@ Profile &amp; Settings | MeroPredict
                     </div>
 
 
+                    <!-- DAYS ACTIVE -->
+
                     <div class="summary-box">
 
-                        <h2>89</h2>
+                        <h2>
+                            89
+                        </h2>
 
                         <p>
                             Days Active
                         </p>
 
                     </div>
+
 
                 </div>
 
@@ -414,6 +390,9 @@ Profile &amp; Settings | MeroPredict
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/profile.js') }}"
+></script>
 
 {% endblock %}
+
