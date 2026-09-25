@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}AI Predictions - MeroPredict{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/predictions.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    {% include "sidebar.html" %}
+
+    <div class="main-content">
+        <!-- Topbar (reused from dashboard) -->
+        <div class="topbar">
+            <div class="dashboard-search">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search company or symbol...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar">{{ current_user.initials if current_user else 'RS' }}</div>
+                    <div class="user-info">
+                        <span class="user-name">{{ current_user.name if current_user else 'Ram Sharma' }}</span>
+                        <span class="user-role">Investor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="predictions-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>AI Predictions</h1>
+                <p class="page-subtitle">Next-day directional predictions for all NEPSE companies &middot; Updated daily at 16:00 NST</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="predictions-summary-grid">
+                <div class="summary-card">
+                    <span class="summary-label">Predicted UP</span>
+                    <span class="summary-value up">{{ predicted_up_count if predicted_up_count is defined else 12 }}</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Predicted DOWN</span>
+                    <span class="summary-value down">{{ predicted_down_count if predicted_down_count is defined else 8 }}</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Avg Confidence</span>
+                    <span class="summary-value up">{{ avg_confidence if avg_confidence is defined else 75 }}%</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Model Updated</span>
+                    <span class="summary-value neutral">{{ model_updated if model_updated is defined else 'Today' }}</span>
+                </div>
+            </div>
+
+            <!-- Filter + Sort Bar -->
+            <div class="predictions-toolbar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All Predictions</button>
+                    <button class="filter-tab" data-filter="up"><i class="bi bi-triangle-fill up-icon"></i> Predict UP</button>
+                    <button class="filter-tab" data-filter="down"><i class="bi bi-triangle-fill down-icon"></i> Predict DOWN</button>
+                </div>
+                <div class="sort-controls">
+                    <span class="sort-label">Sort by:</span>
+                    <button class="sort-btn active" data-sort="confidence">Confidence</button>
+                    <button class="sort-btn" data-sort="price_change">Price Change</button>
+                </div>
+            </div>
+
+            <!-- Predictions Grid -->
+            <div class="predictions-grid" id="predictionsGrid">
+                {% for p in predictions %}
+                <div class="prediction-card" data-direction="{{ p.direction }}" data-confidence="{{ p.confidence }}" data-change="{{ p.change_pct }}">
+                    <div class="prediction-card-header">
+                        <div class="prediction-company">
+                            <div class="ticker-badge">{{ p.ticker[:2] }}</div>
+                            <div>
+                                <div class="ticker-name">{{ p.ticker }}</div>
+                                <div class="ticker-sector">{{ p.sector }}</div>
+                            </div>
+                        </div>
+                        <span class="direction-badge {{ p.direction }}">
+                            <i class="bi bi-arrow-{{ 'up-right' if p.direction == 'up' else 'down-right' }}"></i>
+                            {{ p.direction.upper() }}
+                        </span>
+                    </div>
+
+                    <div class="prediction-price-row">
+                        <div>
+                            <div class="prediction-price">{{ p.current_price }}</div>
+                            <div class="price-caption">NPR Current</div>
+                        </div>
+                        <div class="price-change-block">
+                            <div class="price-change {{ p.direction }}">{{ '+' if p.direction == 'up' else '' }}{{ p.change_pct }}%</div>
+                            <div class="price-caption">Today</div>
+                        </div>
+                    </div>
+
+                    <div class="confidence-block">
+                        <div class="confidence-label-row">
+                            <span>Confidence</span>
+                            <span class="confidence-pct {{ p.direction }}">{{ p.confidence }}%</span>
+                        </div>
+                        <div class="confidence-bar-track">
+                            <div class="confidence-bar-fill {{ p.direction }}" data-width="{{ p.confidence }}"></div>
+                        </div>
+                    </div>
+
+                    <div class="target-row">
+                        <div class="target-box high">
+                            <span class="target-label">Target High</span>
+                            <span class="target-value high">{{ p.target_high }}</span>
+                        </div>
+                        <div class="target-box low">
+                            <span class="target-label">Target Low</span>
+                            <span class="target-value low">{{ p.target_low }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="no-predictions">No predictions available right now.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="predictions-disclaimer">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <p>
+                    <strong>Disclaimer:</strong> AI predictions are generated using technical analysis algorithms and historical price patterns. They are for educational and informational purposes only. Past performance does not guarantee future results. Always consult a SEBON-registered investment advisor before making investment decisions.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/predictions.js') }}"></script>
+{% endblock %}
