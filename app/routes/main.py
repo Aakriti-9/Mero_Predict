@@ -45,6 +45,15 @@ def profile():
 
     return render_template("profile.html")
 
+@main.route("/companies")
+@login_required
+def companies():
+    return render_template("companies.html")
+
+@main.route("/compare-stocks")
+@login_required
+def compare_stocks():
+    return render_template("compare_stocks.html")
 
 @main.route("/admin_panel")
 @login_required
@@ -59,3 +68,4 @@ def admin_panel():
 @login_required
 def watchlist():
     return render_template("watchlist.html")
+
