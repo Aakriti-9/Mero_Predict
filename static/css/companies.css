@@ -1,0 +1,608 @@
+/* =========================================================
+   COMPANIES PAGE
+========================================================= */
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 31px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+}
+
+.page-header p {
+    margin: 8px 0 0;
+    color: #7182aa;
+    font-size: 13px;
+}
+
+.company-header-info {
+    display: flex;
+    align-items: center;
+}
+
+.listed-count {
+    min-width: 145px;
+    padding: 12px 17px;
+    border: 1px solid rgba(16, 217, 196, 0.15);
+    border-radius: 12px;
+    background: rgba(16, 217, 196, 0.05);
+    text-align: right;
+}
+
+.count-number {
+    display: block;
+    color: #10d9c4;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.count-label {
+    display: block;
+    margin-top: 3px;
+    color: #7182aa;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   COMPANY CONTROLS
+========================================================= */
+
+.company-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.company-search {
+    width: 100%;
+    max-width: 500px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border: 1px solid rgba(124, 145, 190, 0.2);
+    border-radius: 11px;
+    background: #0d1328;
+    transition: 0.2s ease;
+}
+
+.company-search:focus-within {
+    border-color: #09bfc1;
+    box-shadow: 0 0 0 3px rgba(9, 191, 193, 0.08);
+}
+
+.company-search i {
+    color: #7182aa;
+    font-size: 17px;
+}
+
+.company-search input {
+    width: 100%;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.company-search input::placeholder {
+    color: #68789e;
+}
+
+
+/* =========================================================
+   SECTOR FILTER
+========================================================= */
+
+.filter-group {
+    display: flex;
+    align-items: center;
+}
+
+.company-filter {
+    height: 46px;
+    min-width: 180px;
+    padding: 0 13px;
+    border: 1px solid rgba(124, 145, 190, 0.2);
+    border-radius: 11px;
+    outline: none;
+    background: #0d1328;
+    color: #b7c2db;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.company-filter:focus {
+    border-color: #09bfc1;
+    box-shadow: 0 0 0 3px rgba(9, 191, 193, 0.08);
+}
+
+.company-filter option {
+    background: #0d1328;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   COMPANIES CARD
+========================================================= */
+
+.companies-card {
+    overflow: hidden;
+    border: 1px solid rgba(124, 145, 190, 0.14);
+    border-radius: 15px;
+    background: #0d1328;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.companies-card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    border-bottom: 1px solid rgba(124, 145, 190, 0.1);
+}
+
+.companies-card .card-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.companies-card .card-header p {
+    margin: 5px 0 0;
+    color: #7182aa;
+    font-size: 11px;
+}
+
+.company-result-count {
+    color: #7182aa;
+    font-size: 11px;
+}
+
+.company-result-count strong {
+    color: #10d9c4;
+}
+
+
+/* =========================================================
+   COMPANY TABLE
+========================================================= */
+
+.companies-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.companies-table th {
+    padding: 13px 20px;
+    color: #5f719b;
+    background: rgba(255, 255, 255, 0.015);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.companies-table td {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(124, 145, 190, 0.07);
+    color: #b7c2db;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.companies-table tbody tr {
+    transition: 0.15s ease;
+}
+
+.companies-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   COMPANY NAME
+========================================================= */
+
+.company-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 235px;
+}
+
+.company-logo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(16, 217, 196, 0.12);
+    border-radius: 9px;
+    background: rgba(16, 217, 196, 0.07);
+    color: #10d9c4;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.company-name-cell strong {
+    display: block;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.company-name-cell span {
+    display: block;
+    max-width: 210px;
+    overflow: hidden;
+    margin-top: 3px;
+    color: #65769e;
+    font-size: 9px;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   STOCK SYMBOL
+========================================================= */
+
+.stock-symbol {
+    display: inline-flex;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: rgba(16, 217, 196, 0.07);
+    color: #10d9c4;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+   SECTOR BADGES
+========================================================= */
+
+.sector-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.sector-badge.banking {
+    color: #62c8ff;
+    background: rgba(98, 200, 255, 0.08);
+}
+
+.sector-badge.insurance {
+    color: #b18cff;
+    background: rgba(177, 140, 255, 0.08);
+}
+
+.sector-badge.hydropower {
+    color: #35d69d;
+    background: rgba(53, 214, 157, 0.08);
+}
+
+.sector-badge.finance {
+    color: #f2c96d;
+    background: rgba(242, 201, 109, 0.08);
+}
+
+.sector-badge.manufacturing {
+    color: #ff9c6d;
+    background: rgba(255, 156, 109, 0.08);
+}
+
+.sector-badge.hotels {
+    color: #f58bd4;
+    background: rgba(245, 139, 212, 0.08);
+}
+
+.sector-badge.development {
+    color: #7dd3fc;
+    background: rgba(125, 211, 252, 0.08);
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.companies-table .price {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   POSITIVE / NEGATIVE
+========================================================= */
+
+.companies-table .positive {
+    color: #35d69d;
+    font-weight: 600;
+}
+
+.companies-table .negative {
+    color: #ff687a;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-company-btn {
+    padding: 6px 12px;
+    border: 1px solid rgba(16, 217, 196, 0.2);
+    border-radius: 7px;
+    background: rgba(16, 217, 196, 0.06);
+    color: #10d9c4;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.view-company-btn:hover {
+    border-color: #10d9c4;
+    background: #10d9c4;
+    color: #061529;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    padding: 55px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(16, 217, 196, 0.07);
+    color: #10d9c4;
+    font-size: 23px;
+}
+
+.empty-state h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.empty-state p {
+    margin: 7px 0 0;
+    color: #7182aa;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLE FOOTER
+========================================================= */
+
+.table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px 20px;
+    border-top: 1px solid rgba(124, 145, 190, 0.08);
+}
+
+.page-info {
+    color: #68799f;
+    font-size: 10px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: 1px solid rgba(124, 145, 190, 0.15);
+    border-radius: 6px;
+    background: transparent;
+    color: #8998bd;
+    font-size: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.pagination-btn:hover {
+    border-color: #10d9c4;
+    color: #10d9c4;
+}
+
+.pagination-btn.active {
+    border-color: #00c9a7;
+    background: #00c9a7;
+    color: #061529;
+    font-weight: 700;
+}
+
+.pagination-btn.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pagination-dots {
+    padding: 0 3px;
+    color: #68799f;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+.dashboard-layout.light-mode .page-header h1,
+.dashboard-layout.light-mode .companies-card .card-header h2,
+.dashboard-layout.light-mode .company-name-cell strong,
+.dashboard-layout.light-mode .companies-table .price,
+.dashboard-layout.light-mode .empty-state h3 {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .company-search,
+.dashboard-layout.light-mode .company-filter,
+.dashboard-layout.light-mode .companies-card {
+    background: #ffffff;
+    border-color: #e4e9f2;
+}
+
+.dashboard-layout.light-mode .company-search input {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .company-filter {
+    color: #4a5578;
+}
+
+.dashboard-layout.light-mode .company-filter option {
+    background: #ffffff;
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .companies-table th {
+    background: #f8f9fc;
+    color: #7a88ad;
+}
+
+.dashboard-layout.light-mode .companies-table td {
+    border-color: #edf0f5;
+    color: #4a5578;
+}
+
+.dashboard-layout.light-mode .companies-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.dashboard-layout.light-mode .company-name-cell span {
+    color: #7a88ad;
+}
+
+.dashboard-layout.light-mode .table-footer {
+    border-color: #e9edf4;
+}
+
+.dashboard-layout.light-mode .pagination-btn {
+    border-color: #dce3ef;
+    color: #5a6788;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .companies-table th:nth-child(3),
+    .companies-table td:nth-child(3) {
+        display: none;
+    }
+
+    .company-name-cell {
+        min-width: 200px;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .listed-count {
+        text-align: left;
+    }
+
+    .company-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .company-search {
+        max-width: none;
+    }
+
+    .company-filter {
+        width: 100%;
+    }
+
+    .companies-card {
+        overflow-x: auto;
+    }
+
+    .companies-table {
+        min-width: 850px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .companies-card .card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .pagination {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
