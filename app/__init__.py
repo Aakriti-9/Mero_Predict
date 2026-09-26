@@ -33,6 +33,7 @@ def create_app():
     from app.routes.market import market
     from app.routes.admin import admin
     from app.routes.watchlist import watchlist
+    from app.routes.companies import companies
 
     
     app.register_blueprint(main)
@@ -40,6 +41,7 @@ def create_app():
     app.register_blueprint(market)
     app.register_blueprint(admin)
     app.register_blueprint(watchlist)
+    app.register_blueprint(companies)
     
     import os
 

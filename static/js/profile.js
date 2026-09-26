@@ -33,7 +33,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* =================================================
-           UPDATE UI
+           GET SETTING NAME
+        ================================================= */
+
+        var setting =
+            clickedToggle.dataset.setting;
+
+
+        if (!setting) {
+
+            console.warn(
+                "Notification setting is missing."
+            );
+
+            return;
+
+        }
+
+
+        /* =================================================
+           UPDATE UI IMMEDIATELY
         ================================================= */
 
         if (newState) {
@@ -58,22 +77,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* =================================================
-           GET SETTING NAME
+           PREVENT DOUBLE CLICK WHILE SAVING
         ================================================= */
 
-        var setting =
-            clickedToggle.dataset.setting;
-
-
-        if (!setting) {
-
-            console.warn(
-                "Notification setting is missing."
-            );
-
-            return;
-
-        }
+        clickedToggle.disabled = true;
 
 
         /* =================================================
@@ -132,10 +139,9 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            /*
-             * If saving failed,
-             * restore the previous UI state.
-             */
+            /* =============================================
+               RESTORE PREVIOUS UI STATE
+            ============================================= */
 
             if (isCurrentlyActive) {
 
@@ -158,6 +164,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     ? "true"
                     : "false"
             );
+
+        })
+
+        .finally(function () {
+
+            /* =============================================
+               ENABLE BUTTON AGAIN
+            ============================================= */
+
+            clickedToggle.disabled = false;
 
         });
 

@@ -83,6 +83,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =========================================================
+    // OPEN COMPANY DETAILS
+    // =========================================================
+
+    function openCompanyDetails(symbol) {
+
+        if (!symbol) {
+            return;
+        }
+
+        const cleanSymbol =
+            String(symbol).trim().toUpperCase();
+
+        if (!cleanSymbol) {
+            return;
+        }
+
+        window.location.href =
+            `/companies/${encodeURIComponent(cleanSymbol)}`;
+    }
+
+
+    // =========================================================
     // LOAD WATCHLIST
     // =========================================================
 
@@ -286,7 +308,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <!-- NAME -->
 
-                        <div class="wsc-name">
+                        <div
+                            class="wsc-name wsc-company-link"
+                            data-symbol="${stock.symbol}"
+                            role="link"
+                            tabindex="0"
+                            title="View ${stock.symbol} company details"
+                        >
 
                             <strong>
                                 ${stock.symbol}
@@ -431,6 +459,62 @@ document.addEventListener("DOMContentLoaded", function () {
         // -----------------------------------------------------
 
         attachStarEvents();
+
+
+        // -----------------------------------------------------
+        // COMPANY DETAILS CLICK EVENTS
+        // -----------------------------------------------------
+
+        attachCompanyDetailsEvents();
+
+    }
+
+
+    // =========================================================
+    // COMPANY DETAILS CLICK EVENTS
+    // =========================================================
+
+    function attachCompanyDetailsEvents() {
+
+        document
+            .querySelectorAll(".wsc-company-link")
+            .forEach(function (companyElement) {
+
+                companyElement.addEventListener(
+                    "click",
+                    function () {
+
+                        const symbol =
+                            companyElement.dataset.symbol;
+
+                        openCompanyDetails(symbol);
+
+                    }
+                );
+
+
+                companyElement.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+
+                            event.preventDefault();
+
+                            const symbol =
+                                companyElement.dataset.symbol;
+
+                            openCompanyDetails(symbol);
+
+                        }
+
+                    }
+                );
+
+            });
 
     }
 
@@ -874,4 +958,3 @@ document.addEventListener("DOMContentLoaded", function () {
     loadWatchlist();
 
 });
-

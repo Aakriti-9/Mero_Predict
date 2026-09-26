@@ -1,6 +1,8 @@
 /* =========================================================
+   MERO-PREDICT
    COMPANIES PAGE
 ========================================================= */
+
 
 /* =========================================================
    PAGE HEADER
@@ -10,22 +12,40 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 25px;
+    gap: 30px;
+    margin-bottom: 28px;
+}
+
+.page-eyebrow {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: #10d9c4;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
 }
 
 .page-header h1 {
     margin: 0;
     color: #ffffff;
-    font-size: 31px;
+    font-size: 32px;
     font-weight: 700;
-    letter-spacing: -0.7px;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
 }
 
 .page-header p {
+    max-width: 560px;
     margin: 8px 0 0;
-    color: #7182aa;
-    font-size: 13px;
+    color: #6682b5;
+    font-size: 13.5px;
+    line-height: 1.6;
 }
+
+
+/* =========================================================
+   LISTED COMPANIES COUNTER
+========================================================= */
 
 .company-header-info {
     display: flex;
@@ -33,26 +53,33 @@
 }
 
 .listed-count {
-    min-width: 145px;
-    padding: 12px 17px;
-    border: 1px solid rgba(16, 217, 196, 0.15);
+    min-width: 165px;
+    padding: 14px 18px;
+    border: 1px solid rgba(16, 217, 196, 0.16);
     border-radius: 12px;
-    background: rgba(16, 217, 196, 0.05);
-    text-align: right;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16, 217, 196, 0.08),
+            rgba(16, 217, 196, 0.025)
+        );
+    text-align: left;
 }
 
 .count-number {
     display: block;
     color: #10d9c4;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
+    line-height: 1;
 }
 
 .count-label {
     display: block;
-    margin-top: 3px;
-    color: #7182aa;
-    font-size: 10px;
+    margin-top: 6px;
+    color: #6682b5;
+    font-size: 11px;
+    font-weight: 500;
 }
 
 
@@ -64,45 +91,73 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 16px;
     margin-bottom: 18px;
 }
 
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
 .company-search {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
     height: 46px;
+
     display: flex;
     align-items: center;
+
     padding: 0 15px;
-    border: 1px solid rgba(124, 145, 190, 0.2);
-    border-radius: 11px;
-    background: #0d1328;
-    transition: 0.2s ease;
+
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 10px;
+
+    background: #101a36;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.company-search:hover {
+    border-color: rgba(104, 132, 184, 0.28);
 }
 
 .company-search:focus-within {
-    border-color: #09bfc1;
-    box-shadow: 0 0 0 3px rgba(9, 191, 193, 0.08);
+    border-color: rgba(16, 217, 196, 0.55);
+
+    background: #101a36;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 217, 196, 0.07);
 }
 
 .company-search i {
-    color: #7182aa;
-    font-size: 17px;
+    flex-shrink: 0;
+    color: #6682b5;
+    font-size: 16px;
 }
 
 .company-search input {
     width: 100%;
-    margin-left: 10px;
+
+    margin-left: 11px;
+
     border: none;
     outline: none;
+
     background: transparent;
+
     color: #ffffff;
+
     font-size: 13px;
+    font-weight: 400;
 }
 
 .company-search input::placeholder {
-    color: #68789e;
+    color: #6682b5;
 }
 
 
@@ -117,24 +172,41 @@
 
 .company-filter {
     height: 46px;
-    min-width: 180px;
-    padding: 0 13px;
-    border: 1px solid rgba(124, 145, 190, 0.2);
-    border-radius: 11px;
+    min-width: 190px;
+
+    padding: 0 14px;
+
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 10px;
+
     outline: none;
-    background: #0d1328;
-    color: #b7c2db;
-    font-size: 12px;
+
+    background: #101a36;
+    color: #c7d1e6;
+
+    font-size: 13px;
+    font-weight: 500;
+
     cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.company-filter:hover {
+    border-color: rgba(104, 132, 184, 0.28);
 }
 
 .company-filter:focus {
-    border-color: #09bfc1;
-    box-shadow: 0 0 0 3px rgba(9, 191, 193, 0.08);
+    border-color: rgba(16, 217, 196, 0.55);
+
+    box-shadow:
+        0 0 0 3px rgba(16, 217, 196, 0.07);
 }
 
 .company-filter option {
-    background: #0d1328;
+    background: #101a36;
     color: #ffffff;
 }
 
@@ -145,9 +217,14 @@
 
 .companies-card {
     overflow: hidden;
-    border: 1px solid rgba(124, 145, 190, 0.14);
-    border-radius: 15px;
-    background: #0d1328;
+
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 16px;
+
+    background: #101a36;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -159,67 +236,169 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 22px;
-    border-bottom: 1px solid rgba(124, 145, 190, 0.1);
+    gap: 20px;
+
+    padding: 19px 22px;
+
+    border-bottom: 1px solid rgba(104, 132, 184, 0.1);
 }
 
 .companies-card .card-header h2 {
     margin: 0;
+
     color: #ffffff;
+
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 650;
+    letter-spacing: -0.15px;
 }
 
 .companies-card .card-header p {
     margin: 5px 0 0;
-    color: #7182aa;
-    font-size: 11px;
+
+    color: #6682b5;
+
+    font-size: 11.5px;
+    line-height: 1.5;
 }
 
 .company-result-count {
-    color: #7182aa;
-    font-size: 11px;
+    flex-shrink: 0;
+
+    color: #6682b5;
+
+    font-size: 11.5px;
 }
 
 .company-result-count strong {
     color: #10d9c4;
+    font-weight: 700;
 }
 
 
 /* =========================================================
-   COMPANY TABLE
+   TABLE
 ========================================================= */
 
 .companies-table {
     width: 100%;
-    border-collapse: collapse;
+
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .companies-table th {
-    padding: 13px 20px;
-    color: #5f719b;
-    background: rgba(255, 255, 255, 0.015);
-    font-size: 9px;
+    padding: 12px 20px;
+
+    border-bottom: 1px solid rgba(104, 132, 184, 0.08);
+
+    background: rgba(255, 255, 255, 0.018);
+
+    color: #6682b5;
+
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.8px;
+
+    letter-spacing: 0.7px;
     text-align: left;
+
     white-space: nowrap;
 }
 
 .companies-table td {
-    padding: 15px 20px;
-    border-top: 1px solid rgba(124, 145, 190, 0.07);
-    color: #b7c2db;
-    font-size: 12px;
+    padding: 14px 20px;
+
+    border-bottom: 1px solid rgba(104, 132, 184, 0.055);
+
+    color: #cbd5e8;
+
+    font-size: 12.5px;
+    font-weight: 400;
+
     white-space: nowrap;
+
+    vertical-align: middle;
 }
 
 .companies-table tbody tr {
-    transition: 0.15s ease;
+    background: transparent;
+
+    border-left: 2px solid transparent;
+
+    transition:
+        background 0.15s ease;
+}
+
+.companies-table tbody tr:last-child td {
+    border-bottom: none;
 }
 
 .companies-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.025);
+    background: rgba(16, 217, 196, 0.025);
+}
+
+
+/* =========================================================
+   SORTABLE HEADERS
+========================================================= */
+
+.companies-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+
+    transition: color 0.15s ease;
+}
+
+.companies-table th.sortable:hover {
+    color: #10d9c4;
+}
+
+.sort-icon {
+    margin-left: 4px;
+    font-size: 9px;
+    opacity: 0.5;
+
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.companies-table th.sortable:hover .sort-icon {
+    opacity: 0.9;
+}
+
+.companies-table th.sort-active .sort-icon {
+    opacity: 1;
+    color: #10d9c4;
+}
+
+.companies-table th.sort-asc .sort-icon::before {
+    content: "\F235"; /* bi-chevron-up */
+}
+
+.companies-table th.sort-desc .sort-icon::before {
+    content: "\F229"; /* bi-chevron-down */
+}
+
+
+/* =========================================================
+   ROW-LEVEL GAIN/LOSS ACCENT
+========================================================= */
+
+.companies-table tbody tr.row-positive {
+    border-left-color: rgba(57, 220, 162, 0.45);
+    background: rgba(57, 220, 162, 0.025);
+}
+
+.companies-table tbody tr.row-positive:hover {
+    background: rgba(57, 220, 162, 0.05);
+}
+
+.companies-table tbody tr.row-negative {
+    border-left-color: rgba(255, 111, 128, 0.45);
+    background: rgba(255, 111, 128, 0.025);
+}
+
+.companies-table tbody tr.row-negative:hover {
+    background: rgba(255, 111, 128, 0.05);
 }
 
 
@@ -230,40 +409,65 @@
 .company-name-cell {
     display: flex;
     align-items: center;
+
     gap: 11px;
-    min-width: 235px;
+
+    min-width: 245px;
 }
 
 .company-logo {
-    width: 36px;
-    height: 36px;
+    width: 37px;
+    height: 37px;
+
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(16, 217, 196, 0.12);
+
+    border: 1px solid rgba(16, 217, 196, 0.15);
     border-radius: 9px;
-    background: rgba(16, 217, 196, 0.07);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 217, 196, 0.10),
+            rgba(16, 217, 196, 0.035)
+        );
+
     color: #10d9c4;
+
     font-size: 13px;
     font-weight: 700;
 }
 
 .company-name-cell strong {
     display: block;
-    color: #ffffff;
-    font-size: 12px;
+
+    color: #f5f7fb;
+
+    font-size: 13px;
     font-weight: 600;
+
+    line-height: 1.3;
 }
 
 .company-name-cell span {
     display: block;
-    max-width: 210px;
+
+    max-width: 215px;
+
     overflow: hidden;
+
     margin-top: 3px;
-    color: #65769e;
-    font-size: 9px;
+
+    color: #6682b5;
+
+    font-size: 10.5px;
+
     text-overflow: ellipsis;
+
+    line-height: 1.3;
 }
 
 
@@ -273,13 +477,23 @@
 
 .stock-symbol {
     display: inline-flex;
-    padding: 5px 8px;
+    align-items: center;
+
+    min-height: 24px;
+
+    padding: 4px 8px;
+
+    border: 1px solid rgba(16, 217, 196, 0.10);
     border-radius: 6px;
-    background: rgba(16, 217, 196, 0.07);
-    color: #10d9c4;
-    font-size: 10px;
+
+    background: rgba(16, 217, 196, 0.055);
+
+    color: #12d7c3;
+
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.4px;
+
+    letter-spacing: 0.3px;
 }
 
 
@@ -290,45 +504,89 @@
 .sector-badge {
     display: inline-flex;
     align-items: center;
-    padding: 5px 8px;
+
+    min-height: 24px;
+
+    padding: 4px 9px;
+
     border-radius: 6px;
-    font-size: 9px;
+
+    font-size: 10.5px;
     font-weight: 600;
+
+    line-height: 1;
+
+    white-space: nowrap;
 }
+
+
+/* BANKING */
 
 .sector-badge.banking {
-    color: #62c8ff;
-    background: rgba(98, 200, 255, 0.08);
+    border: 1px solid rgba(98, 200, 255, 0.12);
+
+    color: #6ccaff;
+    background: rgba(98, 200, 255, 0.065);
 }
+
+
+/* INSURANCE */
 
 .sector-badge.insurance {
-    color: #b18cff;
-    background: rgba(177, 140, 255, 0.08);
+    border: 1px solid rgba(177, 140, 255, 0.12);
+
+    color: #b995ff;
+    background: rgba(177, 140, 255, 0.065);
 }
+
+
+/* HYDROPOWER */
 
 .sector-badge.hydropower {
-    color: #35d69d;
-    background: rgba(53, 214, 157, 0.08);
+    border: 1px solid rgba(53, 214, 157, 0.12);
+
+    color: #42dca4;
+    background: rgba(53, 214, 157, 0.065);
 }
+
+
+/* FINANCE */
 
 .sector-badge.finance {
-    color: #f2c96d;
-    background: rgba(242, 201, 109, 0.08);
+    border: 1px solid rgba(242, 201, 109, 0.12);
+
+    color: #f3ca70;
+    background: rgba(242, 201, 109, 0.065);
 }
+
+
+/* MANUFACTURING */
 
 .sector-badge.manufacturing {
-    color: #ff9c6d;
-    background: rgba(255, 156, 109, 0.08);
+    border: 1px solid rgba(255, 156, 109, 0.12);
+
+    color: #ffa071;
+    background: rgba(255, 156, 109, 0.065);
 }
+
+
+/* HOTELS */
 
 .sector-badge.hotels {
-    color: #f58bd4;
-    background: rgba(245, 139, 212, 0.08);
+    border: 1px solid rgba(245, 139, 212, 0.12);
+
+    color: #f48bd4;
+    background: rgba(245, 139, 212, 0.065);
 }
 
+
+/* DEVELOPMENT BANK */
+
 .sector-badge.development {
-    color: #7dd3fc;
-    background: rgba(125, 211, 252, 0.08);
+    border: 1px solid rgba(125, 211, 252, 0.12);
+
+    color: #7dd5fc;
+    background: rgba(125, 211, 252, 0.065);
 }
 
 
@@ -337,7 +595,9 @@
 ========================================================= */
 
 .companies-table .price {
-    color: #ffffff;
+    color: #f2f5fa;
+
+    font-size: 12.5px;
     font-weight: 600;
 }
 
@@ -347,12 +607,16 @@
 ========================================================= */
 
 .companies-table .positive {
-    color: #35d69d;
+    color: #39dca2;
+
+    font-size: 12.5px;
     font-weight: 600;
 }
 
 .companies-table .negative {
-    color: #ff687a;
+    color: #ff6f80;
+
+    font-size: 12.5px;
     font-weight: 600;
 }
 
@@ -362,21 +626,60 @@
 ========================================================= */
 
 .view-company-btn {
-    padding: 6px 12px;
-    border: 1px solid rgba(16, 217, 196, 0.2);
+    min-height: 28px;
+
+    padding: 5px 11px;
+
+    border: 1px solid rgba(16, 217, 196, 0.17);
     border-radius: 7px;
-    background: rgba(16, 217, 196, 0.06);
+
+    background: rgba(16, 217, 196, 0.045);
+
     color: #10d9c4;
-    font-size: 10px;
+
+    font-size: 10.5px;
     font-weight: 600;
+
     cursor: pointer;
-    transition: 0.2s ease;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
 }
 
 .view-company-btn:hover {
-    border-color: #10d9c4;
+    border-color: rgba(16, 217, 196, 0.65);
+
     background: #10d9c4;
+
     color: #061529;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+.companies-loading {
+    min-height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    color: #6682b5;
+
+    font-size: 12.5px;
+}
+
+.companies-loading .spinner-border {
+    color: #10d9c4;
 }
 
 
@@ -385,33 +688,49 @@
 ========================================================= */
 
 .empty-state {
-    padding: 55px 20px;
+    padding: 60px 20px;
+
     text-align: center;
 }
 
 .empty-icon {
-    width: 54px;
-    height: 54px;
+    width: 55px;
+    height: 55px;
+
     margin: 0 auto 15px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    border: 1px solid rgba(16, 217, 196, 0.10);
     border-radius: 14px;
-    background: rgba(16, 217, 196, 0.07);
+
+    background: rgba(16, 217, 196, 0.055);
+
     color: #10d9c4;
-    font-size: 23px;
+
+    font-size: 22px;
 }
 
 .empty-state h3 {
     margin: 0;
+
     color: #ffffff;
-    font-size: 15px;
+
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .empty-state p {
-    margin: 7px 0 0;
-    color: #7182aa;
-    font-size: 11px;
+    max-width: 330px;
+
+    margin: 7px auto 0;
+
+    color: #6682b5;
+
+    font-size: 11.5px;
+    line-height: 1.6;
 }
 
 
@@ -423,54 +742,78 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 17px 20px;
-    border-top: 1px solid rgba(124, 145, 190, 0.08);
+
+    padding: 15px 20px;
+
+    border-top: 1px solid rgba(104, 132, 184, 0.08);
 }
 
 .page-info {
-    color: #68799f;
-    font-size: 10px;
+    color: #6682b5;
+
+    font-size: 11.5px;
 }
 
 .pagination {
     display: flex;
     align-items: center;
+
     gap: 5px;
 }
 
 .pagination-btn {
-    min-width: 30px;
-    height: 30px;
+    min-width: 31px;
+    height: 31px;
+
     padding: 0 8px;
-    border: 1px solid rgba(124, 145, 190, 0.15);
-    border-radius: 6px;
+
+    border: 1px solid rgba(104, 132, 184, 0.14);
+    border-radius: 7px;
+
     background: transparent;
-    color: #8998bd;
-    font-size: 10px;
+
+    color: #6682b5;
+
+    font-size: 10.5px;
+    font-weight: 500;
+
     cursor: pointer;
-    transition: 0.2s ease;
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
 }
 
 .pagination-btn:hover {
-    border-color: #10d9c4;
+    border-color: rgba(16, 217, 196, 0.45);
+
     color: #10d9c4;
+
+    background: rgba(16, 217, 196, 0.04);
 }
 
 .pagination-btn.active {
-    border-color: #00c9a7;
-    background: #00c9a7;
+    border-color: #10d9c4;
+
+    background: #10d9c4;
+
     color: #061529;
+
     font-weight: 700;
 }
 
 .pagination-btn.disabled {
-    opacity: 0.35;
+    opacity: 0.3;
+
     cursor: not-allowed;
 }
 
 .pagination-dots {
     padding: 0 3px;
-    color: #68799f;
+
+    color: #6682b5;
+
     font-size: 11px;
 }
 
@@ -487,11 +830,40 @@
     color: #172033;
 }
 
+.dashboard-layout.light-mode .page-header p,
+.dashboard-layout.light-mode .companies-card .card-header p {
+    color: #71809d;
+}
+
+.dashboard-layout.light-mode .listed-count {
+    border-color: #dcefe9;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0fbf8,
+            #f8fcfb
+        );
+}
+
+.dashboard-layout.light-mode .count-label {
+    color: #71809d;
+}
+
 .dashboard-layout.light-mode .company-search,
 .dashboard-layout.light-mode .company-filter,
 .dashboard-layout.light-mode .companies-card {
     background: #ffffff;
-    border-color: #e4e9f2;
+
+    border-color: #e0e6f0;
+}
+
+.dashboard-layout.light-mode .company-search:focus-within,
+.dashboard-layout.light-mode .company-filter:focus {
+    border-color: #19bfae;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 191, 174, 0.08);
 }
 
 .dashboard-layout.light-mode .company-search input {
@@ -499,7 +871,7 @@
 }
 
 .dashboard-layout.light-mode .company-filter {
-    color: #4a5578;
+    color: #3a4664;
 }
 
 .dashboard-layout.light-mode .company-filter option {
@@ -509,29 +881,62 @@
 
 .dashboard-layout.light-mode .companies-table th {
     background: #f8f9fc;
-    color: #7a88ad;
+
+    border-color: #e0e6f0;
+
+    color: #71809d;
 }
 
 .dashboard-layout.light-mode .companies-table td {
-    border-color: #edf0f5;
-    color: #4a5578;
+    border-color: #e0e6f0;
+
+    color: #3a4664;
 }
 
 .dashboard-layout.light-mode .companies-table tbody tr:hover {
-    background: #f8fafc;
+    background: #f7fbfa;
+}
+
+.dashboard-layout.light-mode .companies-table tbody tr.row-positive {
+    background: rgba(57, 220, 162, 0.05);
+}
+
+.dashboard-layout.light-mode .companies-table tbody tr.row-positive:hover {
+    background: rgba(57, 220, 162, 0.09);
+}
+
+.dashboard-layout.light-mode .companies-table tbody tr.row-negative {
+    background: rgba(255, 111, 128, 0.05);
+}
+
+.dashboard-layout.light-mode .companies-table tbody tr.row-negative:hover {
+    background: rgba(255, 111, 128, 0.09);
 }
 
 .dashboard-layout.light-mode .company-name-cell span {
-    color: #7a88ad;
+    color: #71809d;
 }
 
 .dashboard-layout.light-mode .table-footer {
-    border-color: #e9edf4;
+    border-color: #e0e6f0;
+}
+
+.dashboard-layout.light-mode .page-info {
+    color: #71809d;
 }
 
 .dashboard-layout.light-mode .pagination-btn {
     border-color: #dce3ef;
-    color: #5a6788;
+
+    color: #4a5878;
+}
+
+.dashboard-layout.light-mode .pagination-btn:hover {
+    border-color: #19bfae;
+
+    color: #159f91;
+
+    background: #f2fbf9;
 }
 
 
@@ -547,7 +952,7 @@
     }
 
     .company-name-cell {
-        min-width: 200px;
+        min-width: 210px;
     }
 }
 
@@ -556,16 +961,19 @@
 
     .page-header {
         align-items: flex-start;
+
         flex-direction: column;
+
         gap: 15px;
     }
 
     .listed-count {
-        text-align: left;
+        min-width: 155px;
     }
 
     .company-controls {
         align-items: stretch;
+
         flex-direction: column;
     }
 
@@ -589,20 +997,29 @@
 
 @media (max-width: 600px) {
 
+    .page-header h1 {
+        font-size: 28px;
+    }
+
     .companies-card .card-header {
         align-items: flex-start;
+
         flex-direction: column;
+
         gap: 10px;
     }
 
     .table-footer {
         align-items: flex-start;
+
         flex-direction: column;
+
         gap: 12px;
     }
 
     .pagination {
         width: 100%;
+
         justify-content: flex-end;
     }
 }

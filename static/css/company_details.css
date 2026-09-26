@@ -1,0 +1,1383 @@
+/* =========================================================
+   MERO-PREDICT
+   COMPANY DETAILS PAGE
+   Standalone Company Details UI
+========================================================= */
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.company-details-page {
+    min-height: 100vh;
+    width: 100%;
+    background: #07112d;
+    color: #e6ebf5;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.company-details-page *,
+.company-details-page *::before,
+.company-details-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.company-details-content {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 32px 42px 60px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    color: #8fa3c7;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: color 0.2s ease;
+}
+
+.back-button i {
+    font-size: 16px;
+}
+
+.back-button:hover {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   COMMON SECTION LABEL
+========================================================= */
+
+.section-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #6f86ad;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   COMPANY HEADER
+========================================================= */
+
+.company-header-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    padding: 24px 26px;
+
+    background: #0b1736;
+
+    border: 1px solid rgba(111, 134, 173, 0.16);
+    border-radius: 16px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+
+    margin-bottom: 18px;
+}
+
+.company-header-left {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #1677ff,
+        #16c7c2
+    );
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow: 0 8px 22px rgba(22, 119, 255, 0.18);
+}
+
+.company-title-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 5px;
+}
+
+.company-title-row h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+.company-fullname {
+    margin: 0;
+
+    color: #8fa3c7;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.sector-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    background: rgba(22, 199, 194, 0.10);
+
+    border: 1px solid rgba(22, 199, 194, 0.22);
+    border-radius: 20px;
+
+    color: #5ee0da;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.company-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(111, 134, 173, 0.20);
+    border-radius: 10px;
+
+    background: #101f43;
+    color: #8fa3c7;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #152850;
+    color: #f3c85b;
+    border-color: rgba(243, 200, 91, 0.30);
+}
+
+.icon-btn.active {
+    background: rgba(243, 200, 91, 0.10);
+    color: #f3c85b;
+    border-color: rgba(243, 200, 91, 0.30);
+}
+
+.btn-compare {
+    min-width: 94px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #1677ff,
+        #1764d5
+    );
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 18px rgba(22, 119, 255, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-compare:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 22px rgba(22, 119, 255, 0.24);
+}
+
+
+/* =========================================================
+   CURRENT PRICE CARD
+========================================================= */
+
+.price-card {
+    width: 100%;
+
+    padding: 26px;
+
+    background: linear-gradient(
+        135deg,
+        #0d1c42,
+        #0b1736
+    );
+
+    border: 1px solid rgba(111, 134, 173, 0.17);
+    border-radius: 16px;
+
+    margin-bottom: 18px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.13);
+}
+
+.price-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.price-label {
+    color: #6f86ad;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.market-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #7f93b7;
+
+    font-size: 11px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #20c997;
+
+    box-shadow:
+        0 0 8px rgba(32, 201, 151, 0.45);
+}
+
+.price-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 23px;
+}
+
+.price-value {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.price-value .currency {
+    color: #7f93b7;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: 0;
+}
+
+.price-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: rgba(32, 201, 151, 0.10);
+
+    color: #36d6a2;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.price-change.down {
+    background: rgba(255, 92, 112, 0.10);
+    color: #ff7d8d;
+}
+
+
+/* =========================================================
+   PRICE STATS
+========================================================= */
+
+.price-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    border-top: 1px solid rgba(111, 134, 173, 0.12);
+
+    padding-top: 18px;
+}
+
+.price-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    padding-left: 20px;
+
+    border-left: 1px solid rgba(111, 134, 173, 0.12);
+}
+
+.price-stat:first-child {
+    padding-left: 0;
+    border-left: none;
+}
+
+.price-stat span {
+    color: #667da5;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.price-stat strong {
+    color: #dce5f5;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(320px, 0.8fr);
+
+    gap: 18px;
+
+    align-items: stretch;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   COMMON CARD
+========================================================= */
+
+.price-history-card,
+.prediction-card,
+.prediction-note-card,
+.technical-indicators-card {
+    background: #0b1736;
+
+    border: 1px solid rgba(111, 134, 173, 0.16);
+    border-radius: 16px;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   PRICE HISTORY
+========================================================= */
+
+.price-history-card {
+    min-height: 470px;
+
+    padding: 24px;
+}
+
+.card-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.card-header-row h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 0;
+
+    color: #f2f6fc;
+
+    font-size: 17px;
+    font-weight: 650;
+}
+
+.range-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 4px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.13);
+    border-radius: 9px;
+}
+
+.range-tab {
+    min-width: 45px;
+    height: 29px;
+
+    padding: 0 9px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #7186aa;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.range-tab:hover {
+    color: #dce5f5;
+}
+
+.range-tab.active {
+    background: #162950;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   PRICE CHART
+========================================================= */
+
+.price-chart-container {
+    position: relative;
+
+    width: 100%;
+    height: 285px;
+
+    padding-top: 5px;
+}
+
+#priceChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* =========================================================
+   VOLUME
+========================================================= */
+
+.volume-section {
+    margin-top: 12px;
+}
+
+.volume-chart-label {
+    margin-bottom: 5px;
+
+    color: #52698f;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.volume-strip {
+    position: relative;
+
+    width: 100%;
+    height: 72px;
+}
+
+#intradayVolumeChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* =========================================================
+   RIGHT COLUMN
+========================================================= */
+
+.details-right-col {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   NEXT-DAY PREDICTION
+========================================================= */
+
+.prediction-card {
+    padding: 23px;
+}
+
+.prediction-card .card-header-row {
+    margin-bottom: 23px;
+}
+
+.prediction-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.prediction-card h3 i {
+    color: #42cfd0;
+}
+
+.next-day-label {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: rgba(22, 119, 255, 0.10);
+
+    color: #6ca8ff;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PREDICTION DIRECTION
+========================================================= */
+
+.prediction-direction {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.12);
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+}
+
+.direction-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: rgba(32, 201, 151, 0.11);
+
+    color: #36d6a2;
+
+    font-size: 21px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.direction-icon.down {
+    background: rgba(255, 92, 112, 0.11);
+    color: #ff7d8d;
+}
+
+.prediction-text h2 {
+    margin: 0 0 4px;
+
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.prediction-text p {
+    margin: 0;
+
+    color: #7186aa;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CONFIDENCE
+========================================================= */
+
+.confidence-block {
+    margin-bottom: 20px;
+}
+
+.confidence-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+}
+
+.confidence-label-row span {
+    color: #8195b8;
+
+    font-size: 11px;
+}
+
+.confidence-label-row strong {
+    color: #e8eef8;
+
+    font-size: 12px;
+}
+
+.confidence-bar {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #172647;
+}
+
+.confidence-fill {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        #1677ff,
+        #35c9c2
+    );
+
+    transition: width 0.5s ease;
+}
+
+
+/* =========================================================
+   PREDICTION INFORMATION
+========================================================= */
+
+.prediction-info {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.prediction-info-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 12px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.11);
+    border-radius: 9px;
+}
+
+.prediction-info-item span {
+    color: #61779e;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.prediction-info-item strong {
+    color: #e2e9f5;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.prediction-currency {
+    color: #7186aa !important;
+
+    font-size: 10px !important;
+
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+
+/* =========================================================
+   MODEL INFO
+========================================================= */
+
+.model-info {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 14px;
+
+    border-top: 1px solid rgba(111, 134, 173, 0.11);
+}
+
+.model-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(74, 184, 255, 0.09);
+
+    color: #4ab8ff;
+
+    font-size: 15px;
+}
+
+.model-info-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.model-info-text span {
+    color: #5f759b;
+
+    font-size: 9px;
+}
+
+.model-info-text strong {
+    color: #9eafd0;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PREDICTION NOTE
+========================================================= */
+
+.prediction-note-card {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 17px 19px;
+}
+
+.note-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(74, 184, 255, 0.09);
+
+    color: #4ab8ff;
+
+    font-size: 14px;
+}
+
+.prediction-note-content h4 {
+    margin: 0 0 5px;
+
+    color: #dce5f5;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.prediction-note-content p {
+    margin: 0;
+
+    color: #7186aa;
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   TECHNICAL INDICATORS
+========================================================= */
+
+.technical-indicators-card {
+    padding: 24px;
+
+    margin-bottom: 18px;
+}
+
+.technical-heading {
+    margin-bottom: 23px;
+}
+
+.technical-heading h3 {
+    margin: 0;
+
+    color: #f2f6fc;
+
+    font-size: 17px;
+    font-weight: 650;
+}
+
+.indicators-row {
+    display: grid;
+
+    grid-template-columns:
+        0.8fr
+        1.4fr
+        1.1fr;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   RSI
+========================================================= */
+
+.rsi-gauge-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 175px;
+
+    padding: 20px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.11);
+    border-radius: 12px;
+}
+
+.rsi-gauge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 94px;
+    height: 94px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #08132d 53%,
+            transparent 54%
+        ),
+        conic-gradient(
+            #35c9c2 0deg,
+            #35c9c2 180deg,
+            #243556 180deg,
+            #243556 360deg
+        );
+}
+
+.rsi-gauge span {
+    color: #ffffff;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.rsi-label {
+    margin: 12px 0 3px;
+
+    color: #7186aa;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.rsi-status {
+    margin: 0;
+
+    color: #35c9c2;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MOVING AVERAGES
+========================================================= */
+
+.moving-averages-block {
+    min-height: 175px;
+
+    padding: 20px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.11);
+    border-radius: 12px;
+}
+
+.moving-averages-block h4,
+.volume-trend-block h4 {
+    margin: 0 0 15px;
+
+    color: #dce5f5;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+#movingAveragesList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.moving-average-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid rgba(111, 134, 173, 0.09);
+}
+
+.moving-average-item:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+.moving-average-item span {
+    color: #7186aa;
+
+    font-size: 10px;
+}
+
+.moving-average-item strong {
+    color: #dce5f5;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   VOLUME TREND
+========================================================= */
+
+.volume-trend-block {
+    min-height: 175px;
+
+    padding: 20px;
+
+    background: #08132d;
+
+    border: 1px solid rgba(111, 134, 173, 0.11);
+    border-radius: 12px;
+}
+
+.volume-bars {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 7px;
+
+    height: 92px;
+
+    padding: 8px 2px 0;
+}
+
+.volume-bars .volume-bar {
+    flex: 1;
+
+    min-width: 4px;
+
+    border-radius: 3px 3px 0 0;
+
+    background: #1677ff;
+
+    opacity: 0.72;
+
+    transition:
+        height 0.3s ease,
+        opacity 0.2s ease;
+}
+
+.volume-bars .volume-bar:hover {
+    opacity: 1;
+}
+
+.volume-trend-label {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin: 9px 0 0;
+
+    color: #35c9a2;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.volume-trend-label.down {
+    color: #ff7d8d;
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.company-details-page .loading {
+    color: #7186aa;
+}
+
+.company-details-page .error {
+    color: #ff7d8d;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .company-details-content {
+        padding: 28px 26px 50px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-right-col {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .indicators-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rsi-gauge-block {
+        grid-row: span 2;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .company-details-content {
+        padding: 22px 16px 40px;
+    }
+
+    .company-header-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        padding: 20px;
+    }
+
+    .company-header-actions {
+        width: 100%;
+    }
+
+    .btn-compare {
+        flex: 1;
+    }
+
+    .company-title-row {
+        flex-wrap: wrap;
+    }
+
+    .company-title-row h1 {
+        font-size: 23px;
+    }
+
+    .price-card {
+        padding: 20px;
+    }
+
+    .price-stats {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+    }
+
+    .price-stat {
+        padding-left: 0;
+
+        border-left: none;
+    }
+
+    .price-stat:nth-child(3),
+    .price-stat:nth-child(4) {
+        padding-top: 14px;
+
+        border-top:
+            1px solid rgba(111, 134, 173, 0.10);
+    }
+
+    .card-header-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .price-history-card {
+        padding: 18px;
+    }
+
+    .price-chart-container {
+        height: 240px;
+    }
+
+    .details-right-col {
+        display: flex;
+    }
+
+    .prediction-card {
+        padding: 19px;
+    }
+
+    .prediction-info {
+        grid-template-columns: 1fr;
+    }
+
+    .technical-indicators-card {
+        padding: 19px;
+    }
+
+    .indicators-row {
+        grid-template-columns: 1fr;
+    }
+
+    .rsi-gauge-block {
+        min-height: 160px;
+
+        grid-row: auto;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .company-details-content {
+        padding: 18px 12px 35px;
+    }
+
+    .company-header-left {
+        align-items: flex-start;
+    }
+
+    .company-logo {
+        width: 48px;
+        height: 48px;
+
+        font-size: 15px;
+    }
+
+    .company-title-row h1 {
+        font-size: 20px;
+    }
+
+    .sector-badge {
+        font-size: 9px;
+    }
+
+    .company-fullname {
+        font-size: 12px;
+    }
+
+    .price-value {
+        font-size: 28px;
+    }
+
+    .price-chart-container {
+        height: 210px;
+    }
+
+    .range-tab {
+        min-width: 40px;
+    }
+
+    .prediction-direction {
+        padding: 15px;
+    }
+
+    .prediction-text h2 {
+        font-size: 21px;
+    }
+}
+/* =========================================================
+   MOVING AVERAGE STATUS BADGE
+========================================================= */
+
+.ma-badge {
+    display: inline-flex;
+    align-items: center;
+
+    margin-left: 6px;
+    padding: 2px 5px;
+
+    border-radius: 4px;
+
+    font-size: 7px !important;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+.ma-badge.above {
+    background: rgba(53, 201, 162, 0.10);
+    color: #35c9a2;
+}
+
+.ma-badge.below {
+    background: rgba(255, 125, 141, 0.10);
+    color: #ff7d8d;
+}

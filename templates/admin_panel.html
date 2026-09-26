@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block title %}
 Admin Panel | MeroPredict
 {% endblock %}
@@ -25,49 +24,44 @@ Admin Panel | MeroPredict
 
 <div class="dashboard-layout">
 
-
     <!-- =========================================================
          SIDEBAR
-    ========================================================= -->
+    ========================================================== -->
 
     {% include 'sidebar.html' %}
 
 
     <!-- =========================================================
          MAIN CONTENT
-    ========================================================= -->
+    ========================================================== -->
 
     <main class="dashboard-main">
 
-
         <!-- =====================================================
              SHARED TOPBAR
-        ===================================================== -->
+        ====================================================== -->
 
         {% include "topbar.html" %}
 
 
         <!-- =====================================================
              ADMIN CONTENT
-        ===================================================== -->
+        ====================================================== -->
 
         <div class="admin-content">
 
 
             <!-- =================================================
                  PAGE HEADER
-            ================================================= -->
+            ================================================== -->
 
             <div class="admin-page-header">
 
                 <div class="admin-header-left">
 
                     <span class="admin-header-icon">
-
                         <i class="bi bi-lightning-charge-fill"></i>
-
                     </span>
-
 
                     <div>
 
@@ -97,8 +91,8 @@ Admin Panel | MeroPredict
 
 
             <!-- =================================================
-                 STAT CARDS
-            ================================================= -->
+                 ADMIN STAT CARDS
+            ================================================== -->
 
             <div class="admin-stats">
 
@@ -108,11 +102,8 @@ Admin Panel | MeroPredict
                 <div class="admin-stat-card">
 
                     <span class="admin-stat-icon icon-indigo">
-
                         <i class="bi bi-building"></i>
-
                     </span>
-
 
                     <div>
 
@@ -120,11 +111,8 @@ Admin Panel | MeroPredict
                             Total Companies
                         </small>
 
-
                         <strong id="totalCompanies">
-
                             Loading...
-
                         </strong>
 
                     </div>
@@ -137,11 +125,8 @@ Admin Panel | MeroPredict
                 <div class="admin-stat-card">
 
                     <span class="admin-stat-icon icon-green">
-
                         <i class="bi bi-cpu-fill"></i>
-
                     </span>
-
 
                     <div>
 
@@ -149,11 +134,8 @@ Admin Panel | MeroPredict
                             Model Accuracy
                         </small>
 
-
                         <strong id="modelAccuracy">
-
                             Loading...
-
                         </strong>
 
                     </div>
@@ -166,11 +148,8 @@ Admin Panel | MeroPredict
                 <div class="admin-stat-card">
 
                     <span class="admin-stat-icon icon-amber">
-
                         <i class="bi bi-database-fill"></i>
-
                     </span>
-
 
                     <div>
 
@@ -178,11 +157,8 @@ Admin Panel | MeroPredict
                             Training Samples
                         </small>
 
-
                         <strong id="trainingSamples">
-
                             Loading...
-
                         </strong>
 
                     </div>
@@ -195,11 +171,8 @@ Admin Panel | MeroPredict
                 <div class="admin-stat-card">
 
                     <span class="admin-stat-icon icon-gray">
-
                         <i class="bi bi-clock-fill"></i>
-
                     </span>
-
 
                     <div>
 
@@ -207,11 +180,8 @@ Admin Panel | MeroPredict
                             Last Updated
                         </small>
 
-
                         <strong id="lastUpdated">
-
                             Loading...
-
                         </strong>
 
                     </div>
@@ -224,11 +194,12 @@ Admin Panel | MeroPredict
 
             <!-- =================================================
                  ADMIN TABS
-            ================================================= -->
+            ================================================== -->
 
             <div
                 class="admin-tabs"
                 role="tablist"
+                aria-label="Admin panel sections"
             >
 
 
@@ -245,7 +216,9 @@ Admin Panel | MeroPredict
 
                     <i class="bi bi-upload"></i>
 
-                    Upload Data
+                    <span>
+                        Upload Data
+                    </span>
 
                 </button>
 
@@ -263,7 +236,9 @@ Admin Panel | MeroPredict
 
                     <i class="bi bi-building"></i>
 
-                    Manage Companies
+                    <span>
+                        Manage Companies
+                    </span>
 
                 </button>
 
@@ -281,7 +256,9 @@ Admin Panel | MeroPredict
 
                     <i class="bi bi-cpu"></i>
 
-                    Train Model
+                    <span>
+                        Train Model
+                    </span>
 
                 </button>
 
@@ -299,7 +276,9 @@ Admin Panel | MeroPredict
 
                     <i class="bi bi-bar-chart-line"></i>
 
-                    Data Statistics
+                    <span>
+                        Data Statistics
+                    </span>
 
                 </button>
 
@@ -309,59 +288,69 @@ Admin Panel | MeroPredict
 
             <!-- =================================================
                  TAB PANEL: UPLOAD DATA
-            ================================================= -->
+            ================================================== -->
 
             <div
                 class="admin-tab-panel"
                 id="tab-upload"
                 role="tabpanel"
+                aria-labelledby=""
             >
 
 
-                <!-- =================================================
-                     CSV DROP ZONE
-                ================================================= -->
-
-                <div
-                    class="admin-dropzone"
-                    id="csvDropzone"
-                >
-
-                    <i class="bi bi-cloud-arrow-up"></i>
-
-
-                    <h3>
-                        Drop CSV file here or click to browse
-                    </h3>
-
-
-                    <p>
-                        Supports NEPSE daily data format
-                        (CSV, max 50MB)
-                    </p>
-
-
-                    <input
-                        type="file"
-                        id="csvFileInput"
-                        name="files"
-                        accept=".csv"
-                        multiple
-                        hidden
-                    >
-
-                </div>
-
-
-                <!-- =================================================
-                     RECENT UPLOADS
-                ================================================= -->
+                <!-- CSV DROPZONE -->
 
                 <section class="admin-card">
 
-                    <h3>
-                        Recent Uploads
-                    </h3>
+                    <div
+                        class="admin-dropzone"
+                        id="csvDropzone"
+                    >
+
+                        <i class="bi bi-cloud-arrow-up"></i>
+
+                        <h3>
+                            Drop CSV file here or click to browse
+                        </h3>
+
+                        <p>
+                            Supports NEPSE daily data format
+                            (CSV, max 50MB)
+                        </p>
+
+                        <input
+                            type="file"
+                            id="csvFileInput"
+                            name="files"
+                            accept=".csv"
+                            multiple
+                            hidden
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECENT UPLOADS -->
+
+                <section class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Uploads
+                            </h3>
+
+                            <p>
+                                Recently imported NEPSE data files
+                            </p>
+
+                        </div>
+
+                    </div>
 
 
                     <div class="table-responsive">
@@ -420,47 +409,994 @@ Admin Panel | MeroPredict
 
             <!-- =================================================
                  TAB PANEL: MANAGE COMPANIES
-            ================================================= -->
+            ================================================== -->
 
             <div
                 class="admin-tab-panel"
                 id="tab-companies"
                 role="tabpanel"
+                aria-labelledby=""
                 hidden
             >
+
+                <section class="admin-card">
+
+
+                    <!-- COMPANY HEADER -->
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Company Registry
+                                (<span id="companyCount">Loading...</span>)
+                            </h3>
+
+                            <p>
+                                View companies available in the
+                                Mero-Predict database
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPANY TOOLBAR -->
+
+                    <div class="company-toolbar">
+
+
+                        <!-- COMPANY SEARCH
+
+                        <div class="company-search">
+
+                            <i class="bi bi-search"></i>
+
+                            <input
+                                type="search"
+                                id="companySearch"
+                                placeholder="Search by symbol..."
+                                autocomplete="off"
+                                aria-label="Search companies by symbol"
+                            >
+
+                        </div> -->
+
+
+                        <!-- SECTOR FILTER -->
+
+                        <div class="company-filter">
+
+                            <select
+                                id="sectorFilter"
+                                aria-label="Filter companies by sector"
+                            >
+
+                                <option value="all">
+                                    All Sectors
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- COMPANY TABLE -->
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="admin-table"
+                            id="companiesTable"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        SYMBOL
+                                    </th>
+
+                                    <th>
+                                        SECTOR
+                                    </th>
+
+                                    <th>
+                                        RECORDS
+                                    </th>
+
+                                    <th>
+                                        FIRST DATE
+                                    </th>
+
+                                    <th>
+                                        LATEST DATE
+                                    </th>
+
+                                    <th>
+                                        STATUS
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td colspan="6">
+                                        Loading companies...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- EMPTY STATE -->
+
+                    <div
+                        class="admin-empty-state"
+                        id="companyEmptyState"
+                        hidden
+                    >
+
+                        <i class="bi bi-building"></i>
+
+                        <h4>
+                            No companies found
+                        </h4>
+
+                        <p>
+                            Try changing your search or sector filter.
+                        </p>
+
+                    </div>
+
+
+                </section>
 
             </div>
 
 
             <!-- =================================================
                  TAB PANEL: TRAIN MODEL
-            ================================================= -->
+            ================================================== -->
 
             <div
                 class="admin-tab-panel"
                 id="tab-train"
                 role="tabpanel"
+                aria-labelledby=""
                 hidden
             >
+
+
+                <!-- MODEL CONFIGURATION + PERFORMANCE -->
+
+                <div class="train-grid">
+
+
+                    <!-- MODEL CONFIGURATION -->
+
+                    <section class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <h3>
+                                    Model Configuration
+                                </h3>
+
+                                <p>
+                                    Current prediction model configuration
+                                </p>
+
+                            </div>
+
+                            <span class="model-status-badge">
+                                XGBoost
+                            </span>
+
+                        </div>
+
+
+                        <div class="config-list">
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Algorithm
+                                </span>
+
+                                <span class="config-value">
+                                    XGBoost Classifier
+                                </span>
+
+                            </div>
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Prediction Type
+                                </span>
+
+                                <span class="config-value">
+                                    UP / DOWN Movement
+                                </span>
+
+                            </div>
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Target
+                                </span>
+
+                                <span class="config-value">
+                                    Next-Day Direction
+                                </span>
+
+                            </div>
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Model Features
+                                </span>
+
+                                <span class="config-value">
+                                    16
+                                </span>
+
+                            </div>
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Model File
+                                </span>
+
+                                <span class="config-value">
+                                    final_xgboost_model.pkl
+                                </span>
+
+                            </div>
+
+
+                            <div class="config-row">
+
+                                <span class="config-label">
+                                    Feature File
+                                </span>
+
+                                <span class="config-value">
+                                    feature_columns.pkl
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- CURRENT MODEL PERFORMANCE -->
+
+                    <section class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <h3>
+                                    Current Model Performance
+                                </h3>
+
+                                <p>
+                                    Metrics from the saved XGBoost model
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="model-performance">
+
+
+                            <!-- ACCURACY -->
+
+                            <div class="perf-row">
+
+                                <div class="perf-label-row">
+
+                                    <span>
+                                        Accuracy
+                                    </span>
+
+                                    <strong
+                                        id="trainAccuracy"
+                                        class="perf-value"
+                                    >
+                                        Loading...
+                                    </strong>
+
+                                </div>
+
+                                <div class="perf-bar-track">
+
+                                    <div
+                                        class="perf-bar-fill"
+                                        id="accuracyBar"
+                                        style="width:0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PRECISION -->
+
+                            <div class="perf-row">
+
+                                <div class="perf-label-row">
+
+                                    <span>
+                                        Precision
+                                    </span>
+
+                                    <strong
+                                        id="trainPrecision"
+                                        class="perf-value"
+                                    >
+                                        Loading...
+                                    </strong>
+
+                                </div>
+
+                                <div class="perf-bar-track">
+
+                                    <div
+                                        class="perf-bar-fill"
+                                        id="precisionBar"
+                                        style="width:0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RECALL -->
+
+                            <div class="perf-row">
+
+                                <div class="perf-label-row">
+
+                                    <span>
+                                        Recall
+                                    </span>
+
+                                    <strong
+                                        id="trainRecall"
+                                        class="perf-value"
+                                    >
+                                        Loading...
+                                    </strong>
+
+                                </div>
+
+                                <div class="perf-bar-track">
+
+                                    <div
+                                        class="perf-bar-fill"
+                                        id="recallBar"
+                                        style="width:0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- F1 SCORE -->
+
+                            <div class="perf-row">
+
+                                <div class="perf-label-row">
+
+                                    <span>
+                                        F1 Score
+                                    </span>
+
+                                    <strong
+                                        id="trainF1"
+                                        class="perf-value"
+                                    >
+                                        Loading...
+                                    </strong>
+
+                                </div>
+
+                                <div class="perf-bar-track">
+
+                                    <div
+                                        class="perf-bar-fill"
+                                        id="f1Bar"
+                                        style="width:0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ROC-AUC -->
+
+                            <div class="perf-row">
+
+                                <div class="perf-label-row">
+
+                                    <span>
+                                        ROC-AUC
+                                    </span>
+
+                                    <strong
+                                        id="trainRocAuc"
+                                        class="perf-value"
+                                    >
+                                        Loading...
+                                    </strong>
+
+                                </div>
+
+                                <div class="perf-bar-track">
+
+                                    <div
+                                        class="perf-bar-fill"
+                                        id="rocAucBar"
+                                        style="width:0%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <p class="performance-note">
+
+                            Performance values are loaded from
+                            the saved model evaluation results.
+
+                        </p>
+
+                    </section>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     MODEL FEATURES
+                ================================================== -->
+
+                <section class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Model Features
+                            </h3>
+
+                            <p>
+                                Features currently used by the
+                                XGBoost prediction pipeline
+                            </p>
+
+                        </div>
+
+                        <span class="feature-count-badge">
+                            16 Features
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-list">
+
+
+                        <span class="feature-tag">
+                            Open
+                        </span>
+
+                        <span class="feature-tag">
+                            High
+                        </span>
+
+                        <span class="feature-tag">
+                            Low
+                        </span>
+
+                        <span class="feature-tag">
+                            Close
+                        </span>
+
+                        <span class="feature-tag">
+                            VWAP
+                        </span>
+
+                        <span class="feature-tag">
+                            Vol
+                        </span>
+
+                        <span class="feature-tag">
+                            Turnover
+                        </span>
+
+                        <span class="feature-tag">
+                            Trans.
+                        </span>
+
+                        <span class="feature-tag">
+                            Price_Change
+                        </span>
+
+                        <span class="feature-tag">
+                            Range %
+                        </span>
+
+                        <span class="feature-tag">
+                            VWAP %
+                        </span>
+
+                        <span class="feature-tag">
+                            Return_3D
+                        </span>
+
+                        <span class="feature-tag">
+                            Return_5D
+                        </span>
+
+                        <span class="feature-tag">
+                            Volatility_5D
+                        </span>
+
+                        <span class="feature-tag">
+                            Volume_Change
+                        </span>
+
+                        <span class="feature-tag">
+                            MA5_Distance
+                        </span>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     TRAINING ACTION
+                ================================================== -->
+
+                <section class="admin-card train-action-card">
+
+
+                    <div class="train-action-icon">
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                    </div>
+
+
+                    <div class="train-action-content">
+
+                        <h3>
+                            Retrain XGBoost Model
+                        </h3>
+
+                        <p>
+                            Start model training using the latest
+                            available historical NEPSE data.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn-start-training"
+                    >
+
+                        <i class="bi bi-play-fill"></i>
+
+                        Start Training
+
+                    </button>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     TRAINING STATUS
+                ================================================== -->
+
+                <div
+                    class="training-status"
+                    id="trainingStatus"
+                    hidden
+                >
+
+                    <div
+                        class="training-spinner"
+                        aria-hidden="true"
+                    >
+
+                        <span class="spinner-border"></span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Model training in progress...
+                        </strong>
+
+                        <p>
+                            Please wait while the model is being trained.
+                        </p>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
 
             <!-- =================================================
                  TAB PANEL: DATA STATISTICS
-            ================================================= -->
+            ================================================== -->
 
             <div
                 class="admin-tab-panel"
                 id="tab-stats"
                 role="tabpanel"
+                aria-labelledby=""
                 hidden
             >
+
+
+                <!-- DATA SUMMARY -->
+
+                <div class="stats-cards-row">
+
+
+                    <!-- TRADING DAYS -->
+
+                    <div class="stats-mini-card">
+
+                        <div class="stats-mini-icon icon-teal">
+
+                            <i class="bi bi-calendar-check"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="stats-mini-label">
+                                Trading Days
+                            </span>
+
+                            <strong
+                                class="stats-mini-value"
+                                id="totalTradingDays"
+                            >
+                                Loading...
+                            </strong>
+
+                            <span class="stats-mini-caption">
+                                Available historical records
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE RECORDS -->
+
+                    <div class="stats-mini-card">
+
+                        <div class="stats-mini-icon icon-indigo">
+
+                            <i class="bi bi-collection-fill"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="stats-mini-label">
+                                Price Records
+                            </span>
+
+                            <strong
+                                class="stats-mini-value"
+                                id="totalPriceRecords"
+                            >
+                                Loading...
+                            </strong>
+
+                            <span class="stats-mini-caption">
+                                Records in stock_prices
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPANIES -->
+
+                    <div class="stats-mini-card">
+
+                        <div class="stats-mini-icon icon-green">
+
+                            <i class="bi bi-buildings-fill"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="stats-mini-label">
+                                Companies
+                            </span>
+
+                            <strong
+                                class="stats-mini-value"
+                                id="statsCompanyCount"
+                            >
+                                Loading...
+                            </strong>
+
+                            <span class="stats-mini-caption">
+                                Companies available for prediction
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- DATASET INFORMATION -->
+
+                <section class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Dataset Information
+                            </h3>
+
+                            <p>
+                                Overview of the historical NEPSE dataset
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dataset-info-grid">
+
+
+                        <div class="dataset-info-item">
+
+                            <span>
+                                First Trading Date
+                            </span>
+
+                            <strong id="firstTradingDate">
+                                Loading...
+                            </strong>
+
+                        </div>
+
+
+                        <div class="dataset-info-item">
+
+                            <span>
+                                Latest Trading Date
+                            </span>
+
+                            <strong id="latestTradingDate">
+                                Loading...
+                            </strong>
+
+                        </div>
+
+
+                        <div class="dataset-info-item">
+
+                            <span>
+                                Total Sectors
+                            </span>
+
+                            <strong id="totalSectors">
+                                Loading...
+                            </strong>
+
+                        </div>
+
+
+                        <div class="dataset-info-item">
+
+                            <span>
+                                Database Table
+                            </span>
+
+                            <strong>
+                                stock_prices
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- SECTOR DISTRIBUTION -->
+
+                <section class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Sector Distribution
+                            </h3>
+
+                            <p>
+                                Number of companies and records by sector
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="admin-table"
+                            id="sectorStatsTable"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        SECTOR
+                                    </th>
+
+                                    <th>
+                                        COMPANIES
+                                    </th>
+
+                                    <th>
+                                        RECORDS
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td colspan="3">
+                                        Loading sector statistics...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FEATURE IMPORTANCE -->
+
+                <section class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Feature Importance
+                            </h3>
+
+                            <p>
+                                XGBoost feature importance from the saved model
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="feature-importance-list"
+                        id="featureImportanceList"
+                    >
+
+                        <div class="feature-loading">
+
+                            <i class="bi bi-bar-chart"></i>
+
+                            <span>
+                                Loading feature importance...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
 
             </div>
 
 
         </div>
+
 
     </main>
 

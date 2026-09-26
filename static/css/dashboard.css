@@ -557,10 +557,10 @@
     width: 220px;
     padding: 16px;
 
-    border: 1px solid rgba(124, 145, 190, 0.14);
+    border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 14px;
 
-    background: #0d1328;
+    background: #101a36;
     box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.55);
 
     opacity: 0;
@@ -655,7 +655,7 @@
 
     margin: 10px 0;
 
-    background: rgba(124, 145, 190, 0.14);
+    background: rgba(104, 132, 184, 0.18);
 
 }
 
@@ -668,7 +668,7 @@
 
     padding: 4px 0;
 
-    color: #7080a5;
+    color: #6682b5;
 
     font-size: 12px;
 
@@ -752,7 +752,7 @@
 
     margin: 8px 0 0;
 
-    color: #7182aa;
+    color: #6682b5;
 
     font-size: 13px;
 
@@ -801,6 +801,7 @@
 
 /* =========================================================
    SUMMARY CARDS
+   (matched to market_overview.css .overview-card)
 ========================================================= */
 
 .dashboard-cards {
@@ -823,11 +824,11 @@
 
     padding: 21px;
 
-    border: 1px solid rgba(124, 145, 190, 0.14);
+    border: 1px solid rgba(104, 132, 184, 0.18);
 
     border-radius: 15px;
 
-    background: #0d1328;
+    background: #101a36;
 
     transition: 0.25s ease;
 
@@ -854,7 +855,7 @@
 
     justify-content: space-between;
 
-    color: #7788ae;
+    color: #6682b5;
 
     font-size: 10px;
 
@@ -910,7 +911,7 @@
 
     margin: 0;
 
-    color: #7080a5;
+    color: #6682b5;
 
     font-size: 12px;
 
@@ -955,6 +956,7 @@
 
 /* =========================================================
    CHART CARD
+   (matched to market_overview.css .overview-panel)
 ========================================================= */
 
 .chart-card {
@@ -963,11 +965,11 @@
 
     margin-bottom: 20px;
 
-    border: 1px solid rgba(124, 145, 190, 0.14);
+    border: 1px solid rgba(104, 132, 184, 0.18);
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    background: #0d1328;
+    background: #101a36;
 
 }
 
@@ -998,7 +1000,7 @@
 
     margin: 6px 0 0;
 
-    color: #7182aa;
+    color: #6682b5;
 
     font-size: 12px;
 
@@ -1046,6 +1048,7 @@
 
 /* =========================================================
    TABLES
+   (matched to market_overview.css panel/card colors)
 ========================================================= */
 
 .market-tables {
@@ -1066,11 +1069,11 @@
 
     overflow: hidden;
 
-    border: 1px solid rgba(124, 145, 190, 0.14);
+    border: 1px solid rgba(104, 132, 184, 0.18);
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    background: #0d1328;
+    background: #101a36;
 
 }
 
@@ -1085,7 +1088,7 @@
 
     padding: 20px 21px;
 
-    border-bottom: 1px solid rgba(124, 145, 190, 0.1);
+    border-bottom: 1px solid rgba(104, 132, 184, 0.1);
 
 }
 
@@ -1096,7 +1099,7 @@
 
     margin-bottom: 4px;
 
-    color: #5f719b;
+    color: #6682b5;
 
     font-size: 9px;
 
@@ -1172,7 +1175,7 @@
 
     padding: 13px 20px;
 
-    color: #5f719b;
+    color: #6682b5;
 
     background: rgba(255, 255, 255, 0.015);
 
@@ -1191,7 +1194,7 @@
 
     padding: 14px 20px;
 
-    border-top: 1px solid rgba(124, 145, 190, 0.07);
+    border-top: 1px solid rgba(104, 132, 184, 0.07);
 
     color: #b7c2db;
 
@@ -1233,7 +1236,7 @@
 
     margin-top: 3px;
 
-    color: #65769e;
+    color: #6682b5;
 
     font-size: 9px;
 
@@ -1303,11 +1306,11 @@
 
     padding: 19px;
 
-    border: 1px solid rgba(124, 145, 190, 0.14);
+    border: 1px solid rgba(104, 132, 184, 0.18);
 
     border-radius: 14px;
 
-    background: #0d1328;
+    background: #101a36;
 
 }
 
@@ -1339,7 +1342,7 @@
 
     margin-bottom: 4px;
 
-    color: #68799f;
+    color: #6682b5;
 
     font-size: 10px;
 
@@ -1391,7 +1394,7 @@
 
     background: #ffffff;
 
-    border-color: #e4e9f2;
+    border-color: #e0e6f0;
 
 }
 
@@ -1428,7 +1431,7 @@
 
     background: #ffffff;
 
-    border-color: #e4e9f2;
+    border-color: #e0e6f0;
 
     box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.12);
 
@@ -1451,7 +1454,7 @@
 
 .dashboard-layout.light-mode .phc-divider {
 
-    background: #e4e9f2;
+    background: #e0e6f0;
 
 }
 
@@ -1483,11 +1486,11 @@
 }
 
 .dashboard-layout.light-mode .user-info small {
-    color: #5a6788;
+    color: #71809d;
 }
 
 .dashboard-layout.light-mode .sidebar-label {
-    color: #7a88ad;
+    color: #71809d;
 }
 
 
@@ -1653,5 +1656,202 @@
         grid-template-columns: 1fr;
 
     }
+
+}
+
+
+/* =========================================================
+   FIXED SIDEBAR - WORKS AT 100% ZOOM
+========================================================= */
+
+.dashboard-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 250px;
+    min-width: 250px;
+    height: 100vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+}
+
+
+/* Keep the sidebar scrollbar small */
+.dashboard-sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   ADMIN SECTION
+========================================================= */
+
+.admin-section {
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   100% / NORMAL DESKTOP
+========================================================= */
+
+@media (min-width: 901px) {
+
+    .dashboard-sidebar {
+        width: 250px;
+        min-width: 250px;
+    }
+
+    .dashboard-main {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .dashboard-main {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-sidebar {
+        width: 72px;
+        min-width: 72px;
+    }
+
+    .dashboard-main {
+        margin-left: 72px;
+        width: calc(100% - 72px);
+    }
+}
+
+
+/* =========================================================
+   FIXED TOPBAR
+========================================================= */
+
+.dashboard-topbar {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 250px !important;
+
+    height: 76px;
+
+    z-index: 900 !important;
+}
+
+
+/* Content must start below the fixed topbar */
+.dashboard-content {
+    padding-top: 100px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-topbar {
+        left: 220px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-topbar {
+        left: 72px !important;
+    }
+
+    .dashboard-content {
+        padding-top: 90px;
+    }
+}
+
+/* =========================================================
+FIX CONTENT POSITION BELOW FIXED TOPBAR
+========================================================= */
+
+.dashboard-main {
+padding-top: 76px;
+}
+
+/* Existing dashboard pages already have their own
+top spacing, so keep their total spacing unchanged. */
+
+.dashboard-content {
+padding-top: 24px;
+}
+
+/* Prediction page */
+
+.predictions-content {
+padding-top: 24px;
+}
+
+/* Other custom dashboard page content wrappers */
+
+.company-details-content,
+.companies-content,
+.compare-stocks-content {
+padding-top: 24px;
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+.dashboard-main {
+    padding-top: 76px;
+}
+
+.dashboard-content,
+.predictions-content,
+.company-details-content,
+.companies-content,
+.compare-stocks-content {
+    padding-top: 14px;
+}
 
 }

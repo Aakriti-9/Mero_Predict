@@ -46,6 +46,11 @@
         href="{{ url_for('static', filename='css/style.css') }}"
     >
 
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/topbar.css') }}"
+    >
+
 
     <!-- =========================================================
          TOAST CSS
@@ -190,6 +195,16 @@
     ></script>
 
     {% endif %}
+
+
+    <!-- =========================================================
+         TOPBAR SEARCH
+         Shared across dashboard pages.
+    ========================================================= -->
+
+    <script
+        src="{{ url_for('static', filename='js/topbar.js') }}"
+    ></script>
 
 
     <!-- =========================================================

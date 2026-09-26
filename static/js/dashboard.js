@@ -870,8 +870,8 @@ function updateDashboard(data) {
 
     if (listedStocks) {
 
-        listedStocks.textContent =
-            `of ${Number(data.total_stocks || 0).toLocaleString("en-IN")} traded`;
+    listedStocks.textContent =
+        `${Number(data.total_companies || 0).toLocaleString("en-IN")} companies tracked`;
 
     }
 

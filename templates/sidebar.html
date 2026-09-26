@@ -1,6 +1,9 @@
 <aside class="dashboard-sidebar">
 
-    <!-- LOGO -->
+    <!-- =========================================================
+         LOGO
+    ========================================================= -->
+
     <div class="dashboard-logo">
 
         <div class="dashboard-logo-icon">
@@ -14,7 +17,10 @@
     </div>
 
 
-    <!-- MAIN NAVIGATION -->
+    <!-- =========================================================
+         MAIN NAVIGATION
+    ========================================================= -->
+
     <div class="sidebar-section">
 
         <span class="sidebar-label">MAIN</span>
@@ -50,29 +56,63 @@
         </a>
 
 
-        <!-- COMING SOON LINKS -->
+        <!-- COMPANIES -->
+        <a href="{{ url_for('companies.companies_page') }}"
+           class="sidebar-link {% if request.endpoint == 'companies.companies_page' %}active{% endif %}">
 
-        <a href="{{ url_for('main.companies') }}" class="sidebar-link">
             <i class="bi bi-building"></i>
+
             <span>Companies</span>
+
+            {% if request.endpoint == 'companies.companies_page' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
         </a>
 
 
-        <a href="{{ url_for('main.compare_stocks') }}" class="sidebar-link">
+        <!-- COMPARE STOCKS -->
+        <a href="{{ url_for('main.compare_stocks') }}"
+           class="sidebar-link {% if request.endpoint == 'main.compare_stocks' %}active{% endif %}">
+
             <i class="bi bi-bezier2"></i>
+
             <span>Compare Stocks</span>
+
+            {% if request.endpoint == 'main.compare_stocks' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
         </a>
 
 
-        <a href="#" class="sidebar-link">
+        <!-- PREDICTIONS -->
+        <a href="{{ url_for('main.predictions') }}"
+           class="sidebar-link {% if request.endpoint == 'main.predictions' %}active{% endif %}">
+
             <i class="bi bi-lightning-charge"></i>
+
             <span>Predictions</span>
+
+            {% if request.endpoint == 'main.predictions' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
         </a>
 
 
-        <a href="{{ url_for('main.watchlist') }}" class="sidebar-link">
+        <!-- WATCHLIST -->
+        <a href="{{ url_for('main.watchlist') }}"
+           class="sidebar-link {% if request.endpoint == 'main.watchlist' %}active{% endif %}">
+
             <i class="bi bi-star"></i>
+
             <span>Watchlist</span>
+
+            {% if request.endpoint == 'main.watchlist' %}
+                <i class="bi bi-chevron-right sidebar-arrow"></i>
+            {% endif %}
+
         </a>
 
 
@@ -93,7 +133,10 @@
     </div>
 
 
-    <!-- ADMIN -->
+    <!-- =========================================================
+         ADMIN NAVIGATION
+    ========================================================= -->
+
     {% if current_user.is_authenticated and current_user.role == 'admin' %}
 
     <div class="sidebar-section admin-section">
@@ -120,10 +163,17 @@
     {% endif %}
 
 
-    <!-- BOTTOM -->
+    <!-- =========================================================
+         BOTTOM NAVIGATION
+    ========================================================= -->
+
     <div class="sidebar-bottom">
 
-        <button class="sidebar-bottom-link" id="themeToggle">
+
+        <!-- THEME TOGGLE -->
+        <button type="button"
+                class="sidebar-bottom-link"
+                id="themeToggle">
 
             <i class="bi bi-sun"></i>
 
@@ -156,3 +206,4 @@
     </div>
 
 </aside>
+

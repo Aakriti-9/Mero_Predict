@@ -1,0 +1,261 @@
+/* =========================================================
+   MERO-PREDICT
+   TOPBAR SEARCH
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   SEARCH WRAPPER
+--------------------------------------------------------- */
+
+.dashboard-search {
+    position: relative;
+}
+
+
+/* ---------------------------------------------------------
+   SEARCH RESULTS DROPDOWN
+--------------------------------------------------------- */
+
+.topbar-search-results {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    left: 0;
+
+    width: 100%;
+    min-width: 320px;
+    max-height: 420px;
+
+    overflow-y: auto;
+
+    background: #0d1835;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.35);
+
+    z-index: 9999;
+
+    padding: 6px;
+}
+
+
+/* ---------------------------------------------------------
+   SEARCH RESULT ITEM
+--------------------------------------------------------- */
+
+.topbar-search-item {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* Hover */
+
+.topbar-search-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+
+/* Keyboard active result */
+
+.topbar-search-item.active {
+    background: rgba(20, 184, 166, 0.14);
+}
+
+
+/* ---------------------------------------------------------
+   RESULT ICON
+--------------------------------------------------------- */
+
+.search-result-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: rgba(20, 184, 166, 0.12);
+
+    color: #2dd4bf;
+
+    font-size: 16px;
+}
+
+
+/* ---------------------------------------------------------
+   RESULT INFORMATION
+--------------------------------------------------------- */
+
+.search-result-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+/* Symbol */
+
+.search-result-symbol {
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* Sector */
+
+.search-result-sector {
+    color: #8b98b8;
+
+    font-size: 12px;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ---------------------------------------------------------
+   NO RESULTS / LOADING
+--------------------------------------------------------- */
+
+.topbar-search-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 18px 12px;
+
+    color: #8b98b8;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLLBAR
+--------------------------------------------------------- */
+
+.topbar-search-results::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+.topbar-search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.topbar-search-results::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+
+    border-radius: 10px;
+}
+
+
+.topbar-search-results::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE
+--------------------------------------------------------- */
+
+body.light-mode .topbar-search-results,
+.dashboard-layout.light-mode .topbar-search-results {
+    background: #ffffff;
+
+    border-color: rgba(15, 23, 42, 0.10);
+
+    box-shadow:
+        0 14px 35px rgba(15, 23, 42, 0.15);
+}
+
+
+body.light-mode .topbar-search-item:hover,
+.dashboard-layout.light-mode .topbar-search-item:hover {
+    background: rgba(15, 23, 42, 0.05);
+}
+
+
+body.light-mode .topbar-search-item.active,
+.dashboard-layout.light-mode .topbar-search-item.active {
+    background: rgba(20, 184, 166, 0.10);
+}
+
+
+body.light-mode .search-result-symbol,
+.dashboard-layout.light-mode .search-result-symbol {
+    color: #0f172a;
+}
+
+
+body.light-mode .search-result-sector,
+.dashboard-layout.light-mode .search-result-sector {
+    color: #64748b;
+}
+
+
+body.light-mode .topbar-search-empty,
+.dashboard-layout.light-mode .topbar-search-empty {
+    color: #64748b;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .topbar-search-results {
+        min-width: 280px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .topbar-search-results {
+        min-width: 240px;
+    }
+
+}
+

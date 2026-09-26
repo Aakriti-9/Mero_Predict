@@ -1,145 +1,667 @@
 {% extends "base.html" %}
-{% block title %}AI Predictions - MeroPredict{% endblock %}
+
+{% block title %}
+Stock Prediction - MeroPredict
+{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/predictions.css') }}">
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/predictions.css') }}"
+>
+
 {% endblock %}
 
 {% block content %}
+
 <div class="dashboard-layout">
-    {% include "sidebar.html" %}
 
-    <div class="main-content">
-        <!-- Topbar (reused from dashboard) -->
-        <div class="topbar">
-            <div class="dashboard-search">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Search company or symbol...">
-            </div>
-            <div class="topbar-right">
-                <button class="notification-btn">
-                    <i class="bi bi-bell"></i>
-                    <span class="notification-dot"></span>
-                </button>
-                <div class="user-profile">
-                    <div class="user-avatar">{{ current_user.initials if current_user else 'RS' }}</div>
-                    <div class="user-info">
-                        <span class="user-name">{{ current_user.name if current_user else 'Ram Sharma' }}</span>
-                        <span class="user-role">Investor</span>
-                    </div>
-                </div>
-            </div>
+```
+{% include "sidebar.html" %}
+
+<main class="dashboard-main">
+
+    {% include "topbar.html" %}
+
+    <div class="predictions-content">
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <div class="prediction-page-header">
+
+            <h1>
+                Stock Prediction
+            </h1>
+
+            <p class="page-subtitle">
+                Predict the next trading day's market movement
+                using historical market data.
+            </p>
+
         </div>
 
-        <div class="predictions-content">
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1>AI Predictions</h1>
-                <p class="page-subtitle">Next-day directional predictions for all NEPSE companies &middot; Updated daily at 16:00 NST</p>
-            </div>
 
-            <!-- Summary Cards -->
-            <div class="predictions-summary-grid">
-                <div class="summary-card">
-                    <span class="summary-label">Predicted UP</span>
-                    <span class="summary-value up">{{ predicted_up_count if predicted_up_count is defined else 12 }}</span>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Predicted DOWN</span>
-                    <span class="summary-value down">{{ predicted_down_count if predicted_down_count is defined else 8 }}</span>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Avg Confidence</span>
-                    <span class="summary-value up">{{ avg_confidence if avg_confidence is defined else 75 }}%</span>
-                </div>
-                <div class="summary-card">
-                    <span class="summary-label">Model Updated</span>
-                    <span class="summary-value neutral">{{ model_updated if model_updated is defined else 'Today' }}</span>
-                </div>
-            </div>
+        <!-- =================================================
+             COMPANY SEARCH
+        ================================================== -->
 
-            <!-- Filter + Sort Bar -->
-            <div class="predictions-toolbar">
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Predictions</button>
-                    <button class="filter-tab" data-filter="up"><i class="bi bi-triangle-fill up-icon"></i> Predict UP</button>
-                    <button class="filter-tab" data-filter="down"><i class="bi bi-triangle-fill down-icon"></i> Predict DOWN</button>
-                </div>
-                <div class="sort-controls">
-                    <span class="sort-label">Sort by:</span>
-                    <button class="sort-btn active" data-sort="confidence">Confidence</button>
-                    <button class="sort-btn" data-sort="price_change">Price Change</button>
-                </div>
-            </div>
+        <section class="prediction-selector-card">
 
-            <!-- Predictions Grid -->
-            <div class="predictions-grid" id="predictionsGrid">
-                {% for p in predictions %}
-                <div class="prediction-card" data-direction="{{ p.direction }}" data-confidence="{{ p.confidence }}" data-change="{{ p.change_pct }}">
-                    <div class="prediction-card-header">
-                        <div class="prediction-company">
-                            <div class="ticker-badge">{{ p.ticker[:2] }}</div>
-                            <div>
-                                <div class="ticker-name">{{ p.ticker }}</div>
-                                <div class="ticker-sector">{{ p.sector }}</div>
-                            </div>
-                        </div>
-                        <span class="direction-badge {{ p.direction }}">
-                            <i class="bi bi-arrow-{{ 'up-right' if p.direction == 'up' else 'down-right' }}"></i>
-                            {{ p.direction.upper() }}
-                        </span>
-                    </div>
+            <div class="prediction-selector-header">
 
-                    <div class="prediction-price-row">
-                        <div>
-                            <div class="prediction-price">{{ p.current_price }}</div>
-                            <div class="price-caption">NPR Current</div>
-                        </div>
-                        <div class="price-change-block">
-                            <div class="price-change {{ p.direction }}">{{ '+' if p.direction == 'up' else '' }}{{ p.change_pct }}%</div>
-                            <div class="price-caption">Today</div>
-                        </div>
-                    </div>
+                <span class="prediction-selector-label">
+                    Select Company
+                </span>
 
-                    <div class="confidence-block">
-                        <div class="confidence-label-row">
-                            <span>Confidence</span>
-                            <span class="confidence-pct {{ p.direction }}">{{ p.confidence }}%</span>
-                        </div>
-                        <div class="confidence-bar-track">
-                            <div class="confidence-bar-fill {{ p.direction }}" data-width="{{ p.confidence }}"></div>
-                        </div>
-                    </div>
-
-                    <div class="target-row">
-                        <div class="target-box high">
-                            <span class="target-label">Target High</span>
-                            <span class="target-value high">{{ p.target_high }}</span>
-                        </div>
-                        <div class="target-box low">
-                            <span class="target-label">Target Low</span>
-                            <span class="target-value low">{{ p.target_low }}</span>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <p class="no-predictions">No predictions available right now.</p>
-                {% endfor %}
-            </div>
-
-            <!-- Disclaimer -->
-            <div class="predictions-disclaimer">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                <p>
-                    <strong>Disclaimer:</strong> AI predictions are generated using technical analysis algorithms and historical price patterns. They are for educational and informational purposes only. Past performance does not guarantee future results. Always consult a SEBON-registered investment advisor before making investment decisions.
+                <p class="selector-description">
+                    Search for a company or stock symbol to view its prediction.
                 </p>
+
             </div>
+
+
+            <div
+                class="company-search-wrapper"
+                id="companySearchWrapper"
+            >
+
+                <div class="company-search-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+
+                <input
+                    type="text"
+                    id="companySearchInput"
+                    class="company-search-input"
+                    placeholder="Search company or symbol..."
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+
+                <button
+                    type="button"
+                    id="companySearchClear"
+                    class="company-search-clear hidden"
+                    aria-label="Clear company search"
+                >
+                    <i class="bi bi-x"></i>
+                </button>
+
+                <div
+                    id="companyDropdown"
+                    class="company-dropdown hidden"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- SELECTED COMPANY -->
+
+            <div
+                id="selectedCompanyInfo"
+                class="selected-company-info hidden"
+            >
+
+                <div class="selected-company-initials">
+                    <span id="selectedCompanyInitials">
+                        --
+                    </span>
+                </div>
+
+                <div class="selected-company-details">
+
+                    <div
+                        id="selectedCompanySymbol"
+                        class="selected-company-symbol"
+                    >
+                        --
+                    </div>
+
+                    <div
+                        id="selectedCompanySector"
+                        class="selected-company-sector"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOADING STATE
+        ================================================== -->
+
+        <div
+            id="predictionLoading"
+            class="prediction-loading hidden"
+        >
+
+            <div class="prediction-loading-content">
+
+                <div class="prediction-loading-spinner"></div>
+
+                <span class="prediction-loading-text">
+                    Loading prediction...
+                </span>
+
+            </div>
+
         </div>
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <section
+            id="predictionEmpty"
+            class="prediction-empty"
+        >
+
+            <i class="bi bi-graph-up-arrow"></i>
+
+            <h3>
+                Select a company
+            </h3>
+
+            <p>
+                Search for a company above to view its
+                next-day market prediction.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             MAIN PREDICTION CONTENT
+        ================================================== -->
+
+        <div
+            id="predictionContent"
+            class="prediction-content hidden"
+        >
+
+            <!-- COMPANY SNAPSHOT -->
+
+            <section class="prediction-snapshot">
+
+                <div class="prediction-snapshot-card">
+
+                    <span class="snapshot-label">
+                        Company
+                    </span>
+
+                    <strong
+                        id="predictionCompany"
+                        class="snapshot-value symbol"
+                    >
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="prediction-snapshot-card">
+
+                    <span class="snapshot-label">
+                        Sector
+                    </span>
+
+                    <strong
+                        id="predictionSector"
+                        class="snapshot-value"
+                    >
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="prediction-snapshot-card">
+
+                    <span class="snapshot-label">
+                        Latest Price
+                    </span>
+
+                    <strong
+                        id="predictionPrice"
+                        class="snapshot-value"
+                    >
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="prediction-snapshot-card">
+
+                    <span class="snapshot-label">
+                        Latest Trading Date
+                    </span>
+
+                    <strong
+                        id="predictionDate"
+                        class="snapshot-value"
+                    >
+                        --
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- PREDICTION RESULT -->
+
+            <section class="prediction-result-card">
+
+                <div class="prediction-result-header">
+
+                    <h2 class="prediction-section-title">
+                        Prediction Result
+                    </h2>
+
+                    <p class="prediction-section-subtitle">
+                        Expected movement for the next trading day
+                    </p>
+
+                </div>
+
+
+                <div class="prediction-result-grid">
+
+                    <!-- DIRECTION -->
+
+                    <div
+                        id="predictionDirectionBox"
+                        class="prediction-direction-box"
+                    >
+
+                        <div
+                            id="predictionDirectionIcon"
+                            class="prediction-direction-icon"
+                        >
+                            <i class="bi bi-dash"></i>
+                        </div>
+
+                        <div class="prediction-direction-info">
+
+                            <div class="prediction-direction-label">
+                                Market Movement
+                            </div>
+
+                            <div
+                                id="predictionDirection"
+                                class="prediction-direction"
+                            >
+                                --
+                            </div>
+
+                            <div class="prediction-direction-caption">
+                                Next Trading Day
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONFIDENCE -->
+
+                    <div class="prediction-confidence-box">
+
+                        <div class="confidence-header">
+
+                            <span class="confidence-title">
+                                Model Confidence
+                            </span>
+
+                            <strong
+                                id="predictionConfidence"
+                                class="confidence-value"
+                            >
+                                --%
+                            </strong>
+
+                        </div>
+
+                        <div class="confidence-bar-track">
+
+                            <div
+                                id="confidenceBar"
+                                class="confidence-bar-fill"
+                            ></div>
+
+                        </div>
+
+                        <div class="confidence-caption">
+                            Probability assigned by the prediction model
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- PRICE CHART -->
+
+            <section class="prediction-chart-card">
+
+                <div class="prediction-chart-header">
+
+                    <h2 class="prediction-section-title">
+                        Recent Price Movement
+                    </h2>
+
+                    <p class="prediction-section-subtitle">
+                        Recent closing-price history
+                    </p>
+
+                </div>
+
+                <div class="prediction-chart-wrapper">
+
+                    <canvas
+                        id="predictionPriceChart"
+                    ></canvas>
+
+                </div>
+
+            </section>
+
+
+            <!-- KEY INDICATORS -->
+
+            <section class="prediction-indicators-card">
+
+                <div class="prediction-indicators-header">
+
+                    <h2 class="prediction-section-title">
+                        Key Indicators
+                    </h2>
+
+                    <p class="prediction-section-subtitle">
+                        Technical values calculated from available historical data
+                    </p>
+
+                </div>
+
+
+                <div class="prediction-indicators-grid">
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            MA5 Distance
+                        </div>
+
+                        <strong
+                            id="indicatorMA5"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Return 3D
+                        </div>
+
+                        <strong
+                            id="indicatorReturn3D"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Return 5D
+                        </div>
+
+                        <strong
+                            id="indicatorReturn5D"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Volatility 5D
+                        </div>
+
+                        <strong
+                            id="indicatorVolatility"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Volume Change
+                        </div>
+
+                        <strong
+                            id="indicatorVolumeChange"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Price Change
+                        </div>
+
+                        <strong
+                            id="indicatorPriceChange"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            VWAP %
+                        </div>
+
+                        <strong
+                            id="indicatorVWAP"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="indicator-card">
+
+                        <div class="indicator-label">
+                            Range %
+                        </div>
+
+                        <strong
+                            id="indicatorRange"
+                            class="indicator-value"
+                        >
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- MODEL INFORMATION -->
+
+            <section class="prediction-model-card">
+
+                <div class="prediction-model-header">
+
+                    <h2 class="prediction-section-title">
+                        Model Information
+                    </h2>
+
+                    <p class="prediction-section-subtitle">
+                        Information about the model used for prediction
+                    </p>
+
+                </div>
+
+
+                <div class="prediction-model-grid">
+
+                    <div class="model-info-item">
+
+                        <div class="model-info-label">
+                            Model
+                        </div>
+
+                        <strong class="model-info-value">
+                            XGBoost
+                        </strong>
+
+                    </div>
+
+
+                    <div class="model-info-item">
+
+                        <div class="model-info-label">
+                            Features
+                        </div>
+
+                        <strong class="model-info-value">
+                            16
+                        </strong>
+
+                    </div>
+
+
+                    <div class="model-info-item">
+
+                        <div class="model-info-label">
+                            Prediction Type
+                        </div>
+
+                        <strong class="model-info-value">
+                            UP / DOWN
+                        </strong>
+
+                    </div>
+
+
+                    <div class="model-info-item">
+
+                        <div class="model-info-label">
+                            Forecast
+                        </div>
+
+                        <strong class="model-info-value">
+                            Next Trading Day
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DISCLAIMER -->
+
+            <div class="predictions-disclaimer">
+
+                <i class="bi bi-info-circle-fill"></i>
+
+                <p>
+                    <strong>Important:</strong>
+                    This prediction is generated from historical
+                    market data and technical features. It represents
+                    a model-generated probability and does not
+                    guarantee future market performance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR STATE -->
+
+        <div
+            id="predictionError"
+            class="prediction-error hidden"
+        >
+
+            <i class="bi bi-exclamation-triangle"></i>
+
+            <div class="prediction-error-message">
+                Unable to load prediction.
+            </div>
+
+        </div>
+
     </div>
+
+</main>
+
+
 </div>
+
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/predictions.js') }}"></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/predictions.js') }}"
+></script>
+
 {% endblock %}

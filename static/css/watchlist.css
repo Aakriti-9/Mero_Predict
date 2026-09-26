@@ -8,9 +8,9 @@
 
 .watchlist-summary-card {
     padding: 18px 20px;
-    border: 1px solid rgba(124, 145, 190, 0.14);
-    border-radius: 14px;
-    background: #0d1328;
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 15px;
+    background: #101a36;
     transition: 0.25s ease;
 }
 
@@ -35,7 +35,7 @@
 
 .ws-label {
     display: block;
-    color: #8b9abd;
+    color: #6682b5;
     font-size: 13px;
     font-weight: 600;
 }
@@ -64,7 +64,7 @@
 
 .ws-total {
     margin-left: 2px;
-    color: #6a7aa0;
+    color: #6682b5;
     font-size: 15px;
     font-weight: 600;
 }
@@ -85,9 +85,9 @@
 
 .watchlist-stock-card {
     padding: 22px;
-    border: 1px solid rgba(124, 145, 190, 0.14);
-    border-radius: 15px;
-    background: #0d1328;
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 16px;
+    background: #101a36;
     transition: 0.25s ease;
 }
 
@@ -132,7 +132,7 @@
     height: 30px;
     border: none;
     background: transparent;
-    color: #4c5a80;
+    color: #6682b5;
     font-size: 17px;
     cursor: pointer;
     transition: 0.2s ease;
@@ -168,7 +168,7 @@
 .wsc-name small {
     display: block;
     margin-top: 3px;
-    color: #7182aa;
+    color: #6682b5;
     font-size: 12px;
 }
 
@@ -219,7 +219,7 @@
 
 
 .wsc-ltp-label {
-    color: #68789e;
+    color: #6682b5;
     font-size: 11px;
 }
 
@@ -246,7 +246,7 @@
 .wsc-divider {
     height: 1px;
     margin: 18px 0 16px;
-    background: rgba(124, 145, 190, 0.1);
+    background: rgba(104, 132, 184, 0.1);
 }
 
 
@@ -263,7 +263,7 @@
 .wsc-stat small {
     display: block;
     margin-bottom: 6px;
-    color: #5f719b;
+    color: #6682b5;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.6px;
@@ -309,9 +309,9 @@
 
 .add-stocks-card {
     padding: 22px;
-    border: 1px solid rgba(124, 145, 190, 0.14);
-    border-radius: 15px;
-    background: #0d1328;
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 16px;
+    background: #101a36;
 }
 
 
@@ -335,7 +335,7 @@
     align-items: flex-start;
     gap: 7px;
     padding: 16px;
-    border: 1px solid rgba(124, 145, 190, 0.12);
+    border: 1px solid rgba(104, 132, 184, 0.12);
     border-radius: 13px;
     background: rgba(255, 255, 255, 0.015);
     transition: 0.2s ease;
@@ -355,7 +355,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 9px;
-    background: rgba(124, 145, 190, 0.14);
+    background: rgba(104, 132, 184, 0.14);
     color: #b9c4e0;
     font-size: 11px;
     font-weight: 700;
@@ -410,7 +410,7 @@
 .dashboard-layout.light-mode .watchlist-stock-card,
 .dashboard-layout.light-mode .add-stocks-card {
     background: #ffffff;
-    border-color: #e4e9f2;
+    border-color: #e0e6f0;
 }
 
 
@@ -440,13 +440,22 @@
 
 .dashboard-layout.light-mode .add-stock-chip {
     background: #f7f9fc;
-    border-color: #e4e9f2;
+    border-color: #e0e6f0;
 }
 
 
 .dashboard-layout.light-mode .asc-badge {
     background: #eef1f8;
     color: #4a5578;
+}
+
+
+.dashboard-layout.light-mode .ws-label,
+.dashboard-layout.light-mode .ws-total,
+.dashboard-layout.light-mode .wsc-name small,
+.dashboard-layout.light-mode .wsc-ltp-label,
+.dashboard-layout.light-mode .wsc-stat small {
+    color: #71809d;
 }
 
 

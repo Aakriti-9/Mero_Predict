@@ -444,12 +444,24 @@ def dashboard_api():
             )
             for row in turnover_rows
         ]
+        
+        # -------------------------------------------------
+        # Total companies in database
+        # -------------------------------------------------
 
+        total_companies_query = text("""
+            SELECT COUNT(DISTINCT symbol)
+            FROM stock_prices
+        """)
+
+        total_companies = db.session.execute(
+            total_companies_query
+        ).scalar() or 0
 
         # -------------------------------------------------
         # Response
         # -------------------------------------------------
-
+        
         return jsonify({
 
             # Date
@@ -470,6 +482,9 @@ def dashboard_api():
                 len(gainers)
                 + len(losers)
                 + unchanged,
+
+            "total_companies":
+                int(total_companies),
 
             # Market values
             "total_turnover":

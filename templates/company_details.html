@@ -1,0 +1,576 @@
+{% extends "base.html" %}
+
+{% block title %}{{ company.symbol }} - Mero Predict{% endblock %}
+
+
+{% block content %}
+
+<div class="company-details-page">
+
+    <div class="company-details-content">
+
+        <!-- BACK BUTTON -->
+        <a href="{{ url_for('companies.companies_page') }}" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Back to Companies
+        </a>
+
+
+        <!-- COMPANY HEADER -->
+        <section class="company-header-card">
+
+            <div class="company-header-left">
+
+                <div class="company-logo">
+                    {{ company.logo_initials }}
+                </div>
+
+                <div class="company-heading">
+
+                    <div class="company-title-row">
+
+                        <h1>{{ company.symbol }}</h1>
+
+                        <span class="sector-badge">
+                            {{ company.sector }}
+                        </span>
+
+                    </div>
+
+                    <p class="company-fullname">
+                        {{ company.name }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="company-header-actions">
+
+                <button
+                    type="button"
+                    class="icon-btn"
+                    id="watchlistToggle"
+                    title="Add to watchlist"
+                    aria-label="Add to watchlist">
+
+                    <i class="bi bi-star"></i>
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-compare"
+                    id="compareBtn">
+
+                    Compare
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CURRENT MARKET PRICE -->
+        <section class="price-card">
+
+            <div class="price-card-heading">
+
+                <span class="price-label">
+                    CURRENT MARKET PRICE
+                </span>
+
+                <span class="market-status">
+                    <span class="status-dot"></span>
+                    Historical Data
+                </span>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <h2 class="price-value">
+
+                    <span class="currency">
+                        NPR
+                    </span>
+
+                    <span id="currentPrice">
+                        --
+                    </span>
+
+                </h2>
+
+
+                <span
+                    class="price-change"
+                    id="priceChange">
+
+                    <i class="bi bi-arrow-up"></i>
+
+                    <span id="priceChangeText">
+                        --
+                    </span>
+
+                </span>
+
+            </div>
+
+
+            <div class="price-stats">
+
+                <div class="price-stat">
+
+                    <span>
+                        OPEN
+                    </span>
+
+                    <strong id="statOpen">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="price-stat">
+
+                    <span>
+                        HIGH
+                    </span>
+
+                    <strong id="statHigh">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="price-stat">
+
+                    <span>
+                        LOW
+                    </span>
+
+                    <strong id="statLow">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="price-stat">
+
+                    <span>
+                        VOLUME
+                    </span>
+
+                    <strong id="statVolume">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRICE HISTORY + PREDICTION -->
+        <div class="details-grid">
+
+
+            <!-- PRICE HISTORY -->
+            <section class="price-history-card">
+
+                <div class="card-header-row">
+
+                    <div>
+
+                        <span class="section-label">
+                            MARKET DATA
+                        </span>
+
+                        <h3>
+                            Price History
+                        </h3>
+
+                    </div>
+
+
+                    <div
+                        class="range-tabs"
+                        id="rangeTabs"
+                        role="tablist"
+                        aria-label="Price history range">
+
+                        <button
+                            type="button"
+                            class="range-tab"
+                            data-range="1M">
+
+                            1M
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="range-tab active"
+                            data-range="3M">
+
+                            3M
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="range-tab"
+                            data-range="ALL">
+
+                            ALL
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRICE CHART -->
+                <div class="price-chart-container">
+
+                    <canvas
+                        id="priceChart"
+                        aria-label="Historical price chart">
+                    </canvas>
+
+                </div>
+
+
+                <!-- VOLUME CHART -->
+                <div class="volume-section">
+
+                    <div class="volume-chart-label">
+                        Trading Volume
+                    </div>
+
+                    <div class="volume-strip">
+
+                        <canvas
+                            id="intradayVolumeChart"
+                            aria-label="Historical trading volume chart">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RIGHT COLUMN -->
+            <div class="details-right-col">
+
+
+                <!-- NEXT-DAY PREDICTION -->
+                <section class="prediction-card">
+
+                    <div class="card-header-row">
+
+                        <div>
+
+                            <span class="section-label">
+                                MODEL OUTPUT
+                            </span>
+
+                            <h3>
+                                <i class="bi bi-graph-up-arrow"></i>
+                                Next-Day Prediction
+                            </h3>
+
+                        </div>
+
+
+                        <span class="next-day-label">
+                            Next Day
+                        </span>
+
+                    </div>
+
+
+                    <!-- PREDICTION DIRECTION -->
+                    <div class="prediction-direction">
+
+                        <div
+                            class="direction-icon"
+                            id="directionIcon">
+
+                            <i class="bi bi-arrow-up"></i>
+
+                        </div>
+
+
+                        <div class="prediction-text">
+
+                            <h2 id="predictionDirection">
+                                --
+                            </h2>
+
+                            <p>
+                                Predicted Movement
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONFIDENCE -->
+                    <div class="confidence-block">
+
+                        <div class="confidence-label-row">
+
+                            <span>
+                                Confidence Score
+                            </span>
+
+                            <strong id="confidenceValue">
+                                --
+                            </strong>
+
+                        </div>
+
+
+                        <div class="confidence-bar">
+
+                            <div
+                                class="confidence-fill"
+                                id="confidenceFill">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PREDICTION INFORMATION -->
+                    <div class="prediction-info">
+
+                        <div class="prediction-info-item">
+
+                            <span>
+                                Current Close
+                            </span>
+
+                            <strong>
+
+                                <span class="prediction-currency">
+                                    NPR
+                                </span>
+
+                                <span id="predictionCurrentClose">
+                                    --
+                                </span>
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="prediction-info-item">
+
+                            <span>
+                                Prediction For
+                            </span>
+
+                            <strong id="predictionDate">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MODEL INFORMATION -->
+                    <div class="model-info">
+
+                        <div class="model-icon">
+
+                            <i class="bi bi-cpu"></i>
+
+                        </div>
+
+
+                        <div class="model-info-text">
+
+                            <span>
+                                Prediction Model
+                            </span>
+
+                            <strong id="modelName">
+                                Mero-Predict ML Model
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PREDICTION NOTE -->
+                <section class="prediction-note-card">
+
+                    <div class="note-icon">
+
+                        <i class="bi bi-info-circle"></i>
+
+                    </div>
+
+
+                    <div class="prediction-note-content">
+
+                        <h4>
+                            About this prediction
+                        </h4>
+
+                        <p>
+                            The model predicts whether the stock's
+                            next trading-day closing price is likely
+                            to move UP or DOWN using historical
+                            market features.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+
+        <!-- TECHNICAL INDICATORS -->
+        <section class="technical-indicators-card">
+
+            <div class="technical-heading">
+
+                <span class="section-label">
+                    MARKET ANALYSIS
+                </span>
+
+                <h3>
+                    Technical Indicators
+                </h3>
+
+            </div>
+
+
+            <div class="indicators-row">
+
+
+                <!-- RSI -->
+                <div class="rsi-gauge-block">
+
+                    <div
+                        class="rsi-gauge"
+                        id="rsiGauge">
+
+                        <span id="rsiValue">
+                            --
+                        </span>
+
+                    </div>
+
+
+                    <p class="rsi-label">
+                        RSI (14)
+                    </p>
+
+
+                    <p
+                        class="rsi-status"
+                        id="rsiStatus">
+
+                        --
+
+                    </p>
+
+                </div>
+
+
+                <!-- MOVING AVERAGES -->
+                <div class="moving-averages-block">
+
+                    <h4>
+                        Moving Averages
+                    </h4>
+
+                    <div id="movingAveragesList"></div>
+
+                </div>
+
+
+                <!-- VOLUME TREND -->
+                <div class="volume-trend-block">
+
+                    <h4>
+                        Volume Trend
+                    </h4>
+
+
+                    <div
+                        class="volume-bars"
+                        id="volumeBars">
+                    </div>
+
+
+                    <p
+                        class="volume-trend-label"
+                        id="volumeTrendLabel">
+
+                        <i class="bi bi-arrow-up"></i>
+
+                        --
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+<!-- COMPANY DETAILS CSS -->
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/company_details.css') }}">
+
+{% endblock %}
+
+
+<!-- COMPANY DETAILS JAVASCRIPT -->
+{% block scripts %}
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js">
+</script>
+
+<script
+    src="{{ url_for('static', filename='js/company_details.js') }}"
+    data-symbol="{{ company.symbol }}">
+</script>
+
+{% endblock %}

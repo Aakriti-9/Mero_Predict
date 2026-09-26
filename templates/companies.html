@@ -4,170 +4,84 @@
 
 {% block extra_css %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/companies.css') }}">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/companies.css') }}"
+>
+
 {% endblock %}
 
 {% block content %}
 
 <div class="dashboard-layout">
 
-```
-<!-- Sidebar -->
+
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
 {% include "sidebar.html" %}
 
 
-<!-- Main Content -->
+<!-- =====================================================
+     MAIN CONTENT
+====================================================== -->
+
 <main class="dashboard-main">
 
-    <!-- Top Bar -->
-    <div class="dashboard-topbar">
+    <!-- =================================================
+         SHARED TOP BAR
+    ================================================== -->
 
-        <!-- Search -->
-        <div class="dashboard-search">
-
-            <i class="bi bi-search"></i>
-
-            <input
-                type="text"
-                id="companySearch"
-                placeholder="Search companies..."
-            >
-
-        </div>
+    {% include "topbar.html" %}
 
 
-        <!-- Topbar Right -->
-        <div class="topbar-right">
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
 
-            <!-- Notification -->
-            <button
-                class="notification-btn"
-                type="button"
-                title="Notifications"
-            >
-                <i class="bi bi-bell"></i>
-                <span class="notification-dot"></span>
-            </button>
-
-
-            <!-- User Profile -->
-            <a
-                href="{{ url_for('main.profile') }}"
-                class="user-profile"
-            >
-
-                <div class="user-avatar">
-                    {{ current_user.name[0].upper()
-                       if current_user.is_authenticated
-                       else "U" }}
-                </div>
-
-
-                <div class="user-info">
-
-                    <strong>
-                        {{ current_user.name
-                           if current_user.is_authenticated
-                           else "User" }}
-                    </strong>
-
-                    <small>
-                        {{ current_user.role|capitalize
-                           if current_user.is_authenticated
-                           else "User" }}
-                    </small>
-
-                </div>
-
-
-                <i class="bi bi-chevron-down"></i>
-
-
-                <!-- Profile Hover Card -->
-                <div class="profile-hover-card">
-
-                    <div class="phc-header">
-
-                        <div class="phc-avatar">
-                            {{ current_user.name[0].upper()
-                               if current_user.is_authenticated
-                               else "U" }}
-                        </div>
-
-                        <div>
-
-                            <div class="phc-name">
-                                {{ current_user.name
-                                   if current_user.is_authenticated
-                                   else "User" }}
-                            </div>
-
-                            <div class="phc-email">
-                                {{ current_user.email
-                                   if current_user.is_authenticated
-                                   else "" }}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="phc-divider"></div>
-
-
-                    <div class="phc-row">
-                        <span>Role</span>
-                        <span>
-                            {{ current_user.role|capitalize
-                               if current_user.is_authenticated
-                               else "User" }}
-                        </span>
-                    </div>
-
-                    <div class="phc-row">
-                        <span>Status</span>
-                        <span>Active</span>
-                    </div>
-
-                </div>
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- Page Content -->
     <div class="dashboard-content">
 
 
-        <!-- Page Header -->
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
         <section class="page-header">
 
-            <div>
+            <div class="page-header-left">
 
-                <span class="page-eyebrow">
+                <!-- <span class="page-eyebrow">
                     MARKET DIRECTORY
-                </span>
+                </span> -->
 
-                <h1>Companies</h1>
+                <h1>
+                    Companies
+                </h1>
 
                 <p>
-                    Explore listed companies and view their market information.
+                    Explore listed securities and their latest market information.
                 </p>
 
             </div>
 
 
+            <!-- Listed Companies Count -->
+
             <div class="company-header-info">
 
                 <div class="listed-count">
 
-                    <span class="count-number">
-                        230
+                    <span
+                        class="count-number"
+                        id="totalCompanies"
+                    >
+                        0
                     </span>
 
                     <span class="count-label">
@@ -181,10 +95,15 @@
         </section>
 
 
-        <!-- Company Controls -->
+        <!-- =================================================
+             SEARCH & FILTER CONTROLS
+        ================================================== -->
+
         <section class="company-controls">
 
-            <!-- Company Search -->
+
+            <!-- Search -->
+
             <div class="company-search">
 
                 <i class="bi bi-search"></i>
@@ -192,13 +111,15 @@
                 <input
                     type="text"
                     id="companyTableSearch"
-                    placeholder="Search by company name or symbol..."
+                    placeholder="Search by symbol..."
+                    autocomplete="off"
                 >
 
             </div>
 
 
             <!-- Sector Filter -->
+
             <div class="filter-group">
 
                 <select
@@ -210,38 +131,6 @@
                         All Sectors
                     </option>
 
-                    <option value="Banking">
-                        Banking
-                    </option>
-
-                    <option value="Insurance">
-                        Insurance
-                    </option>
-
-                    <option value="Hydropower">
-                        Hydropower
-                    </option>
-
-                    <option value="Finance">
-                        Finance
-                    </option>
-
-                    <option value="Development Bank">
-                        Development Bank
-                    </option>
-
-                    <option value="Manufacturing">
-                        Manufacturing
-                    </option>
-
-                    <option value="Hotels">
-                        Hotels
-                    </option>
-
-                    <option value="Investment">
-                        Investment
-                    </option>
-
                 </select>
 
             </div>
@@ -249,11 +138,17 @@
         </section>
 
 
-        <!-- Companies Card -->
+        <!-- =================================================
+             COMPANIES TABLE CARD
+        ================================================== -->
+
         <section class="companies-card">
 
 
-            <!-- Card Header -->
+            <!-- =================================================
+                 CARD HEADER
+            ================================================== -->
+
             <div class="card-header">
 
                 <div>
@@ -263,7 +158,7 @@
                     </h2>
 
                     <p>
-                        Browse companies currently available in MeroPredict.
+                        Latest available market data.
                     </p>
 
                 </div>
@@ -272,7 +167,11 @@
                 <div class="company-result-count">
 
                     Showing
-                    <strong id="resultCount">10</strong>
+
+                    <strong id="resultCount">
+                        0
+                    </strong>
+
                     companies
 
                 </div>
@@ -280,7 +179,32 @@
             </div>
 
 
-            <!-- Table -->
+            <!-- =================================================
+                 LOADING STATE
+            ================================================== -->
+
+            <div
+                id="companiesLoading"
+                class="companies-loading"
+            >
+
+                <div
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                ></div>
+
+                <span>
+                    Loading companies...
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
             <div class="table-responsive">
 
                 <table class="companies-table">
@@ -289,13 +213,101 @@
 
                         <tr>
 
-                            <th>Company</th>
-                            <th>Symbol</th>
-                            <th>Sector</th>
-                            <th>Last Price</th>
-                            <th>Change</th>
-                            <th>Change %</th>
-                            <th>Action</th>
+                            <!-- Symbol -->
+
+                            <th
+                                data-sort="symbol"
+                                class="sortable"
+                            >
+
+                                <span>
+                                    Symbol
+                                </span>
+
+                                <i
+                                    class="bi bi-chevron-expand sort-icon"
+                                ></i>
+
+                            </th>
+
+
+                            <!-- Sector -->
+
+                            <th
+                                data-sort="sector"
+                                class="sortable"
+                            >
+
+                                <span>
+                                    Sector
+                                </span>
+
+                                <i
+                                    class="bi bi-chevron-expand sort-icon"
+                                ></i>
+
+                            </th>
+
+
+                            <!-- Last Price -->
+
+                            <th
+                                data-sort="price"
+                                class="sortable"
+                            >
+
+                                <span>
+                                    Last Price
+                                </span>
+
+                                <i
+                                    class="bi bi-chevron-expand sort-icon"
+                                ></i>
+
+                            </th>
+
+
+                            <!-- Change -->
+
+                            <th
+                                data-sort="change"
+                                class="sortable"
+                            >
+
+                                <span>
+                                    Change
+                                </span>
+
+                                <i
+                                    class="bi bi-chevron-expand sort-icon"
+                                ></i>
+
+                            </th>
+
+
+                            <!-- Change Percentage -->
+
+                            <th
+                                data-sort="change_percent"
+                                class="sortable"
+                            >
+
+                                <span>
+                                    Change %
+                                </span>
+
+                                <i
+                                    class="bi bi-chevron-expand sort-icon"
+                                ></i>
+
+                            </th>
+
+
+                            <!-- Action -->
+
+                            <th>
+                                Action
+                            </th>
 
                         </tr>
 
@@ -304,725 +316,10 @@
 
                     <tbody id="companiesTableBody">
 
-
-                        <!-- NABIL -->
-                        <tr data-sector="Banking">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        N
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Nabil Bank
-                                        </strong>
-
-                                        <span>
-                                            Nabil Bank Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    NABIL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge banking">
-                                    Banking
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 582.50
-                            </td>
-
-
-                            <td class="positive">
-                                +12.50
-                            </td>
-
-
-                            <td class="positive">
-                                +2.19%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="NABIL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- GBIME -->
-                        <tr data-sector="Banking">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        G
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Global IME Bank
-                                        </strong>
-
-                                        <span>
-                                            Global IME Bank Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    GBIME
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge banking">
-                                    Banking
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 245.00
-                            </td>
-
-
-                            <td class="positive">
-                                +5.20
-                            </td>
-
-
-                            <td class="positive">
-                                +2.17%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="GBIME"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- UPPER -->
-                        <tr data-sector="Hydropower">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        U
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Upper Tamakoshi
-                                        </strong>
-
-                                        <span>
-                                            Upper Tamakoshi Hydropower Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    UPPER
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge hydropower">
-                                    Hydropower
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 218.70
-                            </td>
-
-
-                            <td class="positive">
-                                +8.70
-                            </td>
-
-
-                            <td class="positive">
-                                +4.14%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="UPPER"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- HIDCL -->
-                        <tr data-sector="Hydropower">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        H
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            HIDCL
-                                        </strong>
-
-                                        <span>
-                                            Hydroelectricity Investment and Development Company
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    HIDCL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge hydropower">
-                                    Hydropower
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 164.30
-                            </td>
-
-
-                            <td class="positive">
-                                +4.30
-                            </td>
-
-
-                            <td class="positive">
-                                +2.69%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="HIDCL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- BOKL -->
-                        <tr data-sector="Banking">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        B
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Bank of Kathmandu
-                                        </strong>
-
-                                        <span>
-                                            Bank of Kathmandu Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    BOKL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge banking">
-                                    Banking
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 201.50
-                            </td>
-
-
-                            <td class="negative">
-                                -2.50
-                            </td>
-
-
-                            <td class="negative">
-                                -1.23%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="BOKL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- SICL -->
-                        <tr data-sector="Insurance">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        S
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Shikhar Insurance
-                                        </strong>
-
-                                        <span>
-                                            Shikhar Insurance Company Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    SICL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge insurance">
-                                    Insurance
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 765.00
-                            </td>
-
-
-                            <td class="positive">
-                                +15.00
-                            </td>
-
-
-                            <td class="positive">
-                                +2.00%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="SICL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- PRFL -->
-                        <tr data-sector="Finance">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        P
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Prabhu Finance
-                                        </strong>
-
-                                        <span>
-                                            Prabhu Finance Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    PRFL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge finance">
-                                    Finance
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 312.00
-                            </td>
-
-
-                            <td class="negative">
-                                -6.00
-                            </td>
-
-
-                            <td class="negative">
-                                -1.89%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="PRFL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- SHIVM -->
-                        <tr data-sector="Manufacturing">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        S
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Shivam Cement
-                                        </strong>
-
-                                        <span>
-                                            Shivam Cements Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    SHIVM
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge manufacturing">
-                                    Manufacturing
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 512.00
-                            </td>
-
-
-                            <td class="negative">
-                                -8.00
-                            </td>
-
-
-                            <td class="negative">
-                                -1.54%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="SHIVM"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- EBL -->
-                        <tr data-sector="Banking">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        E
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Everest Bank
-                                        </strong>
-
-                                        <span>
-                                            Everest Bank Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    EBL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge banking">
-                                    Banking
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 615.00
-                            </td>
-
-
-                            <td class="positive">
-                                +9.00
-                            </td>
-
-
-                            <td class="positive">
-                                +1.49%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="EBL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- SHL -->
-                        <tr data-sector="Hotels">
-
-                            <td>
-
-                                <div class="company-name-cell">
-
-                                    <div class="company-logo">
-                                        S
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Soaltee Hotel
-                                        </strong>
-
-                                        <span>
-                                            Soaltee Hotel Limited
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                <span class="stock-symbol">
-                                    SHL
-                                </span>
-                            </td>
-
-
-                            <td>
-                                <span class="sector-badge hotels">
-                                    Hotels
-                                </span>
-                            </td>
-
-
-                            <td class="price">
-                                NPR 478.00
-                            </td>
-
-
-                            <td class="positive">
-                                +6.00
-                            </td>
-
-
-                            <td class="positive">
-                                +1.27%
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="view-company-btn"
-                                    data-symbol="SHL"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
+                        <!--
+                            Company rows are generated
+                            dynamically by companies.js
+                        -->
 
                     </tbody>
 
@@ -1031,7 +328,10 @@
             </div>
 
 
-            <!-- Empty State -->
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
+
             <div
                 class="empty-state"
                 id="emptyState"
@@ -1039,82 +339,52 @@
             >
 
                 <div class="empty-icon">
+
                     <i class="bi bi-building"></i>
+
                 </div>
+
 
                 <h3>
                     No companies found
                 </h3>
 
+
                 <p>
-                    Try searching with a different company name or symbol.
+                    Try searching with a different symbol or sector.
                 </p>
 
             </div>
 
 
-            <!-- Table Footer -->
+            <!-- =================================================
+                 TABLE FOOTER
+            ================================================== -->
+
             <div class="table-footer">
 
-                <span class="page-info">
-                    Showing 1–10 of 230 companies
+
+                <!-- Page Information -->
+
+                <span
+                    class="page-info"
+                    id="pageInfo"
+                >
+                    Showing 0–0 of 0 companies
                 </span>
 
 
-                <div class="pagination">
+                <!-- Pagination -->
 
-                    <button
-                        type="button"
-                        class="pagination-btn disabled"
-                        disabled
-                    >
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
+                <div
+                    class="pagination"
+                    id="pagination"
+                >
 
-
-                    <button
-                        type="button"
-                        class="pagination-btn active"
-                    >
-                        1
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="pagination-btn"
-                    >
-                        2
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="pagination-btn"
-                    >
-                        3
-                    </button>
-
-
-                    <span class="pagination-dots">
-                        ...
-                    </span>
-
-
-                    <button
-                        type="button"
-                        class="pagination-btn"
-                    >
-                        23
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="pagination-btn"
-                    >
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
+                    <!--
+                        Pagination buttons are generated
+                        dynamically by companies.js
+                    -->
 
                 </div>
 
@@ -1133,6 +403,8 @@
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/companies.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/companies.js') }}"
+></script>
 
 {% endblock %}
