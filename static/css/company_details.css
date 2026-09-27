@@ -12,7 +12,7 @@
 .company-details-page {
     min-height: 100vh;
     width: 100%;
-    background: #07112d;
+    background: #070b1d;
     color: #e6ebf5;
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
@@ -48,7 +48,7 @@
 
     margin-bottom: 22px;
 
-    color: #8fa3c7;
+    color: #6682b5;
     text-decoration: none;
 
     font-size: 14px;
@@ -75,7 +75,7 @@
 
     margin-bottom: 5px;
 
-    color: #6f86ad;
+    color: #6682b5;
 
     font-size: 10px;
     font-weight: 700;
@@ -97,9 +97,9 @@
 
     padding: 24px 26px;
 
-    background: #0b1736;
+    background: #101a36;
 
-    border: 1px solid rgba(111, 134, 173, 0.16);
+    border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 16px;
 
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
@@ -160,7 +160,7 @@
 .company-fullname {
     margin: 0;
 
-    color: #8fa3c7;
+    color: #6682b5;
 
     font-size: 14px;
     line-height: 1.5;
@@ -202,11 +202,11 @@
     width: 42px;
     height: 42px;
 
-    border: 1px solid rgba(111, 134, 173, 0.20);
+    border: 1px solid rgba(104, 132, 184, 0.20);
     border-radius: 10px;
 
-    background: #101f43;
-    color: #8fa3c7;
+    background: #101a36;
+    color: #6682b5;
 
     cursor: pointer;
 
@@ -276,11 +276,11 @@
 
     background: linear-gradient(
         135deg,
-        #0d1c42,
-        #0b1736
+        #16214a,
+        #101a36
     );
 
-    border: 1px solid rgba(111, 134, 173, 0.17);
+    border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 16px;
 
     margin-bottom: 18px;
@@ -297,7 +297,7 @@
 }
 
 .price-label {
-    color: #6f86ad;
+    color: #6682b5;
 
     font-size: 10px;
     font-weight: 700;
@@ -309,7 +309,7 @@
     align-items: center;
     gap: 7px;
 
-    color: #7f93b7;
+    color: #6682b5;
 
     font-size: 11px;
 }
@@ -349,7 +349,7 @@
 }
 
 .price-value .currency {
-    color: #7f93b7;
+    color: #6682b5;
 
     font-size: 14px;
     font-weight: 600;
@@ -388,7 +388,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
-    border-top: 1px solid rgba(111, 134, 173, 0.12);
+    border-top: 1px solid rgba(104, 132, 184, 0.12);
 
     padding-top: 18px;
 }
@@ -400,7 +400,7 @@
 
     padding-left: 20px;
 
-    border-left: 1px solid rgba(111, 134, 173, 0.12);
+    border-left: 1px solid rgba(104, 132, 184, 0.12);
 }
 
 .price-stat:first-child {
@@ -409,7 +409,7 @@
 }
 
 .price-stat span {
-    color: #667da5;
+    color: #6682b5;
 
     font-size: 9px;
     font-weight: 700;
@@ -451,9 +451,9 @@
 .prediction-card,
 .prediction-note-card,
 .technical-indicators-card {
-    background: #0b1736;
+    background: #101a36;
 
-    border: 1px solid rgba(111, 134, 173, 0.16);
+    border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 16px;
 
     box-shadow:
@@ -501,9 +501,9 @@
 
     padding: 4px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.13);
+    border: 1px solid rgba(104, 132, 184, 0.13);
     border-radius: 9px;
 }
 
@@ -517,7 +517,7 @@
     border-radius: 6px;
 
     background: transparent;
-    color: #7186aa;
+    color: #6682b5;
 
     font-size: 10px;
     font-weight: 600;
@@ -569,7 +569,7 @@
 .volume-chart-label {
     margin-bottom: 5px;
 
-    color: #52698f;
+    color: #6682b5;
 
     font-size: 9px;
     font-weight: 600;
@@ -654,9 +654,9 @@
 
     padding: 18px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.12);
+    border: 1px solid rgba(104, 132, 184, 0.12);
     border-radius: 12px;
 
     margin-bottom: 20px;
@@ -702,7 +702,7 @@
 .prediction-text p {
     margin: 0;
 
-    color: #7186aa;
+    color: #6682b5;
 
     font-size: 11px;
 }
@@ -725,7 +725,7 @@
 }
 
 .confidence-label-row span {
-    color: #8195b8;
+    color: #6682b5;
 
     font-size: 11px;
 }
@@ -785,14 +785,14 @@
 
     padding: 12px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.11);
+    border: 1px solid rgba(104, 132, 184, 0.11);
     border-radius: 9px;
 }
 
 .prediction-info-item span {
-    color: #61779e;
+    color: #6682b5;
 
     font-size: 9px;
     font-weight: 600;
@@ -809,7 +809,7 @@
 }
 
 .prediction-currency {
-    color: #7186aa !important;
+    color: #6682b5 !important;
 
     font-size: 10px !important;
 
@@ -830,7 +830,7 @@
 
     padding-top: 14px;
 
-    border-top: 1px solid rgba(111, 134, 173, 0.11);
+    border-top: 1px solid rgba(104, 132, 184, 0.11);
 }
 
 .model-icon {
@@ -860,7 +860,7 @@
 }
 
 .model-info-text span {
-    color: #5f759b;
+    color: #6682b5;
 
     font-size: 9px;
 }
@@ -917,7 +917,7 @@
 .prediction-note-content p {
     margin: 0;
 
-    color: #7186aa;
+    color: #6682b5;
 
     font-size: 10px;
     line-height: 1.6;
@@ -973,9 +973,9 @@
 
     padding: 20px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.11);
+    border: 1px solid rgba(104, 132, 184, 0.11);
     border-radius: 12px;
 }
 
@@ -992,7 +992,7 @@
     background:
         radial-gradient(
             circle at center,
-            #08132d 53%,
+            #0b1328 53%,
             transparent 54%
         ),
         conic-gradient(
@@ -1013,7 +1013,7 @@
 .rsi-label {
     margin: 12px 0 3px;
 
-    color: #7186aa;
+    color: #6682b5;
 
     font-size: 10px;
     font-weight: 600;
@@ -1038,9 +1038,9 @@
 
     padding: 20px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.11);
+    border: 1px solid rgba(104, 132, 184, 0.11);
     border-radius: 12px;
 }
 
@@ -1068,7 +1068,7 @@
 
     padding-bottom: 8px;
 
-    border-bottom: 1px solid rgba(111, 134, 173, 0.09);
+    border-bottom: 1px solid rgba(104, 132, 184, 0.09);
 }
 
 .moving-average-item:last-child {
@@ -1078,7 +1078,7 @@
 }
 
 .moving-average-item span {
-    color: #7186aa;
+    color: #6682b5;
 
     font-size: 10px;
 }
@@ -1099,9 +1099,9 @@
 
     padding: 20px;
 
-    background: #08132d;
+    background: #0b1328;
 
-    border: 1px solid rgba(111, 134, 173, 0.11);
+    border: 1px solid rgba(104, 132, 184, 0.11);
     border-radius: 12px;
 }
 
@@ -1160,7 +1160,7 @@
 ========================================================= */
 
 .company-details-page .loading {
-    color: #7186aa;
+    color: #6682b5;
 }
 
 .company-details-page .error {
@@ -1255,7 +1255,7 @@
         padding-top: 14px;
 
         border-top:
-            1px solid rgba(111, 134, 173, 0.10);
+            1px solid rgba(104, 132, 184, 0.10);
     }
 
     .card-header-row {
