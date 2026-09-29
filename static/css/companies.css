@@ -312,9 +312,7 @@
 
 
 /* ---------------------------------------------------------
-   TABLE DATA CELLS — enlarged and brightened so every
-   row's content (symbol, sector, price, change, action)
-   reads clearly, not just the header row
+   TABLE DATA CELLS
 --------------------------------------------------------- */
 
 .companies-table td {
@@ -386,14 +384,6 @@
     color: #10d9c4;
 }
 
-.companies-table th.sort-asc .sort-icon::before {
-    content: "\F235"; /* bi-chevron-up */
-}
-
-.companies-table th.sort-desc .sort-icon::before {
-    content: "\F229"; /* bi-chevron-down */
-}
-
 
 /* =========================================================
    ROW-LEVEL GAIN/LOSS ACCENT
@@ -420,8 +410,8 @@
 
 /* =========================================================
    COMPANY NAME
-   (kept for compatibility if companies.js still renders it;
-   unused by the current HTML markup)
+   (kept for compatibility if any older markup still
+   renders it; unused by the current row template)
 ========================================================= */
 
 .company-name-cell {
@@ -516,102 +506,14 @@
 
 
 /* =========================================================
-   SECTOR TEXT
+   SECTOR — plain text, same for every sector
 ========================================================= */
 
-.companies-table td:nth-child(2) {
+.companies-table .sector-text {
     color: #cdd7ec;
 
     font-size: 14px;
     font-weight: 500;
-}
-
-.sector-badge {
-    display: inline-flex;
-    align-items: center;
-
-    min-height: 26px;
-
-    padding: 5px 10px;
-
-    border-radius: 6px;
-
-    font-size: 12.5px;
-    font-weight: 600;
-
-    line-height: 1;
-
-    white-space: nowrap;
-}
-
-
-/* BANKING */
-
-.sector-badge.banking {
-    border: 1px solid rgba(98, 200, 255, 0.12);
-
-    color: #6ccaff;
-    background: rgba(98, 200, 255, 0.065);
-}
-
-
-/* INSURANCE */
-
-.sector-badge.insurance {
-    border: 1px solid rgba(177, 140, 255, 0.12);
-
-    color: #b995ff;
-    background: rgba(177, 140, 255, 0.065);
-}
-
-
-/* HYDROPOWER */
-
-.sector-badge.hydropower {
-    border: 1px solid rgba(53, 214, 157, 0.12);
-
-    color: #42dca4;
-    background: rgba(53, 214, 157, 0.065);
-}
-
-
-/* FINANCE */
-
-.sector-badge.finance {
-    border: 1px solid rgba(242, 201, 109, 0.12);
-
-    color: #f3ca70;
-    background: rgba(242, 201, 109, 0.065);
-}
-
-
-/* MANUFACTURING */
-
-.sector-badge.manufacturing {
-    border: 1px solid rgba(255, 156, 109, 0.12);
-
-    color: #ffa071;
-    background: rgba(255, 156, 109, 0.065);
-}
-
-
-/* HOTELS */
-
-.sector-badge.hotels {
-    border: 1px solid rgba(245, 139, 212, 0.12);
-
-    color: #f48bd4;
-    background: rgba(245, 139, 212, 0.065);
-}
-
-
-/* DEVELOPMENT BANK */
-
-.sector-badge.development {
-    border: 1px solid rgba(125, 211, 252, 0.12);
-
-    color: #7dd5fc;
-    background: rgba(125, 211, 252, 0.065);
 }
 
 
@@ -918,7 +820,7 @@
     color: #27334b;
 }
 
-.dashboard-layout.light-mode .companies-table td:nth-child(2) {
+.dashboard-layout.light-mode .companies-table .sector-text {
     color: #3a4664;
 }
 

@@ -659,17 +659,9 @@ function createCompanyRow(company) {
 
 
     /* =============================================
-       SECTOR CLASS
-    ============================================== */
-
-    const sectorClass =
-        getSectorClass(
-            sector
-        );
-
-
-    /* =============================================
        ROW HTML
+       (Sector column is plain text for every row —
+       no colored badge chip)
     ============================================== */
 
     row.innerHTML = `
@@ -689,15 +681,9 @@ function createCompanyRow(company) {
 
         <!-- Sector -->
 
-        <td>
+        <td class="sector-text">
 
-            <span
-                class="sector-badge ${sectorClass}"
-            >
-
-                ${escapeHtml(sector)}
-
-            </span>
+            ${escapeHtml(sector)}
 
         </td>
 
@@ -751,31 +737,6 @@ function createCompanyRow(company) {
 
 
     return row;
-
-}
-
-
-/* =====================================================
-   SECTOR CLASS
-===================================================== */
-
-function getSectorClass(sector) {
-
-    const value =
-        sector
-            .toLowerCase()
-            .replace(
-                /[^a-z0-9]+/g,
-                "-"
-            )
-            .replace(
-                /(^-|-$)/g,
-                ""
-            );
-
-
-    return value ||
-        "others";
 
 }
 
