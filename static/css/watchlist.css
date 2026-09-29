@@ -1,3 +1,53 @@
+/* =========================================================
+   MERO-PREDICT
+   WATCHLIST PAGE
+   Matches Dashboard Sidebar + Topbar Theme
+========================================================= */
+
+
+/* =========================================================
+   WATCHLIST PAGE
+========================================================= */
+
+.watchlist-page {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.watchlist-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.watchlist-header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.watchlist-header p {
+    margin: 7px 0 0;
+    color: #7183aa;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
 .watchlist-summary-cards {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -5,20 +55,18 @@
     margin-bottom: 24px;
 }
 
-
 .watchlist-summary-card {
-    padding: 18px 20px;
+    padding: 20px;
     border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 15px;
     background: #101a36;
     transition: 0.25s ease;
 }
 
-
 .watchlist-summary-card:hover {
     transform: translateY(-3px);
+    border-color: rgba(16, 217, 196, 0.25);
 }
-
 
 .gainers-summary,
 .predicted-summary {
@@ -26,12 +74,10 @@
     background: rgba(53, 214, 157, 0.05);
 }
 
-
 .losers-summary {
     border-color: rgba(255, 104, 122, 0.18);
     background: rgba(255, 104, 122, 0.05);
 }
-
 
 .ws-label {
     display: block;
@@ -40,35 +86,80 @@
     font-weight: 600;
 }
 
-
 .watchlist-summary-card h2 {
     margin: 14px 0 0;
+    font-size: 28px;
     font-weight: 700;
 }
-
 
 .ws-value {
     font-size: 28px;
 }
 
-
 .ws-value.ws-positive {
     color: #35d69d;
 }
-
 
 .ws-value.ws-negative {
     color: #ff687a;
 }
 
-
 .ws-total {
-    margin-left: 2px;
+    margin-left: 3px;
     color: #6682b5;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
 }
 
+
+/* =========================================================
+   WATCHLIST MAIN CARD
+========================================================= */
+
+.watchlist-card {
+    padding: 22px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(104, 132, 184, 0.18);
+    border-radius: 16px;
+    background: #101a36;
+}
+
+.watchlist-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.watchlist-card-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.watchlist-card-header h2 i {
+    margin-right: 7px;
+    color: #f5a623;
+}
+
+.watchlist-card-header p {
+    margin: 6px 0 0;
+    color: #6682b5;
+    font-size: 12px;
+}
+
+.watchlist-count {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    border: 1px solid rgba(16, 217, 196, 0.18);
+    border-radius: 8px;
+    background: rgba(16, 217, 196, 0.07);
+    color: #10d9c4;
+    font-size: 12px;
+    font-weight: 700;
+}
 
 
 /* =========================================================
@@ -79,18 +170,15 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
-    margin-bottom: 24px;
 }
-
 
 .watchlist-stock-card {
     padding: 22px;
     border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 16px;
-    background: #101a36;
+    background: #0d1730;
     transition: 0.25s ease;
 }
-
 
 .watchlist-stock-card:hover {
     transform: translateY(-3px);
@@ -99,8 +187,9 @@
 }
 
 
-
-/* TOP ROW: BADGE + STAR */
+/* =========================================================
+   STOCK TOP ROW
+========================================================= */
 
 .wsc-top {
     display: flex;
@@ -108,62 +197,65 @@
     justify-content: space-between;
 }
 
-
 .wsc-badge {
     width: 42px;
     height: 42px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 11px;
     background: rgba(16, 217, 196, 0.1);
+
     color: #10d9c4;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.3px;
 }
 
-
 .wsc-star {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 30px;
     height: 30px;
+
     border: none;
     background: transparent;
+
     color: #6682b5;
     font-size: 17px;
+
     cursor: pointer;
     transition: 0.2s ease;
 }
 
-
 .wsc-star:hover {
     color: #f5a623;
 }
-
 
 .wsc-star.active {
     color: #f5a623;
 }
 
 
-
-/* NAME */
+/* =========================================================
+   STOCK NAME
+========================================================= */
 
 .wsc-name {
     margin-top: 14px;
 }
 
-
 .wsc-name strong {
     display: block;
     color: #ffffff;
     font-size: 16px;
+    font-weight: 700;
     letter-spacing: -0.2px;
 }
-
 
 .wsc-name small {
     display: block;
@@ -173,16 +265,18 @@
 }
 
 
-
-/* PRICE ROW */
+/* =========================================================
+   PRICE
+========================================================= */
 
 .wsc-price-row {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    gap: 15px;
+
     margin-top: 18px;
 }
-
 
 .wsc-price {
     color: #ffffff;
@@ -190,58 +284,57 @@
     font-weight: 700;
 }
 
-
 .wsc-change {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+
     font-size: 13px;
     font-weight: 700;
 }
-
 
 .wsc-change.wsc-positive {
     color: #35d69d;
 }
 
-
 .wsc-change.wsc-negative {
     color: #ff687a;
 }
 
+.wsc-change.wsc-neutral {
+    color: #8d9abb;
+}
 
 .wsc-subprice-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     margin-top: 5px;
 }
-
 
 .wsc-ltp-label {
     color: #6682b5;
     font-size: 11px;
 }
 
-
 .wsc-change-pts {
     font-size: 11px;
     font-weight: 600;
 }
 
-
 .wsc-change-pts.wsc-positive {
     color: #35d69d;
 }
-
 
 .wsc-change-pts.wsc-negative {
     color: #ff687a;
 }
 
 
-
-/* DIVIDER */
+/* =========================================================
+   DIVIDER
+========================================================= */
 
 .wsc-divider {
     height: 1px;
@@ -250,8 +343,9 @@
 }
 
 
-
-/* STATS */
+/* =========================================================
+   STOCK STATS
+========================================================= */
 
 .wsc-stats {
     display: grid;
@@ -259,16 +353,20 @@
     gap: 10px;
 }
 
+.wsc-stat {
+    min-width: 0;
+}
 
 .wsc-stat small {
     display: block;
     margin-bottom: 6px;
+
     color: #6682b5;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.6px;
+    text-transform: uppercase;
 }
-
 
 .wsc-stat strong {
     color: #dbe2f0;
@@ -277,50 +375,195 @@
 }
 
 
+/* =========================================================
+   PREDICTION BADGE
+========================================================= */
+
 .wsc-predict-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+
     padding: 5px 8px;
+
     border-radius: 7px;
+
     background: rgba(53, 214, 157, 0.1);
     color: #35d69d;
+
     font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
 }
 
-
 .wsc-predict-badge i {
     font-size: 10px;
 }
 
+.wsc-predict-badge.wsc-predict-up {
+    background: rgba(53, 214, 157, 0.1);
+    color: #35d69d;
+}
 
 .wsc-predict-badge.wsc-predict-down {
     background: rgba(255, 104, 122, 0.1);
     color: #ff687a;
 }
 
+.wsc-predict-badge.wsc-predict-neutral {
+    background: rgba(141, 154, 187, 0.1);
+    color: #8d9abb;
+}
 
 
 /* =========================================================
-   ADD MORE STOCKS
+   ADD MORE STOCKS CARD
 ========================================================= */
 
 .add-stocks-card {
     padding: 22px;
+
     border: 1px solid rgba(104, 132, 184, 0.18);
     border-radius: 16px;
+
     background: #101a36;
 }
 
-
-.add-stocks-header h3 {
-    margin: 0 0 18px;
-    color: #ffffff;
-    font-size: 15px;
+.add-stocks-header {
+    margin-bottom: 18px;
 }
 
+.add-stocks-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.add-stocks-header h2 i {
+    margin-right: 7px;
+    color: #10d9c4;
+}
+
+.add-stocks-header p {
+    margin: 6px 0 0;
+    color: #6682b5;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.stock-search-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.stock-search-wrapper > i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+
+    transform: translateY(-50%);
+
+    color: #6682b5;
+    font-size: 15px;
+
+    pointer-events: none;
+}
+
+.stock-search-input {
+    width: 100%;
+    height: 44px;
+
+    padding: 0 44px 0 42px;
+
+    border: 1px solid rgba(104, 132, 184, 0.2);
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #0d1730;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+.stock-search-input::placeholder {
+    color: #5f729a;
+}
+
+.stock-search-input:hover {
+    border-color: rgba(104, 132, 184, 0.35);
+}
+
+.stock-search-input:focus {
+    border-color: rgba(16, 217, 196, 0.5);
+    box-shadow: 0 0 0 3px rgba(16, 217, 196, 0.07);
+}
+
+
+/* =========================================================
+   CLEAR SEARCH BUTTON
+========================================================= */
+
+.clear-stock-search {
+    position: absolute;
+    top: 50%;
+    right: 9px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    border: none;
+    border-radius: 7px;
+
+    background: transparent;
+    color: #6682b5;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.clear-stock-search:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+}
+
+.clear-stock-search i {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SEARCH INFO
+========================================================= */
+
+.stock-search-info {
+    min-height: 20px;
+    margin: 7px 2px 16px;
+
+    color: #6682b5;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ADD STOCKS GRID
+========================================================= */
 
 .add-stocks-grid {
     display: grid;
@@ -328,150 +571,329 @@
     gap: 14px;
 }
 
-
 .add-stock-chip {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 7px;
+
+    min-width: 0;
     padding: 16px;
+
     border: 1px solid rgba(104, 132, 184, 0.12);
     border-radius: 13px;
+
     background: rgba(255, 255, 255, 0.015);
+
     transition: 0.2s ease;
 }
-
 
 .add-stock-chip:hover {
     border-color: rgba(16, 217, 196, 0.25);
     background: rgba(255, 255, 255, 0.03);
+    transform: translateY(-2px);
 }
 
+
+/* =========================================================
+   AVAILABLE STOCK BADGE
+========================================================= */
 
 .asc-badge {
     width: 34px;
     height: 34px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 9px;
+
     background: rgba(104, 132, 184, 0.14);
     color: #b9c4e0;
+
     font-size: 11px;
     font-weight: 700;
 }
 
-
 .asc-symbol {
+    width: 100%;
+    overflow: hidden;
+
     color: #ffffff;
     font-size: 13px;
     font-weight: 700;
-}
 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .asc-change {
     font-size: 11px;
     font-weight: 600;
 }
 
-
 .asc-change.asc-positive {
     color: #35d69d;
 }
-
 
 .asc-change.asc-negative {
     color: #ff687a;
 }
 
+.asc-change.asc-neutral {
+    color: #8d9abb;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
 
 .asc-add {
     padding: 0;
+
     border: none;
     background: transparent;
+
     color: #10d9c4;
+
     font-size: 11px;
     font-weight: 700;
+
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
-
 .asc-add:hover {
+    color: #35e5d2;
     text-decoration: underline;
 }
 
+.asc-add:disabled {
+    color: #6682b5;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   EMPTY / LOADING STATES
+========================================================= */
+
+.watchlist-loading,
+.add-stocks-loading,
+.watchlist-empty,
+.add-stocks-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 150px;
+
+    grid-column: 1 / -1;
+
+    border: 1px dashed rgba(104, 132, 184, 0.18);
+    border-radius: 13px;
+
+    color: #6682b5;
+    font-size: 13px;
+    text-align: center;
+}
+
+.watchlist-loading i,
+.add-stocks-loading i {
+    color: #10d9c4;
+    font-size: 16px;
+}
+
+.watchlist-empty i,
+.add-stocks-empty i {
+    color: #6682b5;
+    font-size: 18px;
+}
+
+.watchlist-empty {
+    flex-direction: column;
+    padding: 30px;
+}
+
+.add-stocks-empty {
+    min-height: 120px;
+    padding: 25px;
+}
+
+
+/* =========================================================
+   EMPTY STATE TEXT
+========================================================= */
+
+.watchlist-empty strong,
+.add-stocks-empty strong {
+    color: #dbe2f0;
+    font-size: 14px;
+}
+
+.watchlist-empty span,
+.add-stocks-empty span {
+    color: #6682b5;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SPINNER ANIMATION
+========================================================= */
+
+.watchlist-loading i,
+.add-stocks-loading i {
+    animation: watchlist-spin 1s linear infinite;
+}
+
+@keyframes watchlist-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
 
 
 /* =========================================================
    LIGHT MODE
 ========================================================= */
 
+.dashboard-layout.light-mode .watchlist-header h1 {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .watchlist-header p {
+    color: #71809d;
+}
+
 .dashboard-layout.light-mode .watchlist-summary-card,
+.dashboard-layout.light-mode .watchlist-card,
 .dashboard-layout.light-mode .watchlist-stock-card,
 .dashboard-layout.light-mode .add-stocks-card {
     background: #ffffff;
     border-color: #e0e6f0;
 }
 
-
 .dashboard-layout.light-mode .gainers-summary,
 .dashboard-layout.light-mode .predicted-summary {
     background: rgba(53, 214, 157, 0.06);
 }
 
-
 .dashboard-layout.light-mode .losers-summary {
     background: rgba(255, 104, 122, 0.06);
 }
 
+.dashboard-layout.light-mode .watchlist-stock-card {
+    background: #fbfcff;
+}
+
+.dashboard-layout.light-mode .watchlist-card-header h2,
+.dashboard-layout.light-mode .add-stocks-header h2 {
+    color: #172033;
+}
+
+.dashboard-layout.light-mode .watchlist-card-header p,
+.dashboard-layout.light-mode .add-stocks-header p {
+    color: #71809d;
+}
 
 .dashboard-layout.light-mode .wsc-name strong,
 .dashboard-layout.light-mode .wsc-price,
-.dashboard-layout.light-mode .add-stocks-header h3,
 .dashboard-layout.light-mode .asc-symbol {
     color: #172033;
 }
 
+.dashboard-layout.light-mode .wsc-name small,
+.dashboard-layout.light-mode .wsc-ltp-label,
+.dashboard-layout.light-mode .wsc-stat small,
+.dashboard-layout.light-mode .ws-label,
+.dashboard-layout.light-mode .ws-total {
+    color: #71809d;
+}
 
 .dashboard-layout.light-mode .wsc-stat strong {
     color: #2c3552;
 }
 
+.dashboard-layout.light-mode .wsc-divider {
+    background: #e8edf5;
+}
 
 .dashboard-layout.light-mode .add-stock-chip {
     background: #f7f9fc;
     border-color: #e0e6f0;
 }
 
+.dashboard-layout.light-mode .add-stock-chip:hover {
+    background: #f2f6fb;
+    border-color: rgba(16, 180, 170, 0.25);
+}
 
 .dashboard-layout.light-mode .asc-badge {
     background: #eef1f8;
     color: #4a5578;
 }
 
+.dashboard-layout.light-mode .stock-search-input {
+    background: #f8faff;
+    border-color: #dfe5ef;
+    color: #172033;
+}
 
-.dashboard-layout.light-mode .ws-label,
-.dashboard-layout.light-mode .ws-total,
-.dashboard-layout.light-mode .wsc-name small,
-.dashboard-layout.light-mode .wsc-ltp-label,
-.dashboard-layout.light-mode .wsc-stat small {
+.dashboard-layout.light-mode .stock-search-input::placeholder {
+    color: #8a96ad;
+}
+
+.dashboard-layout.light-mode .stock-search-input:focus {
+    background: #ffffff;
+}
+
+.dashboard-layout.light-mode .watchlist-loading,
+.dashboard-layout.light-mode .add-stocks-loading,
+.dashboard-layout.light-mode .watchlist-empty,
+.dashboard-layout.light-mode .add-stocks-empty {
+    border-color: #dfe5ef;
+}
+
+.dashboard-layout.light-mode .watchlist-empty strong,
+.dashboard-layout.light-mode .add-stocks-empty strong {
+    color: #2c3552;
+}
+
+.dashboard-layout.light-mode .watchlist-empty span,
+.dashboard-layout.light-mode .add-stocks-empty span,
+.dashboard-layout.light-mode .stock-search-info {
     color: #71809d;
 }
 
 
-
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE — LARGE TABLETS
 ========================================================= */
 
 @media (max-width: 1200px) {
+
     .add-stocks-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
 }
 
 
+/* =========================================================
+   RESPONSIVE — TABLETS
+========================================================= */
+
 @media (max-width: 900px) {
+
     .watchlist-grid {
         grid-template-columns: 1fr;
     }
@@ -479,11 +901,89 @@
     .watchlist-summary-cards {
         grid-template-columns: 1fr;
     }
+
+    .add-stocks-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
 }
 
 
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
 @media (max-width: 700px) {
+
+    .watchlist-header {
+        flex-direction: column;
+        margin-bottom: 18px;
+    }
+
+    .watchlist-header h1 {
+        font-size: 24px;
+    }
+
+    .watchlist-card,
+    .add-stocks-card {
+        padding: 16px;
+    }
+
+    .watchlist-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .watchlist-count {
+        align-self: flex-start;
+    }
+
     .add-stocks-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .wsc-price {
+        font-size: 22px;
+    }
+
+    .wsc-stats {
+        gap: 7px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .watchlist-summary-card {
+        padding: 16px;
+    }
+
+    .watchlist-stock-card {
+        padding: 18px;
+    }
+
+    .add-stocks-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wsc-price-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .wsc-stats {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 14px;
+    }
+
+    .stock-search-input {
+        height: 42px;
+    }
+
 }

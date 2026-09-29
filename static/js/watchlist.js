@@ -7,8 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const watchlistGrid =
         document.getElementById("watchlistGrid");
 
+    const addStocksGrid =
+        document.getElementById("addStocksGrid");
+
     const watchlistCount =
         document.getElementById("watchlistCount");
+
+    const watchlistCountLabel =
+        document.getElementById("watchlistCountLabel");
 
     const watchlistGainers =
         document.getElementById("watchlistGainers");
@@ -30,6 +36,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =========================================================
+    // STOCK SEARCH ELEMENTS
+    // =========================================================
+
+    const stockSearchInput =
+        document.getElementById("stockSearchInput");
+
+    const clearStockSearch =
+        document.getElementById("clearStockSearch");
+
+    const stockSearchInfo =
+        document.getElementById("stockSearchInfo");
+
+
+    // =========================================================
+    // AVAILABLE STOCKS
+    // =========================================================
+
+    /*
+     * Complete list of stocks available to add.
+     *
+     * Without searching:
+     *     Only first 12 stocks are displayed.
+     *
+     * With searching:
+     *     All matching stocks are displayed.
+     */
+
+    let availableStocks = [];
+
+
+    // =========================================================
+    // EVENT LISTENER STATE
+    // =========================================================
+
+    let addListenerAttached = false;
+
+
+    // =========================================================
     // FORMAT HELPERS
     // =========================================================
 
@@ -45,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
     }
 
 
@@ -57,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return number.toLocaleString("en-IN");
+
     }
 
 
@@ -69,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return `${number >= 0 ? "+" : ""}${number.toFixed(2)}%`;
+
     }
 
 
@@ -78,7 +125,27 @@ document.addEventListener("DOMContentLoaded", function () {
             return "?";
         }
 
-        return symbol.substring(0, 2).toUpperCase();
+        return String(symbol)
+            .trim()
+            .substring(0, 2)
+            .toUpperCase();
+
+    }
+
+
+    // =========================================================
+    // HTML ESCAPE HELPER
+    // =========================================================
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
     }
 
 
@@ -93,7 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const cleanSymbol =
-            String(symbol).trim().toUpperCase();
+            String(symbol)
+                .trim()
+                .toUpperCase();
 
         if (!cleanSymbol) {
             return;
@@ -101,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         window.location.href =
             `/companies/${encodeURIComponent(cleanSymbol)}`;
+
     }
 
 
@@ -144,7 +214,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     ? data.stocks
                     : [];
 
+
+            // -------------------------------------------------
+            // RENDER PERSONAL WATCHLIST
+            // -------------------------------------------------
+
             renderWatchlist(stocks);
+
+
+            // -------------------------------------------------
+            // LOAD AVAILABLE STOCKS
+            // -------------------------------------------------
+
+            await loadAvailableStocks(
+                stocks.map(
+                    stock => stock.symbol
+                )
+            );
+
 
         } catch (error) {
 
@@ -172,6 +259,436 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
         }
+
+    }
+
+
+    // =========================================================
+    // LOAD AVAILABLE STOCKS
+    // =========================================================
+
+    async function loadAvailableStocks(
+        currentWatchlistSymbols = []
+    ) {
+
+        if (!addStocksGrid) {
+            return;
+        }
+
+        try {
+
+            addStocksGrid.innerHTML = `
+
+                <div class="add-stocks-loading">
+
+                    <i class="bi bi-hourglass-split"></i>
+
+                    <span>
+                        Loading available stocks...
+                    </span>
+
+                </div>
+
+            `;
+
+
+            const response =
+                await fetch(
+                    "/api/watchlist/available"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `HTTP error: ${response.status}`
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load available stocks."
+                );
+
+            }
+
+
+            let stocks =
+                Array.isArray(data.stocks)
+                    ? data.stocks
+                    : [];
+
+
+            // -------------------------------------------------
+            // CURRENT WATCHLIST SYMBOLS
+            // -------------------------------------------------
+
+            const watchlistSymbols =
+                currentWatchlistSymbols.map(
+                    symbol =>
+                        String(symbol)
+                            .trim()
+                            .toUpperCase()
+                );
+
+
+            // -------------------------------------------------
+            // REMOVE ALREADY SAVED STOCKS
+            // -------------------------------------------------
+
+            stocks =
+                stocks.filter(function (stock) {
+
+                    const symbol =
+                        String(
+                            stock.symbol || ""
+                        )
+                            .trim()
+                            .toUpperCase();
+
+                    return (
+                        symbol &&
+                        !watchlistSymbols.includes(symbol)
+                    );
+
+                });
+
+
+            // -------------------------------------------------
+            // SORT A → Z
+            // -------------------------------------------------
+
+            stocks.sort(function (a, b) {
+
+                const symbolA =
+                    String(a.symbol || "")
+                        .trim()
+                        .toUpperCase();
+
+                const symbolB =
+                    String(b.symbol || "")
+                        .trim()
+                        .toUpperCase();
+
+                return symbolA.localeCompare(symbolB);
+
+            });
+
+
+            // -------------------------------------------------
+            // STORE COMPLETE LIST
+            // -------------------------------------------------
+
+            availableStocks = stocks;
+
+
+            // -------------------------------------------------
+            // RENDER
+            // -------------------------------------------------
+
+            renderAvailableStocks();
+
+
+        } catch (error) {
+
+            console.error(
+                "Available stocks loading error:",
+                error
+            );
+
+
+            availableStocks = [];
+
+
+            addStocksGrid.innerHTML = `
+
+                <div class="add-stocks-empty">
+
+                    <i class="bi bi-exclamation-circle"></i>
+
+                    <span>
+                        Unable to load available stocks.
+                    </span>
+
+                </div>
+
+            `;
+
+
+            if (stockSearchInfo) {
+
+                stockSearchInfo.textContent =
+                    "Unable to load available stocks.";
+
+            }
+
+        }
+
+    }
+
+
+    // =========================================================
+    // RENDER AVAILABLE STOCKS
+    // =========================================================
+
+    function renderAvailableStocks() {
+
+        if (!addStocksGrid) {
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // SEARCH VALUE
+        // -----------------------------------------------------
+
+        const searchTerm =
+            stockSearchInput
+                ? stockSearchInput.value
+                    .trim()
+                    .toUpperCase()
+                : "";
+
+
+        // -----------------------------------------------------
+        // FILTER COMPLETE STOCK LIST
+        // -----------------------------------------------------
+
+        const filteredStocks =
+            availableStocks.filter(function (stock) {
+
+                const symbol =
+                    String(
+                        stock.symbol || ""
+                    )
+                        .trim()
+                        .toUpperCase();
+
+                return symbol.includes(searchTerm);
+
+            });
+
+
+        // -----------------------------------------------------
+        // CLEAR BUTTON
+        // -----------------------------------------------------
+
+        if (clearStockSearch) {
+
+            clearStockSearch.style.display =
+                searchTerm
+                    ? "flex"
+                    : "none";
+
+        }
+
+
+        // -----------------------------------------------------
+        // SEARCH INFORMATION
+        // -----------------------------------------------------
+
+        if (stockSearchInfo) {
+
+            if (searchTerm) {
+
+                stockSearchInfo.textContent =
+                    `${filteredStocks.length} ${
+                        filteredStocks.length === 1
+                            ? "stock"
+                            : "stocks"
+                    } found for "${searchTerm}"`;
+
+            } else {
+
+                const visibleCount =
+                    Math.min(
+                        12,
+                        availableStocks.length
+                    );
+
+                stockSearchInfo.textContent =
+                    `Showing ${visibleCount} of ` +
+                    `${availableStocks.length} available stocks. ` +
+                    `Search above to find any stock.`;
+
+            }
+
+        }
+
+
+        // -----------------------------------------------------
+        // NO RESULTS
+        // -----------------------------------------------------
+
+        if (filteredStocks.length === 0) {
+
+            addStocksGrid.innerHTML = `
+
+                <div class="add-stocks-empty">
+
+                    <i class="bi bi-search"></i>
+
+                    <h3>
+                        No stocks found
+                    </h3>
+
+                    <p>
+                        ${
+                            searchTerm
+                                ? `No available stock matches "${escapeHtml(searchTerm)}".`
+                                : "There are no more stocks available to add."
+                        }
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        // -----------------------------------------------------
+        // DISPLAY LIMIT
+        //
+        // No search:
+        //     Show first 12.
+        //
+        // Search:
+        //     Show ALL matching stocks.
+        // -----------------------------------------------------
+
+        const visibleStocks =
+            searchTerm
+                ? filteredStocks
+                : filteredStocks.slice(0, 12);
+
+
+        // -----------------------------------------------------
+        // CREATE STOCK CARDS
+        // -----------------------------------------------------
+
+        addStocksGrid.innerHTML =
+            visibleStocks.map(function (stock) {
+
+                const symbol =
+                    String(
+                        stock.symbol || ""
+                    )
+                        .trim()
+                        .toUpperCase();
+
+
+                const safeSymbol =
+                    escapeHtml(symbol);
+
+
+                const change =
+                    Number(stock.change || 0);
+
+
+                const changeClass =
+                    change > 0
+                        ? "asc-positive"
+                        : change < 0
+                            ? "asc-negative"
+                            : "asc-neutral";
+
+
+                return `
+
+                    <div
+                        class="add-stock-chip"
+                        data-symbol="${safeSymbol}"
+                    >
+
+                        <span class="asc-badge">
+                            ${getInitials(symbol)}
+                        </span>
+
+
+                        <strong class="asc-symbol">
+                            ${safeSymbol}
+                        </strong>
+
+
+                        <span
+                            class="asc-change ${changeClass}"
+                        >
+                            ${formatChange(change)}
+                        </span>
+
+
+                        <button
+                            class="asc-add"
+                            type="button"
+                            data-symbol="${safeSymbol}"
+                            title="Add ${safeSymbol} to watchlist"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+
+        // Add button events.
+        attachAddEvents();
+
+    }
+
+
+    // =========================================================
+    // SEARCH INPUT
+    // =========================================================
+
+    if (stockSearchInput) {
+
+        stockSearchInput.addEventListener(
+            "input",
+            function () {
+
+                renderAvailableStocks();
+
+            }
+        );
+
+    }
+
+
+    // =========================================================
+    // CLEAR SEARCH
+    // =========================================================
+
+    if (clearStockSearch) {
+
+        clearStockSearch.addEventListener(
+            "click",
+            function () {
+
+                if (stockSearchInput) {
+
+                    stockSearchInput.value = "";
+                    stockSearchInput.focus();
+
+                }
+
+                renderAvailableStocks();
+
+            }
+        );
 
     }
 
@@ -212,9 +729,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             updateSummary(stocks);
 
-            updateAddButtons([]);
-
             return;
+
         }
 
 
@@ -224,6 +740,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         watchlistGrid.innerHTML =
             stocks.map(function (stock) {
+
+                const symbol =
+                    String(
+                        stock.symbol || ""
+                    )
+                        .trim()
+                        .toUpperCase();
+
+
+                const safeSymbol =
+                    escapeHtml(symbol);
+
 
                 const change =
                     Number(stock.change || 0);
@@ -250,7 +778,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // -------------------------------------------------
 
                 const prediction =
-                    stock.prediction || "—";
+                    String(
+                        stock.prediction || "—"
+                    )
+                        .trim()
+                        .toUpperCase();
 
 
                 const confidence =
@@ -260,12 +792,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         : null;
 
 
+                /*
+                 * Prediction badge classes.
+                 *
+                 * These match watchlist.css:
+                 *
+                 * wsc-predict-up
+                 * wsc-predict-down
+                 * wsc-predict-neutral
+                 */
+
                 const predictionClass =
                     prediction === "UP"
-                        ? "wsc-positive"
+                        ? "wsc-predict-up"
                         : prediction === "DOWN"
-                            ? "wsc-negative"
-                            : "wsc-neutral";
+                            ? "wsc-predict-down"
+                            : "wsc-predict-neutral";
 
 
                 const predictionText =
@@ -275,27 +817,38 @@ document.addEventListener("DOMContentLoaded", function () {
                         : prediction;
 
 
+                // -------------------------------------------------
+                // TRADE DATE
+                // -------------------------------------------------
+
+                const tradeDate =
+                    stock.trade_date || "—";
+
+
                 return `
 
                     <div
                         class="watchlist-stock-card"
-                        data-symbol="${stock.symbol}"
+                        data-symbol="${safeSymbol}"
                     >
 
-                        <!-- TOP -->
+
+                        <!-- =====================================
+                             TOP
+                        ====================================== -->
 
                         <div class="wsc-top">
 
                             <span class="wsc-badge">
-                                ${getInitials(stock.symbol)}
+                                ${getInitials(symbol)}
                             </span>
 
 
                             <button
                                 class="wsc-star active"
                                 type="button"
-                                data-symbol="${stock.symbol}"
-                                aria-label="Remove ${stock.symbol} from watchlist"
+                                data-symbol="${safeSymbol}"
+                                aria-label="Remove ${safeSymbol} from watchlist"
                                 title="Remove from watchlist"
                             >
 
@@ -306,28 +859,32 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
 
 
-                        <!-- NAME -->
+                        <!-- =====================================
+                             COMPANY
+                        ====================================== -->
 
                         <div
                             class="wsc-name wsc-company-link"
-                            data-symbol="${stock.symbol}"
+                            data-symbol="${safeSymbol}"
                             role="link"
                             tabindex="0"
-                            title="View ${stock.symbol} company details"
+                            title="View ${safeSymbol} company details"
                         >
 
                             <strong>
-                                ${stock.symbol}
+                                ${safeSymbol}
                             </strong>
 
                             <small>
-                                ${stock.symbol}
+                                ${safeSymbol}
                             </small>
 
                         </div>
 
 
-                        <!-- PRICE -->
+                        <!-- =====================================
+                             PRICE
+                        ====================================== -->
 
                         <div class="wsc-price-row">
 
@@ -349,7 +906,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
 
 
-                        <!-- LAST TRADE -->
+                        <!-- =====================================
+                             LAST TRADE
+                        ====================================== -->
 
                         <div class="wsc-subprice-row">
 
@@ -370,7 +929,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="wsc-divider"></div>
 
 
-                        <!-- STATS -->
+                        <!-- =====================================
+                             STATISTICS
+                        ====================================== -->
 
                         <div class="wsc-stats">
 
@@ -399,7 +960,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </small>
 
                                 <strong>
-                                    ${stock.trade_date || "—"}
+                                    ${escapeHtml(tradeDate)}
                                 </strong>
 
                             </div>
@@ -421,11 +982,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     <i class="bi bi-lightning-charge-fill"></i>
 
-                                    ${predictionText}
+                                    ${escapeHtml(predictionText)}
 
                                 </span>
 
                             </div>
+
 
                         </div>
 
@@ -444,25 +1006,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // -----------------------------------------------------
-        // UPDATE ADD BUTTONS
-        // -----------------------------------------------------
-
-        updateAddButtons(
-            stocks.map(
-                stock => stock.symbol
-            )
-        );
-
-
-        // -----------------------------------------------------
-        // STAR / REMOVE BUTTONS
+        // STAR / REMOVE EVENTS
         // -----------------------------------------------------
 
         attachStarEvents();
 
 
         // -----------------------------------------------------
-        // COMPANY DETAILS CLICK EVENTS
+        // COMPANY DETAILS EVENTS
         // -----------------------------------------------------
 
         attachCompanyDetailsEvents();
@@ -471,7 +1022,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =========================================================
-    // COMPANY DETAILS CLICK EVENTS
+    // COMPANY DETAILS EVENTS
     // =========================================================
 
     function attachCompanyDetailsEvents() {
@@ -544,13 +1095,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // -----------------------------------------------------
-        // REAL XGBOOST UP PREDICTIONS
+        // XGBOOST PREDICTED UP
         // -----------------------------------------------------
 
         const predictedUp =
             stocks.filter(
                 stock =>
-                    stock.prediction === "UP"
+                    String(stock.prediction || "")
+                        .trim()
+                        .toUpperCase() === "UP"
             ).length;
 
 
@@ -570,6 +1123,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
+        if (watchlistCountLabel) {
+
+            watchlistCountLabel.textContent =
+                `${total} ${
+                    total === 1
+                        ? "Stock"
+                        : "Stocks"
+                }`;
+
+        }
+
+
         // -----------------------------------------------------
         // GAINERS
         // -----------------------------------------------------
@@ -585,7 +1150,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (watchlistTotalGainers) {
 
             watchlistTotalGainers.textContent =
-                `/${total}`;
+                total;
 
         }
 
@@ -605,7 +1170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (watchlistTotalLosers) {
 
             watchlistTotalLosers.textContent =
-                `/${total}`;
+                total;
 
         }
 
@@ -625,7 +1190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (watchlistPredictedTotal) {
 
             watchlistPredictedTotal.textContent =
-                `/${total}`;
+                total;
 
         }
 
@@ -696,6 +1261,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
 
 
+                            // Reload both sections.
+                            //
+                            // The removed stock becomes
+                            // available again.
+
                             await loadWatchlist();
 
 
@@ -732,19 +1302,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function attachAddEvents() {
 
-        /*
-         * Event delegation:
-         * ONE listener handles all Add buttons.
-         *
-         * This prevents duplicate listeners
-         * when the watchlist is refreshed.
-         */
-
-        if (window.watchlistAddListenerAttached) {
+        if (addListenerAttached) {
             return;
         }
 
-        window.watchlistAddListenerAttached =
+
+        addListenerAttached =
             true;
 
 
@@ -771,12 +1334,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 ) {
                     return;
                 }
-
-
-                const chip =
-                    button.closest(
-                        ".add-stock-chip"
-                    );
 
 
                 button.disabled =
@@ -824,17 +1381,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
 
-                    button.textContent =
-                        "Added";
-
-
-                    if (chip) {
-
-                        chip.style.opacity =
-                            "0.5";
-
-                    }
-
+                    // Reload everything.
+                    //
+                    // 1. Stock appears in watchlist.
+                    // 2. Stock disappears from available.
+                    // 3. Another available stock can appear.
 
                     await loadWatchlist();
 
@@ -864,89 +1415,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
-
-    }
-
-
-    // =========================================================
-    // UPDATE ADD BUTTONS
-    // =========================================================
-
-    function updateAddButtons(
-        watchlistSymbols
-    ) {
-
-        const symbols =
-            watchlistSymbols.map(
-                symbol =>
-                    String(symbol).toUpperCase()
-            );
-
-
-        document
-            .querySelectorAll(".asc-add")
-            .forEach(function (button) {
-
-                const symbol =
-                    String(
-                        button.dataset.symbol || ""
-                    ).toUpperCase();
-
-
-                if (
-                    symbols.includes(symbol)
-                ) {
-
-                    button.textContent =
-                        "Added";
-
-
-                    button.disabled =
-                        true;
-
-
-                    const chip =
-                        button.closest(
-                            ".add-stock-chip"
-                        );
-
-
-                    if (chip) {
-
-                        chip.style.opacity =
-                            "0.5";
-
-                    }
-
-                } else {
-
-                    button.textContent =
-                        "+ Add";
-
-
-                    button.disabled =
-                        false;
-
-
-                    const chip =
-                        button.closest(
-                            ".add-stock-chip"
-                        );
-
-
-                    if (chip) {
-
-                        chip.style.opacity =
-                            "1";
-
-                    }
-
-                }
-
-            });
-
-
-        attachAddEvents();
 
     }
 

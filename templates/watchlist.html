@@ -7,11 +7,13 @@ Watchlist | MeroPredict
 
 {% block extra_css %}
 
+<!-- Dashboard layout CSS -->
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/dashboard.css') }}"
 >
 
+<!-- Watchlist page CSS -->
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/watchlist.css') }}"
@@ -24,201 +26,50 @@ Watchlist | MeroPredict
 
 <div class="dashboard-layout">
 
-
-    <!-- =========================================================
+    <!-- =====================================================
          SIDEBAR
-    ========================================================= -->
+    ====================================================== -->
 
-    {% include 'sidebar.html' %}
+    {% include "sidebar.html" %}
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          MAIN CONTENT
-    ========================================================= -->
+    ====================================================== -->
 
     <main class="dashboard-main">
 
 
-        <!-- =====================================================
-             SHARED TOPBAR
-        ===================================================== -->
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
 
         {% include "topbar.html" %}
 
 
-        <!-- =====================================================
+        <!-- =================================================
              WATCHLIST CONTENT
-        ===================================================== -->
+        ================================================== -->
 
         <div class="dashboard-content">
 
-
-            <!-- =================================================
-                 PAGE HEADER
-            ================================================= -->
-
-            <div class="dashboard-page-header">
-
-                <div>
-
-                    <h1>
-                        Watchlist
-                    </h1>
-
-                    <p id="watchlistCount">
-                        0 stocks tracked
-                    </p>
-
-                </div>
-
-            </div>
+            <div class="watchlist-page">
 
 
-            <!-- =================================================
-                 SUMMARY CARDS
-            ================================================= -->
+                <!-- =================================================
+                     PAGE HEADER
+                ================================================== -->
 
-            <div class="watchlist-summary-cards">
-
-
-                <!-- GAINERS -->
-
-                <div class="watchlist-summary-card gainers-summary">
-
-                    <span class="ws-label">
-                        Gainers in List
-                    </span>
-
-                    <h2>
-
-                        <span
-                            id="watchlistGainers"
-                            class="ws-value ws-positive"
-                        >
-                            0
-                        </span>
-
-                        <span
-                            id="watchlistTotalGainers"
-                            class="ws-total"
-                        >
-                            /0
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-                <!-- LOSERS -->
-
-                <div class="watchlist-summary-card losers-summary">
-
-                    <span class="ws-label">
-                        Losers in List
-                    </span>
-
-                    <h2>
-
-                        <span
-                            id="watchlistLosers"
-                            class="ws-value ws-negative"
-                        >
-                            0
-                        </span>
-
-                        <span
-                            id="watchlistTotalLosers"
-                            class="ws-total"
-                        >
-                            /0
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-                <!-- PREDICTED UP -->
-
-                <div class="watchlist-summary-card predicted-summary">
-
-                    <span class="ws-label">
-                        Predicted UP
-                    </span>
-
-                    <h2>
-
-                        <span
-                            id="watchlistPredictedUp"
-                            class="ws-value ws-positive"
-                        >
-                            —
-                        </span>
-
-                        <span
-                            id="watchlistPredictedTotal"
-                            class="ws-total"
-                        >
-                            /0
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================================
-                 WATCHLIST STOCK CARDS
-            ================================================= -->
-
-            <div
-                class="watchlist-grid"
-                id="watchlistGrid"
-            >
-
-                <!--
-                    Stock cards are loaded dynamically
-                    from /api/watchlist
-                -->
-
-                <div class="watchlist-empty">
-
-                    <i class="bi bi-star"></i>
-
-                    <h3>
-                        Loading watchlist...
-                    </h3>
-
-                    <p>
-                        Your saved stocks will appear here.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 ADD MORE STOCKS
-            ================================================= -->
-
-            <section class="add-stocks-card">
-
-
-                <div class="add-stocks-header">
+                <div class="watchlist-header">
 
                     <div>
 
-                        <h3>
-                            Add More Stocks
-                        </h3>
+                        <h1>
+                            My Watchlist
+                        </h1>
 
                         <p>
-                            Add stocks to your personal watchlist.
+                            Track your favorite stocks and their market movements.
                         </p>
 
                     </div>
@@ -226,283 +77,268 @@ Watchlist | MeroPredict
                 </div>
 
 
-                <div class="add-stocks-grid">
+
+                <!-- =================================================
+                     SUMMARY CARDS
+                ================================================== -->
+
+                <div class="watchlist-summary-cards">
 
 
-                    <!-- ACLBSL -->
+                    <!-- GAINERS -->
 
-                    <div class="add-stock-chip">
+                    <div class="watchlist-summary-card gainers-summary">
 
-                        <span class="asc-badge">
-                            AC
+                        <span class="ws-label">
+                            Gainers
                         </span>
 
-                        <strong class="asc-symbol">
-                            ACLBSL
-                        </strong>
+                        <h2>
 
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
+                            <span
+                                class="ws-value ws-positive"
+                                id="watchlistGainers"
+                            >
+                                0
+                            </span>
 
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="ACLBSL"
-                        >
-                            + Add
-                        </button>
+                            <span
+                                class="ws-total"
+                                id="watchlistTotalGainers"
+                            >
+                                /0
+                            </span>
+
+                        </h2>
 
                     </div>
 
 
-                    <!-- UPPER -->
 
-                    <div class="add-stock-chip">
+                    <!-- LOSERS -->
 
-                        <span class="asc-badge">
-                            UP
+                    <div class="watchlist-summary-card losers-summary">
+
+                        <span class="ws-label">
+                            Losers
                         </span>
 
-                        <strong class="asc-symbol">
-                            UPPER
-                        </strong>
+                        <h2>
 
-                        <span class="asc-change asc-positive">
-                            —
-                        </span>
+                            <span
+                                class="ws-value ws-negative"
+                                id="watchlistLosers"
+                            >
+                                0
+                            </span>
 
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="UPPER"
-                        >
-                            + Add
-                        </button>
+                            <span
+                                class="ws-total"
+                                id="watchlistTotalLosers"
+                            >
+                                /0
+                            </span>
+
+                        </h2>
 
                     </div>
 
 
-                    <!-- PRVU -->
 
-                    <div class="add-stock-chip">
+                    <!-- PREDICTED UP -->
 
-                        <span class="asc-badge">
-                            PR
+                    <div class="watchlist-summary-card predicted-summary">
+
+                        <span class="ws-label">
+                            Predicted UP
                         </span>
 
-                        <strong class="asc-symbol">
-                            PRVU
-                        </strong>
+                        <h2>
 
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
+                            <span
+                                class="ws-value ws-positive"
+                                id="watchlistPredictedUp"
+                            >
+                                0
+                            </span>
 
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="PRVU"
-                        >
-                            + Add
-                        </button>
+                            <span
+                                class="ws-total"
+                                id="watchlistPredictedTotal"
+                            >
+                                /0
+                            </span>
+
+                        </h2>
 
                     </div>
-
-
-                    <!-- GBIME -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            GB
-                        </span>
-
-                        <strong class="asc-symbol">
-                            GBIME
-                        </strong>
-
-                        <span class="asc-change asc-positive">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="GBIME"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- ADBL -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            AD
-                        </span>
-
-                        <strong class="asc-symbol">
-                            ADBL
-                        </strong>
-
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="ADBL"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- NICA -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            NI
-                        </span>
-
-                        <strong class="asc-symbol">
-                            NICA
-                        </strong>
-
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="NICA"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- SHIVM -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            SH
-                        </span>
-
-                        <strong class="asc-symbol">
-                            SHIVM
-                        </strong>
-
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="SHIVM"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- SHL -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            SH
-                        </span>
-
-                        <strong class="asc-symbol">
-                            SHL
-                        </strong>
-
-                        <span class="asc-change asc-positive">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="SHL"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- CBBL -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            CB
-                        </span>
-
-                        <strong class="asc-symbol">
-                            CBBL
-                        </strong>
-
-                        <span class="asc-change asc-positive">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="CBBL"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
-
-                    <!-- SANIMA -->
-
-                    <div class="add-stock-chip">
-
-                        <span class="asc-badge">
-                            SA
-                        </span>
-
-                        <strong class="asc-symbol">
-                            SANIMA
-                        </strong>
-
-                        <span class="asc-change asc-negative">
-                            —
-                        </span>
-
-                        <button
-                            class="asc-add"
-                            type="button"
-                            data-symbol="SANIMA"
-                        >
-                            + Add
-                        </button>
-
-                    </div>
-
 
                 </div>
 
-            </section>
 
+
+                <!-- =================================================
+                     MY WATCHLIST
+                ================================================== -->
+
+                <section class="watchlist-card">
+
+
+                    <!-- CARD HEADER -->
+
+                    <div class="watchlist-card-header">
+
+                        <div>
+
+                            <h2>
+
+                                <i class="bi bi-star-fill"></i>
+
+                                Your Watchlist
+
+                            </h2>
+
+                            <p>
+                                Stocks you are currently following.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="watchlist-count"
+                            id="watchlistCount"
+                        >
+                            0 stocks tracked
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         WATCHLIST STOCK GRID
+                    ================================================== -->
+
+                    <div
+                        class="watchlist-grid"
+                        id="watchlistGrid"
+                    >
+
+                        <div class="watchlist-loading">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                            <span>
+                                Loading your watchlist...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     ADD MORE STOCKS
+                ================================================== -->
+
+                <section class="add-stocks-card">
+
+
+                    <!-- HEADER -->
+
+                    <div class="add-stocks-header">
+
+                        <h2>
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Add More Stocks
+
+                        </h2>
+
+                        <p>
+                            Search and add stocks to your personal watchlist.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SEARCH BOX
+                    ================================================== -->
+
+                    <div class="stock-search-wrapper">
+
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="text"
+                            id="stockSearchInput"
+                            class="stock-search-input"
+                            placeholder="Search stock symbol..."
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            type="button"
+                            id="clearStockSearch"
+                            class="clear-stock-search"
+                            title="Clear search"
+                            aria-label="Clear search"
+                            style="display: none;"
+                        >
+
+                            <i class="bi bi-x-lg"></i>
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SEARCH INFORMATION
+                    ================================================== -->
+
+                    <div
+                        class="stock-search-info"
+                        id="stockSearchInfo"
+                    >
+                        Loading available stocks...
+                    </div>
+
+
+
+                    <!-- =================================================
+                         AVAILABLE STOCKS
+                    ================================================== -->
+
+                    <div
+                        class="add-stocks-grid"
+                        id="addStocksGrid"
+                    >
+
+                        <div class="add-stocks-loading">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                            <span>
+                                Loading available stocks...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
 
         </div>
 
@@ -513,6 +349,7 @@ Watchlist | MeroPredict
 {% endblock %}
 
 
+
 {% block scripts %}
 
 <script
@@ -520,4 +357,3 @@ Watchlist | MeroPredict
 ></script>
 
 {% endblock %}
-

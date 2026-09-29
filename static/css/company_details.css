@@ -1381,3 +1381,119 @@
     background: rgba(255, 125, 141, 0.10);
     color: #ff7d8d;
 }
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+.company-details-page.light-mode {
+    background: #f4f7fb;
+    color: #172033;
+}
+
+.company-details-page.light-mode .back-button {
+    color: #71809d;
+}
+
+.company-details-page.light-mode .back-button:hover {
+    color: #172033;
+}
+
+.company-details-page.light-mode .section-label,
+.company-details-page.light-mode .price-label,
+.company-details-page.light-mode .market-status,
+.company-details-page.light-mode .company-fullname,
+.company-details-page.light-mode .price-value .currency,
+.company-details-page.light-mode .price-stat span,
+.company-details-page.light-mode .prediction-text p,
+.company-details-page.light-mode .confidence-label-row span,
+.company-details-page.light-mode .prediction-info-item span,
+.company-details-page.light-mode .prediction-currency,
+.company-details-page.light-mode .model-info-text span,
+.company-details-page.light-mode .prediction-note-content p,
+.company-details-page.light-mode .rsi-label,
+.company-details-page.light-mode .moving-average-item span,
+.company-details-page.light-mode .volume-chart-label {
+    color: #71809d;
+}
+
+.company-details-page.light-mode .company-header-card,
+.company-details-page.light-mode .price-history-card,
+.company-details-page.light-mode .prediction-card,
+.company-details-page.light-mode .prediction-note-card,
+.company-details-page.light-mode .technical-indicators-card {
+    background: #ffffff;
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .price-card {
+    background: linear-gradient(135deg, #ffffff, #f4f7fb);
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .company-title-row h1,
+.company-details-page.light-mode .price-value,
+.company-details-page.light-mode .card-header-row h3,
+.company-details-page.light-mode .technical-heading h3,
+.company-details-page.light-mode .prediction-text h2,
+.company-details-page.light-mode .confidence-label-row strong,
+.company-details-page.light-mode .prediction-info-item strong,
+.company-details-page.light-mode .prediction-note-content h4,
+.company-details-page.light-mode .moving-averages-block h4,
+.company-details-page.light-mode .volume-trend-block h4,
+.company-details-page.light-mode .moving-average-item strong,
+.company-details-page.light-mode .price-stat strong {
+    color: #172033;
+}
+
+.company-details-page.light-mode .price-stats,
+.company-details-page.light-mode .price-stat {
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .range-tabs {
+    background: #f4f7fb;
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .range-tab {
+    color: #71809d;
+}
+
+.company-details-page.light-mode .range-tab:hover {
+    color: #172033;
+}
+
+.company-details-page.light-mode .range-tab.active {
+    background: #e4e9f2;
+    color: #172033;
+}
+
+.company-details-page.light-mode .prediction-direction,
+.company-details-page.light-mode .prediction-info-item,
+.company-details-page.light-mode .rsi-gauge-block,
+.company-details-page.light-mode .moving-averages-block,
+.company-details-page.light-mode .volume-trend-block {
+    background: #f8f9fc;
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .rsi-gauge {
+    background:
+        radial-gradient(circle at center, #f8f9fc 53%, transparent 54%),
+        conic-gradient(#35c9c2 0deg, #35c9c2 180deg, #dfe4ee 180deg, #dfe4ee 360deg);
+}
+
+.company-details-page.light-mode .moving-average-item {
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .model-info {
+    border-color: #e0e6f0;
+}
+
+.company-details-page.light-mode .icon-btn {
+    background: #f4f7fb;
+    border-color: #e0e6f0;
+    color: #71809d;
+}
